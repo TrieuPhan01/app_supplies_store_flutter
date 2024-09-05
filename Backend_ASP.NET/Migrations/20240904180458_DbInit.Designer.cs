@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend_ASP.NET.Migrations
 {
     [DbContext(typeof(MyAppDBConText))]
-    [Migration("20240901181903_CreateDb")]
-    partial class CreateDb
+    [Migration("20240904180458_DbInit")]
+    partial class DbInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,81 @@ namespace Backend_ASP.NET.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Backend_ASP.NET.Data.AppilcationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<int>("UserRole")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
 
             modelBuilder.Entity("Backend_ASP.NET.Data.Categories", b =>
                 {
@@ -43,6 +118,36 @@ namespace Backend_ASP.NET.Migrations
                     b.HasKey("CategoryID");
 
                     b.ToTable("Categories", (string)null);
+                });
+
+            modelBuilder.Entity("Backend_ASP.NET.Data.Custommers", b =>
+                {
+                    b.Property<Guid>("CustommerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("Age")
+                        .HasMaxLength(20)
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("Sex")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("CustommerId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Custommers", (string)null);
                 });
 
             modelBuilder.Entity("Backend_ASP.NET.Data.Debits", b =>
@@ -97,6 +202,40 @@ namespace Backend_ASP.NET.Migrations
                     b.HasIndex("StoreID");
 
                     b.ToTable("Debtits", (string)null);
+                });
+
+            modelBuilder.Entity("Backend_ASP.NET.Data.Employee", b =>
+                {
+                    b.Property<Guid>("EmployeeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("HireDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("Salary")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid?>("StoreID")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("EmployeeId");
+
+                    b.HasIndex("StoreID");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("Backend_ASP.NET.Data.OrderDetails", b =>
@@ -372,106 +511,145 @@ namespace Backend_ASP.NET.Migrations
                     b.ToTable("Suppliers", (string)null);
                 });
 
-            modelBuilder.Entity("Backend_ASP.NET.Data.Users", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.Property<Guid?>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<string>("PassWord")
-                        .IsRequired()
+                    b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdateDate")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
-                    b.Property<string>("UserName")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
-                    b.Property<int>("UserRole")
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    b.HasKey("ID");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.ToTable("Users", (string)null);
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
 
-                    b.UseTptMappingStrategy();
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("Backend_ASP.NET.Data.Custommers", b =>
                 {
-                    b.HasBaseType("Backend_ASP.NET.Data.Users");
+                    b.HasOne("Backend_ASP.NET.Data.AppilcationUser", "Users")
+                        .WithOne()
+                        .HasForeignKey("Backend_ASP.NET.Data.Custommers", "UserId");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("Age")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Avatar")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<int?>("Sex")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("UsersID")
-                        .HasColumnType("uuid");
-
-                    b.HasIndex("UsersID");
-
-                    b.ToTable("Custommers", (string)null);
-                });
-
-            modelBuilder.Entity("Backend_ASP.NET.Data.Employee", b =>
-                {
-                    b.HasBaseType("Backend_ASP.NET.Data.Users");
-
-                    b.Property<string>("EmployeeName")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<DateTime?>("HireDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Position")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("Salary")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("boolean");
-
-                    b.Property<Guid?>("StoreID")
-                        .HasColumnType("uuid");
-
-                    b.HasIndex("StoreID");
-
-                    b.ToTable("Employees", (string)null);
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Backend_ASP.NET.Data.Debits", b =>
@@ -493,6 +671,21 @@ namespace Backend_ASP.NET.Migrations
                     b.Navigation("Employee");
 
                     b.Navigation("Stores");
+                });
+
+            modelBuilder.Entity("Backend_ASP.NET.Data.Employee", b =>
+                {
+                    b.HasOne("Backend_ASP.NET.Data.Stores", "Stores")
+                        .WithMany("employees")
+                        .HasForeignKey("StoreID");
+
+                    b.HasOne("Backend_ASP.NET.Data.AppilcationUser", "Users")
+                        .WithOne()
+                        .HasForeignKey("Backend_ASP.NET.Data.Employee", "UserId");
+
+                    b.Navigation("Stores");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Backend_ASP.NET.Data.OrderDetails", b =>
@@ -608,39 +801,76 @@ namespace Backend_ASP.NET.Migrations
                     b.Navigation("Suppliers");
                 });
 
-            modelBuilder.Entity("Backend_ASP.NET.Data.Custommers", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Backend_ASP.NET.Data.Users", null)
-                        .WithOne()
-                        .HasForeignKey("Backend_ASP.NET.Data.Custommers", "ID")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Backend_ASP.NET.Data.Users", "Users")
-                        .WithMany()
-                        .HasForeignKey("UsersID");
-
-                    b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Backend_ASP.NET.Data.Employee", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Backend_ASP.NET.Data.Users", null)
-                        .WithOne()
-                        .HasForeignKey("Backend_ASP.NET.Data.Employee", "ID")
+                    b.HasOne("Backend_ASP.NET.Data.AppilcationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Backend_ASP.NET.Data.AppilcationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Backend_ASP.NET.Data.Stores", "Stores")
-                        .WithMany("employees")
-                        .HasForeignKey("StoreID");
+                    b.HasOne("Backend_ASP.NET.Data.AppilcationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Navigation("Stores");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Backend_ASP.NET.Data.AppilcationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Backend_ASP.NET.Data.Categories", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Backend_ASP.NET.Data.Custommers", b =>
+                {
+                    b.Navigation("Debits");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("StoreCustomers");
+                });
+
+            modelBuilder.Entity("Backend_ASP.NET.Data.Employee", b =>
+                {
+                    b.Navigation("Debits");
+
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("Backend_ASP.NET.Data.Orders", b =>
@@ -678,22 +908,6 @@ namespace Backend_ASP.NET.Migrations
                     b.Navigation("ProductSuppliers");
 
                     b.Navigation("StoresSuppliers");
-                });
-
-            modelBuilder.Entity("Backend_ASP.NET.Data.Custommers", b =>
-                {
-                    b.Navigation("Debits");
-
-                    b.Navigation("Orders");
-
-                    b.Navigation("StoreCustomers");
-                });
-
-            modelBuilder.Entity("Backend_ASP.NET.Data.Employee", b =>
-                {
-                    b.Navigation("Debits");
-
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

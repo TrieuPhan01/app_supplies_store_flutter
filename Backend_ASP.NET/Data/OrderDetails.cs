@@ -10,10 +10,10 @@
 
         //Relationship
         public Guid? ProductID { get; set; }
-        public Products Products { get; set; }
+        public Products? Products { get; set; }
 
         public Guid? OrderID { get; set; }
-        public  Orders Orders { get; set; }
+        public  Orders? Orders { get; set; }
 
 
     }

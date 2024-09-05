@@ -1,8 +1,8 @@
 ﻿namespace Backend_ASP.NET.Data
 { // Bảng nhân viên dùng để lưu các 
-    public class Employee:Users
-    { 
-        public string? EmployeeName { get; set; }
+    public class Employee
+    {
+        public Guid EmployeeId { get; set; }
         public DateTime? HireDate {  get; set; }// Ngày thê/ký kết hợp đồng
         public  int? Salary { get; set; }// Tiền lương
         public string? Position { get; set; }// Chức vụ
@@ -10,6 +10,9 @@
     
 
         public ICollection<Debits> Debits { get; set; } 
+
+        public string? UserId { get; set; }
+        public AppilcationUser Users { get; set; }
 
         public Guid? StoreID { get; set; }  
         public Stores Stores { get; set; }

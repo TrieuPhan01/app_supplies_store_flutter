@@ -8,6 +8,6 @@
 
         //Relationship
         public Guid? OrderID { get; set; }
-        public Orders Orders { get; set; }
+        public Orders? Orders { get; set; }
     }
 }
