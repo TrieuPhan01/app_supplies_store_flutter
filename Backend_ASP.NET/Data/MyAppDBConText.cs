@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 using NuGet.Protocol;
 using System.Security.Policy;
 
 namespace Backend_ASP.NET.Data
 {
-    public class MyAppDBConText: DbContext
+    public class MyAppDBConText: IdentityDbContext<AppilcationUser>
     {
         public MyAppDBConText(DbContextOptions<MyAppDBConText> opt) : base(opt)
         {
@@ -21,13 +23,15 @@ namespace Backend_ASP.NET.Data
         public DbSet<ProductSuppliers> ProductSuppliers { get; set; }
         public DbSet<Stores> Stores { get; set; }
         public DbSet<Suppliers> Suppliers { get; set; }
-        public DbSet<Users> Users { get; set; }
+        public DbSet<AppilcationUser> AppilcationUser { get; set; }
         public DbSet<StoreCustomer> StoreCustomer { get; set; }
         public DbSet<StoresSuppliers> StoresSuppliers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             // Áp dụng cấu hình cho tất cả các thực thể kế thừa từ BaseModel
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+
             {
                 if (typeof(BaseModel).IsAssignableFrom(entityType.ClrType))
                 {
@@ -41,34 +45,18 @@ namespace Backend_ASP.NET.Data
             }
 
 
-            // Cấu hình cho Users
-            modelBuilder.Entity<Users>(entity =>
-            {
-                entity.ToTable("Users"); // Ánh xạ tới bảng "Users"
-                entity.HasKey(e => e.ID);
-                entity.Property(e => e.UserName).HasMaxLength(50);
-                entity.Property(e => e.Email)
-                    .HasMaxLength(255)
-                    .IsRequired();
-                entity.Property(e => e.PassWord).IsRequired();
-
-                //// Cấu hình TPH cho các lớp kế thừa
-                //entity.HasDiscriminator<UserRole>("UserRole")
-                //    .HasValue<Users>(UserRole.User)
-                //    .HasValue<Custommers>(UserRole.Custommer) // Cấu hình giá trị phân loại cho lớp Custommers
-                //    .HasValue<Employee>(UserRole.staff); // Cấu hình giá trị phân loại cho lớp Employee
-            });
+            
 
 
             //Propenty Configurations Custommers
             modelBuilder.Entity<Custommers>(entity =>
             {
                 entity.ToTable("Custommers");
-                entity.Property(e => e.FirstName).HasMaxLength(50);
-                entity.Property(e => e.LastName).HasMaxLength(50);
-
-                // Kế thừa từ Users
-                entity.HasBaseType<Users>();
+                entity.HasKey(e => e.CustommerId);
+                entity.Property(e=>e.Age).HasMaxLength(20);
+                entity.HasOne(c => c.Users)
+                .WithOne()
+                .HasForeignKey<Custommers>(c => c.UserId);
 
 
 
@@ -94,10 +82,11 @@ namespace Backend_ASP.NET.Data
             modelBuilder.Entity<Employee>(entity =>
             {
                 entity.ToTable("Employees");
-                entity.Property(e => e.EmployeeName).HasMaxLength(50);
+                entity.HasKey(e => e.EmployeeId);
 
-                // Kế thừa từ Users
-                entity.HasBaseType<Users>();
+                entity.HasOne(c => c.Users)
+                 .WithOne()
+                 .HasForeignKey<Employee>(c => c.UserId);
 
                 //Relationship 1-n with Debits
                 entity.HasMany(e=>e.Debits)

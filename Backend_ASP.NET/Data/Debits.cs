@@ -12,13 +12,13 @@
 
         // Relationship
         public Guid? CustomerID { get; set; }
-        public Custommers Custommers { get; set; }
+        public Custommers? Custommers { get; set; }
 
         public Guid? EmployeeID { get; set; }
-        public Employee Employee { get; set; }
+        public Employee? Employee { get; set; }
 
         public Guid? StoreID { get; set; }
-        public Stores Stores { get; set; }
+        public Stores? Stores { get; set; }
 
     }
 }
