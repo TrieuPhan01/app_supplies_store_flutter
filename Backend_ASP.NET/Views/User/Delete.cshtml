@@ -1,0 +1,12 @@
+﻿@* @model MyAdminAPI.Models.ApplicationUser
+
+<h2>Xóa người dùng</h2>
+
+<p>Bạn có chắc chắn muốn xóa người dùng: <strong>@Model.UserName</strong> không?</p>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a href="/User/Index" class="btn btn-secondary">Hủy</a>
+</form>
+ *@

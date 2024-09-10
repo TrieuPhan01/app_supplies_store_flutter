@@ -5,10 +5,10 @@ namespace Backend_ASP.NET.Services
 {
     public interface IUserRepository
     {
-        List<UserModel> GetAll();
-        UserModel GetByID(string id);
-        UserModel Add(UserModel User);
-        void Update(UserUpdate User);
+        Task<List<UserEditViewModel>> GetAll();
+        Task<UserEditViewModel> GetByID(string id);
+        void Update(UserEditViewModel User);
         void Delete(string id);
+        string? GetUserRole(string id);
     }
 }

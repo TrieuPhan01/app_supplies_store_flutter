@@ -15,7 +15,7 @@
         public Debits? Debits { get; set; }
 
         public string? UserId { get; set; }
-        public AppilcationUser? Users { get; set; }
+        public ApplicationUser? Users { get; set; }
 
         public ICollection<StoreCustomer> StoreCustomers { get; set; } 
         public ICollection<Orders> Orders { get; set; }

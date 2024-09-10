@@ -6,7 +6,7 @@ using System.Security.Policy;
 
 namespace Backend_ASP.NET.Data
 {
-    public class MyAppDBConText: IdentityDbContext<AppilcationUser>
+    public class MyAppDBConText: IdentityDbContext<ApplicationUser>
     {
         public MyAppDBConText(DbContextOptions<MyAppDBConText> opt) : base(opt)
         {
@@ -23,9 +23,12 @@ namespace Backend_ASP.NET.Data
         public DbSet<ProductSuppliers> ProductSuppliers { get; set; }
         public DbSet<Stores> Stores { get; set; }
         public DbSet<Suppliers> Suppliers { get; set; }
-        public DbSet<AppilcationUser> AppilcationUser { get; set; }
+        public DbSet<ApplicationUser> AppilcationUser { get; set; }
         public DbSet<StoreCustomer> StoreCustomer { get; set; }
         public DbSet<StoresSuppliers> StoresSuppliers { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<ApplicationRole> ApplicationRoles { get; set; }
+        public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -44,9 +47,24 @@ namespace Backend_ASP.NET.Data
                 }
             }
 
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<ApplicationUser>(b =>
+            {
+                // Each User can have many entries in the UserRole join table  
+                b.HasMany(e => e.UserRoles)
+                    .WithOne(e => e.User)
+                    .HasForeignKey(ur => ur.UserId)
+                    .IsRequired();
+            });
 
-            
-
+            modelBuilder.Entity<ApplicationRole>(b =>
+            {
+                // Each Role can have many entries in the UserRole join table  
+                b.HasMany(e => e.UserRoles)
+                    .WithOne(e => e.Role)
+                    .HasForeignKey(ur => ur.RoleId)
+                    .IsRequired();
+            });
 
             //Propenty Configurations Custommers
             modelBuilder.Entity<Custommers>(entity =>
@@ -248,7 +266,10 @@ namespace Backend_ASP.NET.Data
 
 
         }
+
+
     }
+
 
     
 }

@@ -22,7 +22,7 @@ namespace Backend_ASP.NET.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Backend_ASP.NET.Data.AppilcationUser", b =>
+            modelBuilder.Entity("Backend_ASP.NET.Data.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -81,9 +81,6 @@ namespace Backend_ASP.NET.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
-
-                    b.Property<int>("UserRole")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -517,6 +514,11 @@ namespace Backend_ASP.NET.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("character varying(21)");
+
                     b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -532,6 +534,10 @@ namespace Backend_ASP.NET.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasDiscriminator().HasValue("IdentityRole");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -614,11 +620,20 @@ namespace Backend_ASP.NET.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("text");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(34)
+                        .HasColumnType("character varying(34)");
+
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasDiscriminator().HasValue("IdentityUserRole<string>");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -640,9 +655,26 @@ namespace Backend_ASP.NET.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Backend_ASP.NET.Data.ApplicationRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
+
+                    b.Property<string>("RoleName")
+                        .HasColumnType("text");
+
+                    b.HasDiscriminator().HasValue("ApplicationRole");
+                });
+
+            modelBuilder.Entity("Backend_ASP.NET.Data.ApplicationUserRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<string>");
+
+                    b.HasDiscriminator().HasValue("ApplicationUserRole");
+                });
+
             modelBuilder.Entity("Backend_ASP.NET.Data.Custommers", b =>
                 {
-                    b.HasOne("Backend_ASP.NET.Data.AppilcationUser", "Users")
+                    b.HasOne("Backend_ASP.NET.Data.ApplicationUser", "Users")
                         .WithOne()
                         .HasForeignKey("Backend_ASP.NET.Data.Custommers", "UserId");
 
@@ -676,7 +708,7 @@ namespace Backend_ASP.NET.Migrations
                         .WithMany("employees")
                         .HasForeignKey("StoreID");
 
-                    b.HasOne("Backend_ASP.NET.Data.AppilcationUser", "Users")
+                    b.HasOne("Backend_ASP.NET.Data.ApplicationUser", "Users")
                         .WithOne()
                         .HasForeignKey("Backend_ASP.NET.Data.Employee", "UserId");
 
@@ -809,7 +841,7 @@ namespace Backend_ASP.NET.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Backend_ASP.NET.Data.AppilcationUser", null)
+                    b.HasOne("Backend_ASP.NET.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -818,7 +850,7 @@ namespace Backend_ASP.NET.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Backend_ASP.NET.Data.AppilcationUser", null)
+                    b.HasOne("Backend_ASP.NET.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -832,21 +864,39 @@ namespace Backend_ASP.NET.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("Backend_ASP.NET.Data.AppilcationUser", null)
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Backend_ASP.NET.Data.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Backend_ASP.NET.Data.ApplicationUserRole", b =>
                 {
-                    b.HasOne("Backend_ASP.NET.Data.AppilcationUser", null)
-                        .WithMany()
+                    b.HasOne("Backend_ASP.NET.Data.ApplicationRole", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Backend_ASP.NET.Data.ApplicationUser", "User")
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Backend_ASP.NET.Data.ApplicationUser", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("Backend_ASP.NET.Data.Categories", b =>
@@ -905,6 +955,11 @@ namespace Backend_ASP.NET.Migrations
                     b.Navigation("ProductSuppliers");
 
                     b.Navigation("StoresSuppliers");
+                });
+
+            modelBuilder.Entity("Backend_ASP.NET.Data.ApplicationRole", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

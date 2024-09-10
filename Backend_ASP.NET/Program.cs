@@ -45,7 +45,7 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyMethod()));
-builder.Services.AddIdentity<AppilcationUser, IdentityRole>().AddEntityFrameworkStores<MyAppDBConText>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<MyAppDBConText>().AddDefaultTokenProviders();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -76,9 +76,9 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 //lyfe cycle ID: AddSingleton(), AddTransient(), AddScoped()
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IPasswordHasher<AppilcationUser>, PasswordHasher<AppilcationUser>>();
+builder.Services.AddScoped<IPasswordHasher<ApplicationUser>, PasswordHasher<ApplicationUser>>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -92,7 +92,28 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseStaticFiles();
 
-app.MapControllers();
+app.UseRouting();  // Ensure routing is enabled
+
+app.UseAuthentication();  // Ensure authentication is enabled
+app.UseAuthorization();   // Ensure authorization is enabled
+
+#pragma warning disable ASP0014 // Suggest using top level route registrations
+app.UseEndpoints(endpoints =>
+{
+
+    endpoints.MapControllers();  // Map API controllers
+
+    endpoints.MapControllerRoute(
+        name: "admin",
+        pattern: "Admin/{action=Index}/{id?}",
+        defaults: new { controller = "Admin" });
+
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
+#pragma warning restore ASP0014 // Suggest using top level route registrations
 
 app.Run();
