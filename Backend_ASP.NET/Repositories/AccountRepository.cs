@@ -13,12 +13,12 @@ namespace Backend_ASP.NET.Repositories
     public class AccountRepository : IAccountRepository
 
     {
-        private readonly UserManager<AppilcationUser> userManager;
-        private readonly SignInManager<AppilcationUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IConfiguration configuration;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public AccountRepository(UserManager<AppilcationUser> userManager, SignInManager<AppilcationUser> signInManager, IConfiguration configuration, RoleManager<IdentityRole> roleManager) 
+        public AccountRepository(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration, RoleManager<IdentityRole> roleManager) 
         { 
             this.userManager = userManager;
             this.signInManager = signInManager; 
@@ -58,12 +58,14 @@ namespace Backend_ASP.NET.Repositories
 
         public async Task<IdentityResult> SingUpAsync(SignUpModel model)
         {
-            var _user = new AppilcationUser
+            var _user = new ApplicationUser
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                PhoneNumber=model.PhoneNumber,
+                Email = model.Email,
+                PhoneNumber =model.PhoneNumber,
                 UserName = model.PhoneNumber,
+                
             };       
             var result = await userManager.CreateAsync(_user, model.Password);
             if (result.Succeeded) 

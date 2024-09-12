@@ -1,6 +1,7 @@
 using Backend_ASP.NET.Data;
 using Backend_ASP.NET.Repositories;
 using Backend_ASP.NET.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -45,7 +46,7 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyMethod()));
-builder.Services.AddIdentity<AppilcationUser, IdentityRole>().AddEntityFrameworkStores<MyAppDBConText>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<MyAppDBConText>().AddDefaultTokenProviders();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -76,9 +77,9 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 //lyfe cycle ID: AddSingleton(), AddTransient(), AddScoped()
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IPasswordHasher<AppilcationUser>, PasswordHasher<AppilcationUser>>();
+builder.Services.AddScoped<IPasswordHasher<ApplicationUser>, PasswordHasher<ApplicationUser>>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -92,7 +93,37 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseStaticFiles();
 
-app.MapControllers();
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/User/Login";  // ???ng d?n ??n trang ??ng nh?p
+        options.AccessDeniedPath = "/User/AccessDenied";  // Trang t? ch?i truy c?p n?u không ?? quy?n
+    });
+
+
+
+
+
+#pragma warning disable ASP0014
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "admin",
+        pattern: "Admin/{action=Index}/{id?}",
+        defaults: new { controller = "Admin" });
+
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
+
+#pragma warning restore ASP0014 // Suggest using top level route registrations
 
 app.Run();

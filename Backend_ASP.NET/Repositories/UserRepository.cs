@@ -1,103 +1,155 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Backend_ASP.NET.Data;
 using Backend_ASP.NET.Models;
+using System.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Backend_ASP.NET.Helpers;
 
 namespace Backend_ASP.NET.Services
 {
     public class UserRepository : IUserRepository
     {
         private readonly MyAppDBConText _context;
-        //private readonly IPasswordHasher<AppilcationUser> _passwordHasher;
-
-        //public UserRepository(MyAppDBConText context, IPasswordHasher<AppilcationUser> passwordHasher)
-        public UserRepository(MyAppDBConText context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+       
+        public UserRepository(MyAppDBConText context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
+            _userManager = userManager;
+            _roleManager = roleManager;
             _context = context;
-            //_passwordHasher = passwordHasher;
         }
 
-        public UserModel Add(UserModel user)
+        public async Task<UserEditViewModel> GetByID(string id)
         {
-            var _user = new AppilcationUser
-            {
-                //Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                UserRole = user.UserRole,
-            };
-
-            // Băm mật khẩu và lưu vào đối tượng Users
-            _user.PasswordHash = user.PassWord;
-            _context.Users.Add(_user);
-            _context.SaveChanges();
-
-            return new UserModel
-            {
-                //Id = user.Id,
-                UserName = _user.UserName,
-                Email = _user.Email,
-                PhoneNumber = _user.PhoneNumber,
-                UserRole = _user.UserRole,
-                PassWord = _user.PasswordHash
-            };
-        }
-
-        public void Delete(string id)
-        {
-            var _user = _context.AppilcationUser.SingleOrDefault(x => x.Id == id);
-            if (_user != null)
-            {
-                _context.Users.Remove(_user);
-                _context.SaveChanges();
-            }
-        }
-
-        public List<UserModel> GetAll()
-        {
-            var users = _context.AppilcationUser.Select(x => new UserModel
-            {
-                UserName = x.UserName,         
-                Email = x.Email,
-                PhoneNumber = x.PhoneNumber,
-                UserRole = x.UserRole
-
-            });
-            return users.ToList();
-        }
-
-        public UserModel GetByID(string id)
-        {
-            var user = _context.AppilcationUser.FirstOrDefault(x => x.Id == id);
+            var user = await _context.AppilcationUser.FirstOrDefaultAsync(x => x.Id == id);
+            var role = await GetUserRole(user.Id); // Lấy role bất đồng bộ
             if (user != null)
             {
-                return new UserModel
+                return new UserEditViewModel
                 {
+                    Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
                     PhoneNumber = user.PhoneNumber,
-                    UserRole = user.UserRole
+                    Roles = role,
                 };
             }
             return null!;
         }
 
-        public void Update(UserUpdate user)
+
+        public async Task Delete(string id)
         {
-            var _user = _context.Users.SingleOrDefault(x => x.Id == user.Id);
+            var _user = await _context.ApplicationUsers.SingleOrDefaultAsync(x => x.Id == id);
+            if (_user != null)
+            {
+                _context.Users.Remove(_user);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<List<UserEditViewModel>> GetAll()
+        {
+            var users = await _context.AppilcationUser.ToListAsync();
+            var userModels = new List<UserEditViewModel>();
+
+
+            foreach (var user in users)
+            {
+
+                userModels.Add(new UserEditViewModel
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    PhoneNumber = user.PhoneNumber,
+                    Roles = await GetUserRole(user.Id)
+
+
+                });
+            }
+
+            return userModels;
+        }
+
+        public async Task Update(UserEditViewModel user)
+        {
+            var _user = _context.ApplicationUsers.SingleOrDefault(x => x.Id == user.Id);
+
             if (_user != null)
             {
                 _user.UserName = user.UserName;
                 _user.Email = user.Email;
-                if (!string.IsNullOrEmpty(user.PassWord)) // Băm mật khẩu nếu có thay đổi
-                {
-                    _user.PasswordHash =  user.PassWord;
-                }
+                _user.FirstName = user.FirstName;
+                _user.LastName = user.LastName;
                 _user.PhoneNumber = user.PhoneNumber;
-                _user.UserRole = user.UserRole;
 
-                _context.SaveChanges();
+                // Cập nhật mật khẩu nếu có
+                if (!string.IsNullOrEmpty(user.PassWord))
+                {
+                    var passwordHasher = new PasswordHasher<ApplicationUser>();
+                    _user.PasswordHash = passwordHasher.HashPassword(_user, user.PassWord);
+                }
+
+                // Kiểm tra vai trò của user
+                if (!await _roleManager.RoleExistsAsync(user.Roles))
+                {
+                    // Nếu vai trò chưa tồn tại, tạo vai trò mới
+                    await _roleManager.CreateAsync(new IdentityRole(user.Roles));
+                }
+
+                // Xóa tất cả các vai trò hiện có của người dùng
+                var currentRoles = await _userManager.GetRolesAsync(_user);
+                if (currentRoles.Count > 0)
+                {
+                    await _userManager.RemoveFromRolesAsync(_user, currentRoles);
+                }
+
+                // Thêm vai trò mới cho người dùng
+                await _userManager.AddToRoleAsync(_user, user.Roles);
+
+                // Lưu các thay đổi vào cơ sở dữ liệu
+                await _context.SaveChangesAsync();
             }
         }
+
+
+
+
+
+
+        public async Task<string?> GetUserRole(string id)
+        {
+            var currentuser = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (currentuser == null)
+            {
+                return null;
+            }
+
+            var userRole = await _context.UserRoles.FirstOrDefaultAsync(x => x.UserId == currentuser.Id);
+            if (userRole == null)
+            {
+                return null;
+            }
+
+            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Id == userRole.RoleId);
+            if (role == null)
+            {
+                return null;
+            }
+
+            return role.Name;
+        }
+
+
+
+
+
     }
 }

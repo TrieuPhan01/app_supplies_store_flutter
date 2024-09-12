@@ -1,10 +1,9 @@
-﻿using Backend_ASP.NET.Helpers;
+﻿using Backend_ASP.NET.Data;
+using Backend_ASP.NET.Helpers;
 using Backend_ASP.NET.Models;
 using Backend_ASP.NET.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Backend_ASP.NET.Controllers
 {
@@ -20,12 +19,13 @@ namespace Backend_ASP.NET.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = AppRole.Customer)]
-        public IActionResult GetAll()
+        //[Authorize(Roles = AppRole.Customer)]
+        public async Task<IActionResult> GetAll() 
         {
             try
             {
-                return Ok(_userRepository.GetAll());
+                var users = await _userRepository.GetAll(); 
+                return Ok(users);
             }
             catch (Exception ex)
             {
@@ -34,12 +34,12 @@ namespace Backend_ASP.NET.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = AppRole.Admin)]
-        public IActionResult GetByID(string id)
+        //[Authorize(Roles = AppRole.Admin)]
+        public async Task<IActionResult> GetByID(string id)
         {
             try
             {
-                var data = _userRepository.GetByID(id);
+                var data = await _userRepository.GetByID(id);
                 if (data == null)
                 {
                     return NotFound();
@@ -52,9 +52,8 @@ namespace Backend_ASP.NET.Controllers
             }
         }
 
-
         [HttpPut("{id}")]
-        public IActionResult Update(string id, UserUpdate user)
+        public IActionResult Update(string id, UserEditViewModel user)
         {
             if (id != user.Id)
             {
@@ -71,7 +70,6 @@ namespace Backend_ASP.NET.Controllers
             }
         }
 
-
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
@@ -84,22 +82,23 @@ namespace Backend_ASP.NET.Controllers
             {
                 return StatusCode(500, ex.Message);
             }
-
         }
 
-        [HttpPost()]
-        public IActionResult Add(UserModel user)
-        {
-            try
-            {
-                if (user.PassWord == null)
-                    return BadRequest();
-                return Ok(_userRepository.Add(user));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
+        //[HttpGet("GetRole/{id}")]
+        //public IActionResult UserRole(string id)
+        //{
+        //    var roleName = _userRepository.GetUserRole(id);
+
+        //    // Kiểm tra xem có tìm thấy role không
+        //    if (roleName == null)
+        //    {
+        //        return NotFound(new { message = "User role not found" });
+        //    }
+
+        //    // Trả về tên role dưới dạng JSON
+        //    return Ok(new { roleName = roleName });
+        //}
+
+
     }
 }

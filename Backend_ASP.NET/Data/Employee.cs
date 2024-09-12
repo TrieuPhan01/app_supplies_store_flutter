@@ -12,7 +12,7 @@
         public ICollection<Debits> Debits { get; set; } 
 
         public string? UserId { get; set; }
-        public AppilcationUser Users { get; set; }
+        public ApplicationUser Users { get; set; }
 
         public Guid? StoreID { get; set; }  
         public Stores Stores { get; set; }
