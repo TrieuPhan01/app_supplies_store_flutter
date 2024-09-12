@@ -1,65 +1,85 @@
-﻿@model IEnumerable<Backend_ASP.NET.Models.UserEditViewModel>
+﻿@model Backend_ASP.NET.Models.UserEditViewModel
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";  // Sử dụng layout đã tạo cho Admin
+    var roles = new List<string>
+    {
+        Backend_ASP.NET.Helpers.AppRole.Admin,
+        Backend_ASP.NET.Helpers.AppRole.Customer,
+        Backend_ASP.NET.Helpers.AppRole.Staff
+    };
 }
+
 <div class="wrapper">
-    
-        <div class="content-wrapper">
+    <div class="content-wrapper">
         <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">Sửa thông tin User</h3>
             </div>
-                <!-- /.card-header -->
-                <!-- form start -->
-                <form asp-action="Edit" asp-controller="Admin" method="post">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="UserName">User Name</label>
-                            <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName" placeholder="Enter user name">
-                        </div>
-                        <div class="form-group">
-                            <label for="Email">Email address</label>
-                            <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" placeholder="Enter email">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="PhoneNumber">Phone Number</label>
-                            <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" placeholder="Enter phone number">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" value="@Model.PassWord" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <label for="Role">Role</label>
-                           
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputFile">Upload Avatar</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                </div>
-                                <div class="input-group-append">
-                                    <span class="input-group-text">Upload</span>
-                                </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form asp-action="Edit" asp-controller="Admin" method="post">
+                <div class="card-body">
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+                        <label for="UserName">User Name</label>
+                        <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName" placeholder="Enter user name">
+                    </div>
+                    <div class="form-group">
+                        <label for="FirstName">Họ</label>
+                        <input type="text" class="form-control" id="FirstName" name="FirstName" value="@Model.FirstName" placeholder="Nhập họ">
+                    </div>
+                    <div class="form-group">
+                        <label for="LastName">Tên</label>
+                        <input type="text" class="form-control" id="LastName" name="LastName" value="@Model.LastName" placeholder="Nhập tên">
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="Email">Email address</label>
+                        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" placeholder="Enter email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PhoneNumber">Phone Number</label>
+                        <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" placeholder="Enter phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="PassWord" value="@Model.PassWord" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="Role">Role</label>
+                        @foreach (var role in roles)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="Roles" id="role_@role" value="@role"
+                                @(Model.Roles == role ? "checked" : "")>
+                                <label class="form-check-label" for="role_@role">
+                                    @role
+                                </label>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">Upload Avatar</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="exampleInputFile">
+                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Upload</span>
                             </div>
                         </div>
                     </div>
-                    <!-- /.card-body -->
+                </div>
+                <!-- /.card-body -->
 
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
-            </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
         </div>
-        </div>
-  
-    <!-- /.card -->
-
+    </div>
 </div>
-
-

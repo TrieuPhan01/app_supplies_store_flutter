@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Backend_ASP.NET.Models.UserEditViewModel>
 
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";  // Sử dụng layout đã tạo cho Admin
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="wrapper">
@@ -14,7 +14,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h2 class="card-title">Danh sách người dùng</h2>
+                                    <a href="/Admin/User/Create" class="btn btn-success">Tạo tài khoản mới</a> <!-- Nút Tạo tài khoản -->
+                                </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -23,6 +26,8 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Tên đăng nhập</th>
+                                            <th>Họ</th>
+                                            <th>Tên</th>
                                             <th>Email</th>
                                             <th>Số điện thoại</th>
                                             <th>Vai trò</th>
@@ -35,12 +40,14 @@
                                             <tr>
                                                 <td>@user.Id</td>
                                                 <td>@user.UserName</td>
+                                                <td>@user.FirstName</td>
+                                                <td>@user.LastName</td>
                                                 <td>@user.Email</td>
                                                 <td>@user.PhoneNumber</td>
                                                 <td>@user.Roles</td>
                                                 <td>
-                                                   <a href="/Admin/User/Edit/@user.Id" class="btn btn-primary">Sửa</a>
-                                                   <a href="/User/Delete/@user.Id" class="btn btn-danger">Xóa</a>
+                                                    <a href="/Admin/User/Edit/@user.Id" class="btn btn-primary">Sửa</a>
+                                                    <a href="/Admin/User/Delete/@user.Id" class="btn btn-danger">Xóa</a>
                                                 </td>
                                             </tr>
                                         }
@@ -67,7 +74,7 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-<!-- jQuery với thuộc tính defer -->
+<!-- jQuery with defer -->
 <!-- jQuery -->
 <script src="~/plugins/jquery/jquery.min.js"></script>
 
@@ -76,7 +83,6 @@
 
 <!-- DataTables  & Plugins -->
 <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
-
 
 <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="~/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

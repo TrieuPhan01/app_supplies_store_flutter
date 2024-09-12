@@ -35,11 +35,11 @@ namespace Backend_ASP.NET.Controllers
 
         [HttpGet("{id}")]
         //[Authorize(Roles = AppRole.Admin)]
-        public IActionResult GetByID(string id)
+        public async Task<IActionResult> GetByID(string id)
         {
             try
             {
-                var data = _userRepository.GetByID(id);
+                var data = await _userRepository.GetByID(id);
                 if (data == null)
                 {
                     return NotFound();

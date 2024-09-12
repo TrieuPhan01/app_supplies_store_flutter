@@ -7,8 +7,8 @@ namespace Backend_ASP.NET.Services
     {
         Task<List<UserEditViewModel>> GetAll();
         Task<UserEditViewModel> GetByID(string id);
-        void Update(UserEditViewModel User);
-        void Delete(string id);
-        string? GetUserRole(string id);
+        Task Update(UserEditViewModel user);
+        Task Delete(string id);
+        Task<string?> GetUserRole(string id);
     }
 }

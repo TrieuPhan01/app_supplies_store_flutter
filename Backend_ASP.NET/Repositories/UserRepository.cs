@@ -4,6 +4,7 @@ using Backend_ASP.NET.Models;
 using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Backend_ASP.NET.Helpers;
 
 namespace Backend_ASP.NET.Services
 {
@@ -17,37 +18,37 @@ namespace Backend_ASP.NET.Services
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            //_passwordHasher = passwordHasher;
             _context = context;
         }
 
-        public UserEditViewModel GetByID(string id)
+        public async Task<UserEditViewModel> GetByID(string id)
         {
-            var user = _context.AppilcationUser.FirstOrDefault(x => x.Id == id);
-            var role = GetUserRole(user.Id);
+            var user = await _context.AppilcationUser.FirstOrDefaultAsync(x => x.Id == id);
+            var role = await GetUserRole(user.Id); // Lấy role bất đồng bộ
             if (user != null)
-
             {
                 return new UserEditViewModel
                 {
                     Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
                     PhoneNumber = user.PhoneNumber,
                     Roles = role,
-
                 };
             }
             return null!;
         }
 
-        public void Delete(string id)
+
+        public async Task Delete(string id)
         {
-            var _user = _context.AppilcationUser.SingleOrDefault(x => x.Id == id);
+            var _user = await _context.ApplicationUsers.SingleOrDefaultAsync(x => x.Id == id);
             if (_user != null)
             {
                 _context.Users.Remove(_user);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
 
@@ -65,8 +66,10 @@ namespace Backend_ASP.NET.Services
                     Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
                     PhoneNumber = user.PhoneNumber,
-                    Roles = GetUserRole(user.Id)
+                    Roles = await GetUserRole(user.Id)
 
 
                 });
@@ -75,74 +78,78 @@ namespace Backend_ASP.NET.Services
             return userModels;
         }
 
-        public void Update(UserEditViewModel user)
+        public async Task Update(UserEditViewModel user)
         {
             var _user = _context.ApplicationUsers.SingleOrDefault(x => x.Id == user.Id);
+
             if (_user != null)
             {
                 _user.UserName = user.UserName;
                 _user.Email = user.Email;
-                if (!string.IsNullOrEmpty(user.PassWord))
-                {
-                    _user.PasswordHash = user.PassWord;
-                }
+                _user.FirstName = user.FirstName;
+                _user.LastName = user.LastName;
                 _user.PhoneNumber = user.PhoneNumber;
 
-                // Cập nhật role của user
-                var currentRoles = _context.ApplicationUserRoles.Where(ur => ur.UserId == _user.Id).ToList();
-                if (currentRoles != null)
+                // Cập nhật mật khẩu nếu có
+                if (!string.IsNullOrEmpty(user.PassWord))
                 {
-                    // Xóa các vai trò cũ
-                    _context.ApplicationUserRoles.RemoveRange(currentRoles);
+                    var passwordHasher = new PasswordHasher<ApplicationUser>();
+                    _user.PasswordHash = passwordHasher.HashPassword(_user, user.PassWord);
                 }
 
-                // Thêm vai trò mới
-                var newRole = _context.Roles.SingleOrDefault(r => r.Name == user.Roles);
-                if (newRole != null)
+                // Kiểm tra vai trò của user
+                if (!await _roleManager.RoleExistsAsync(user.Roles))
                 {
-                    _context.ApplicationUserRoles.Add(new ApplicationUserRole
-                    {
-                        UserId = _user.Id,
-                        RoleId = newRole.Id
-                    });
+                    // Nếu vai trò chưa tồn tại, tạo vai trò mới
+                    await _roleManager.CreateAsync(new IdentityRole(user.Roles));
                 }
 
-                _context.SaveChanges();
+                // Xóa tất cả các vai trò hiện có của người dùng
+                var currentRoles = await _userManager.GetRolesAsync(_user);
+                if (currentRoles.Count > 0)
+                {
+                    await _userManager.RemoveFromRolesAsync(_user, currentRoles);
+                }
+
+                // Thêm vai trò mới cho người dùng
+                await _userManager.AddToRoleAsync(_user, user.Roles);
+
+                // Lưu các thay đổi vào cơ sở dữ liệu
+                await _context.SaveChangesAsync();
             }
         }
 
 
 
-        public string? GetUserRole(string id)
+
+
+
+        public async Task<string?> GetUserRole(string id)
         {
-            var currentuser = _context.Users.FirstOrDefault(x => x.Id == id);  // Truy vấn bảng Users (AspNetUsers)
+            var currentuser = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (currentuser == null)
             {
-                return null; // Nếu không tìm thấy user, trả về null
+                return null;
             }
 
-            // Truy vấn bảng AspNetUserRoles để lấy thông tin RoleId của user
-            var userRole = _context.UserRoles  // Đây là bảng AspNetUserRoles
-                .FirstOrDefault(x => x.UserId == currentuser.Id);
-
+            var userRole = await _context.UserRoles.FirstOrDefaultAsync(x => x.UserId == currentuser.Id);
             if (userRole == null)
             {
-                return null; // Nếu không tìm thấy role, trả về null
+                return null;
             }
 
-            // Truy vấn bảng AspNetRoles để lấy tên role dựa trên RoleId
-            var role = _context.Roles  // Đây là bảng AspNetRoles
-                .FirstOrDefault(r => r.Id == userRole.RoleId);
-
+            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Id == userRole.RoleId);
             if (role == null)
             {
-                return null; // Nếu không tìm thấy role, trả về null
+                return null;
             }
 
-            // Trả về tên của Role
             return role.Name;
         }
 
-      
+
+
+
+
     }
 }
