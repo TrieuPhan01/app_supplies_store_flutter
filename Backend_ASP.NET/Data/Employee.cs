@@ -7,7 +7,6 @@
         public  int? Salary { get; set; }// Tiền lương
         public string? Position { get; set; }// Chức vụ
         public bool Status { get; set; }=true;// Trạng thái làm việc còn hay không?
-    
 
         public ICollection<Debits> Debits { get; set; } 
 
@@ -23,7 +22,6 @@
         {
             Orders = new List<Orders>();
             Debits = new List<Debits>();
-            
         }
     }
 }

@@ -1,22 +1,19 @@
 using Backend_ASP.NET.Data;
+using Backend_ASP.NET.Helpers;
 using Backend_ASP.NET.Repositories;
 using Backend_ASP.NET.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
@@ -45,27 +42,13 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyMethod()));
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<MyAppDBConText>().AddDefaultTokenProviders();
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.SaveToken = true;
-    options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidAudience = builder.Configuration["JWT:ValidAudience"],
-        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
-    };
 
-});
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyMethod()));
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<MyAppDBConText>()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddDbContext<MyAppDBConText>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase"))
@@ -75,12 +58,49 @@ builder.Services.AddDbContext<MyAppDBConText>(options =>
 
 builder.Services.AddAutoMapper(typeof(Program));
 
-//lyfe cycle ID: AddSingleton(), AddTransient(), AddScoped()
+// Configure Authentication and Authorization
+builder.Services.AddAuthentication(options =>
+{
+
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
+.AddCookie(options =>
+{
+    options.LoginPath = "/Admin/User/Login";
+    options.AccessDeniedPath = "/Admin/User/AccessDenied";
+    //options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+});
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOrStaff", policy =>
+        policy.RequireRole("Adminstrator", "Staff"));
+});
+//.AddJwtBearer(options =>
+//{
+//    options.SaveToken = true;
+//    options.RequireHttpsMetadata = false;
+//    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+//    {
+//        ValidateIssuer = true,
+//        ValidateAudience = true,
+//        ValidAudience = builder.Configuration["JWT:ValidAudience"],
+//        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+//    };
+//});
+
+
+
+// Dependency Injection
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPasswordHasher<ApplicationUser>, PasswordHasher<ApplicationUser>>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-builder.Services.AddControllersWithViews();
-
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IStoreRepository, StoreRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeesRepository>();
+builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -91,39 +111,18 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/User/Login";  // ???ng d?n ??n trang ??ng nh?p
-        options.AccessDeniedPath = "/User/AccessDenied";  // Trang t? ch?i truy c?p n?u không ?? quy?n
-    });
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "Admin/{action=Index}/{id?}",
+    defaults: new { controller = "Admin" });
 
-
-
-
-
-#pragma warning disable ASP0014
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "admin",
-        pattern: "Admin/{action=Index}/{id?}",
-        defaults: new { controller = "Admin" });
-
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-});
-
-#pragma warning restore ASP0014 // Suggest using top level route registrations
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

@@ -4,9 +4,11 @@ namespace Backend_ASP.NET.Models
 {
     public class SignInModel
     {
-        [Required, Phone]
+        [Required(ErrorMessage = "Phone number is required")]
         public string PhoneNumber { get; set; } = null!;
-        [Required]
+
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
     }
 }

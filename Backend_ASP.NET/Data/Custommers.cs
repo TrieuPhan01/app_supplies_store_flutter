@@ -6,7 +6,8 @@
 
     }
     public class Custommers
-    {   public Guid CustommerId { get; set; }
+    {  
+        public Guid CustommerId { get; set; }
         public int? Age { get; set; }
         public sexEnum? Sex { get; set; }
         public String? Address { get; set; }
