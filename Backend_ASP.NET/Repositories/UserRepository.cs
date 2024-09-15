@@ -24,9 +24,10 @@ namespace Backend_ASP.NET.Services
         public async Task<UserEditViewModel> GetByID(string id)
         {
             var user = await _context.AppilcationUser.FirstOrDefaultAsync(x => x.Id == id);
-            var role = await GetUserRole(user.Id); // Lấy role bất đồng bộ
+            
             if (user != null)
             {
+                var role = await GetUserRole(user.Id);
                 return new UserEditViewModel
                 {
                     Id = user.Id,
