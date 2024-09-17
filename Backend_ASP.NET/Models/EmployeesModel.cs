@@ -13,5 +13,10 @@ namespace Backend_ASP.NET.Models
         public string? UserId { get; set; }
 
         public Guid? StoreID { get; set; }
+        public EmployeesModel()
+        {
+            // Tự động tạo Guid ngẫu nhiên
+            EmployeeId = Guid.NewGuid();
+        }
     }
 }

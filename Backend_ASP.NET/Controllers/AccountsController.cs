@@ -30,7 +30,7 @@ namespace Backend_ASP.NET.Controllers
             var result = await accountRepo.SingInAsync(signInModel);
             if(string.IsNullOrEmpty(result))
             {
-                return Unauthorized();
+                return BadRequest();
             }
             return Ok(result);
         }

@@ -1,36 +1,38 @@
-﻿using Backend_ASP.NET.Data;
+﻿using AutoMapper;
+using Backend_ASP.NET.Data;
 using Backend_ASP.NET.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Backend_ASP.NET.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
         private readonly MyAppDBConText _context;
+        private readonly IMapper _mapper;
 
-        public CustomerRepository(MyAppDBConText conText)
+        public CustomerRepository(MyAppDBConText conText, IMapper mapper)
         {
             _context = conText;
+            _mapper = mapper;
         }
 
-        public async Task Add(CustomerModel customer)
+        public async Task Add(CustomerModel customer, Guid storeID)
         {
             if (customer == null)
             {
                 throw new ArgumentNullException(nameof(customer), "Customer cannot be null.");
             }
-
-            var curentCus = new Custommers
+            var curentCus = _mapper.Map<Custommers>(customer);
+            await _context.Customs.AddAsync(curentCus);
+            await _context.SaveChangesAsync();
+            var storeCustomers = new StoreCustomer
             {
-                CustommerId = customer.CustommerId,
-                Age = customer.Age,
-                Sex = customer.Sex,
-                Address = customer.Address,
-                Avatar = customer.Avatar,
-                UserId = customer.UserId
+                CustommerID = curentCus.CustommerId,  
+                StoreID = storeID,                        
             };
 
-            await _context.Customs.AddAsync(curentCus);
+            await _context.StoreCustomer.AddAsync(storeCustomers);
             await _context.SaveChangesAsync();
         }
 
@@ -41,7 +43,6 @@ namespace Backend_ASP.NET.Repositories
             {
                 throw new Exception("Customer not found.");
             }
-
             _context.Customs.Remove(_customer);
             await _context.SaveChangesAsync();
         }
@@ -49,24 +50,12 @@ namespace Backend_ASP.NET.Repositories
         public async Task<List<CustomerModel>> GetAll()
         {
             var curenCustommer = await _context.Customs.ToListAsync();
-            var cusModels = new List<CustomerModel>();
-
-            if (curenCustommer != null)
+            if (curenCustommer == null)
             {
-                foreach (var cus in curenCustommer)
-                {
-                    cusModels.Add(new CustomerModel
-                    {
-                        CustommerId = cus.CustommerId,
-                        Age = cus.Age,
-                        Sex = cus.Sex,
-                        Address = cus.Address,
-                        Avatar = cus.Avatar,
-                        UserId = cus.UserId,
-                    });
-                }
+                throw new Exception("Customer not found.");
             }
-            return cusModels;
+            var customerModels = _mapper.Map<List<CustomerModel>>(curenCustommer);
+            return customerModels;
         }
 
         public async Task<CustomerModel> GetByID(Guid id)
@@ -76,16 +65,8 @@ namespace Backend_ASP.NET.Repositories
             {
                 throw new Exception("Customer not found.");
             }
-
-            return new CustomerModel
-            {
-                CustommerId = _customer.CustommerId,
-                Age = _customer.Age,
-                Sex = _customer.Sex,
-                Address = _customer.Address,
-                Avatar = _customer.Avatar,
-                UserId = _customer.UserId
-            };
+            var customerModel = _mapper.Map<CustomerModel>(_customer);
+            return customerModel;
         }
 
         public async Task Update(CustomerModel model)
@@ -95,16 +76,14 @@ namespace Backend_ASP.NET.Repositories
             {
                 throw new Exception("Customer not found.");
             }
-
-            _customer.Age = model.Age;
-            _customer.Sex = model.Sex;
-            _customer.Address = model.Address;
-            _customer.Avatar = model.Avatar;
-            _customer.UserId = model.UserId;
-
+            _mapper.Map(model, _customer);
             await _context.SaveChangesAsync();
         }
 
-
+        public async Task<CustomerModel> GetByUserID(string userId)
+        {
+            var customer = await _context.Customs.FirstOrDefaultAsync(c => c.UserId == userId);
+            return _mapper.Map<CustomerModel>(customer);
+        }
     }
 }

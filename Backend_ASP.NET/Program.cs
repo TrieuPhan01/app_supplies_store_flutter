@@ -56,7 +56,7 @@ builder.Services.AddDbContext<MyAppDBConText>(options =>
     .LogTo(Console.WriteLine);
 });
 
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(ApplicationMapper));
 
 // Configure Authentication and Authorization
 builder.Services.AddAuthentication(options =>
@@ -70,27 +70,26 @@ builder.Services.AddAuthentication(options =>
 {
     options.LoginPath = "/Admin/User/Login";
     options.AccessDeniedPath = "/Admin/User/AccessDenied";
-    //options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    //options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Set time out Cookie
+})
+.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["JWT:ValidAudience"],
+        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+    };
 });
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminOrStaff", policy =>
         policy.RequireRole("Adminstrator", "Staff"));
 });
-//.AddJwtBearer(options =>
-//{
-//    options.SaveToken = true;
-//    options.RequireHttpsMetadata = false;
-//    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-//    {
-//        ValidateIssuer = true,
-//        ValidateAudience = true,
-//        ValidAudience = builder.Configuration["JWT:ValidAudience"],
-//        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
-//    };
-//});
-
 
 
 // Dependency Injection
@@ -101,6 +100,9 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IStoreRepository, StoreRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeesRepository>();
 builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+builder.Services.AddScoped<IDebitsRepository, DebtitsRepository>();
+builder.Services.AddScoped<ISuppliersRepository, SuppliersRepository>();
+builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

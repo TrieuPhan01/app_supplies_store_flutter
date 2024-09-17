@@ -6,26 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend_ASP.NET.Controllers
 {
-
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
-    public class StoresController : Controller
+    public class ProductsController : Controller
     {
-        private readonly IStoreRepository _storeRepository;
+        private readonly IProductsRepository _productsRepository;
 
-        public StoresController(IStoreRepository storeRepository) 
+        public ProductsController(IProductsRepository productsRepository) 
         {
-            _storeRepository = storeRepository;
+            _productsRepository = productsRepository;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                var store = await _storeRepository.GetAll();
-                return Ok(store);
+                var product = await _productsRepository.GetAll();
+                return Ok(product);
             }
             catch (Exception ex)
             {
@@ -38,7 +37,7 @@ namespace Backend_ASP.NET.Controllers
         {
             try
             {
-                var data = await _storeRepository.GetByID(id);
+                var data = await _productsRepository.GetByID(id);
                 if (data == null)
                 {
                     return NotFound();
@@ -51,22 +50,24 @@ namespace Backend_ASP.NET.Controllers
             }
         }
 
+
         [HttpPost("Create")]
-        public async Task<IActionResult> Add([FromBody] StoreModel store)
+        public async Task<IActionResult> Add([FromBody] ProductsModel product)
         {
             try
             {
-                if (store == null)
+                if (product == null)
                 {
-                    return BadRequest("Customer data is null.");
+                    return BadRequest("Product data is null.");
                 }
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }
-                store.StoreID = Guid.NewGuid();
-                await _storeRepository.Add(store);
-                return CreatedAtAction(nameof(GetByID), new { id = store.StoreID }, store);
+                product.ProductID = Guid.NewGuid();
+
+                await _productsRepository.Add(product);
+                return CreatedAtAction(nameof(GetByID), new { id = product.ProductID }, product);
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using Backend_ASP.NET.Data;
+﻿using AutoMapper;
+using Backend_ASP.NET.Data;
 using Backend_ASP.NET.Models;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,12 @@ namespace Backend_ASP.NET.Repositories
     public class EmployeesRepository : IEmployeeRepository
     {
         private readonly MyAppDBConText _context;
+        private readonly IMapper _mapper;
 
-        public EmployeesRepository(MyAppDBConText context) 
+        public EmployeesRepository(MyAppDBConText context, IMapper mapper) 
         { 
             _context = context;
+            _mapper = mapper;
         }
         public async Task Add(EmployeesModel employees)
         {
@@ -19,18 +22,7 @@ namespace Backend_ASP.NET.Repositories
             {
                 throw new ArgumentNullException(nameof(employees), "employees cannot be null.");
             }
-
-            var curentEmp = new Employee
-            {
-                EmployeeId = employees.EmployeeId,
-                HireDate = employees.HireDate,
-                Salary = employees.Salary,
-                Position = employees.Position,
-                Status = employees.Status,
-                UserId = employees.UserId,
-                StoreID = employees.StoreID,
-            };
-
+            var curentEmp = _mapper.Map<Employee>(employees);
             await _context.Employees.AddAsync(curentEmp);
             await _context.SaveChangesAsync();
         }
@@ -49,26 +41,11 @@ namespace Backend_ASP.NET.Repositories
 
         public async Task<List<EmployeesModel>> GetAll()
         {
-            var employee = await _context.Employees.ToListAsync();
-            var cusEmp = new List<EmployeesModel>();
+            var employees = await _context.Employees.ToListAsync();
 
-            if (employee != null)
-            {
-                foreach (var emp in employee)
-                {
-                    cusEmp.Add(new EmployeesModel
-                    {
-                        EmployeeId = emp.EmployeeId,
-                        HireDate = emp.HireDate,
-                        Salary = emp.Salary,
-                        Position = emp.Position,
-                        Status = emp.Status,
-                        UserId = emp.UserId,
-                        StoreID = emp.StoreID
-                    });
-                }
-            }
-            return cusEmp;
+            var employeesModel = _mapper.Map<List<EmployeesModel>>(employees);
+
+            return employeesModel;
         }
 
         public async Task<EmployeesModel> GetByID(Guid id)
@@ -76,19 +53,10 @@ namespace Backend_ASP.NET.Repositories
             var _employee = await _context.Employees.FindAsync(id);
             if (_employee == null)
             {
-                throw new Exception("Customer not found.");
+                return null!;
             }
-
-            return new EmployeesModel
-            {
-                EmployeeId = _employee.EmployeeId,
-                HireDate = _employee.HireDate,
-                Salary = _employee.Salary,
-                Position = _employee.Position,
-                Status = _employee.Status,
-                UserId = _employee.UserId,
-                StoreID = _employee.StoreID
-            };
+            var employeeModel = _mapper.Map<EmployeesModel>(_employee);
+            return employeeModel;
         }
 
         public async Task Update(EmployeesModel employees)
@@ -99,15 +67,15 @@ namespace Backend_ASP.NET.Repositories
                 throw new Exception("Employee not found.");
             }
 
-            _employee.EmployeeId = employees.EmployeeId;
-            _employee.HireDate = employees.HireDate;
-            _employee.Salary = employees.Salary;
-            _employee.Position = employees.Position;
-            _employee.Status = employees.Status;
-            _employee.UserId = employees.UserId;
-            _employee.StoreID = employees.StoreID;
+            _mapper.Map(employees, _employee);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<EmployeesModel> GetByUserID(string userId)
+        {
+            var employee = await _context.Employees.FirstOrDefaultAsync(c => c.UserId == userId);
+            return _mapper.Map<EmployeesModel>(employee);
         }
     }
 }

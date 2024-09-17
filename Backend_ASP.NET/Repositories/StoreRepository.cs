@@ -1,4 +1,5 @@
-﻿using Backend_ASP.NET.Data;
+﻿using AutoMapper;
+using Backend_ASP.NET.Data;
 using Backend_ASP.NET.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,10 +8,12 @@ namespace Backend_ASP.NET.Repositories
     public class StoreRepository: IStoreRepository
     {
         private readonly MyAppDBConText _context;
+        private readonly IMapper _mapper;
 
-        public StoreRepository(MyAppDBConText conText) 
+        public StoreRepository(MyAppDBConText conText, IMapper mapper) 
         { 
             _context = conText;
+            _mapper = mapper;
         }
 
         public async Task Add(StoreModel store)
@@ -19,14 +22,7 @@ namespace Backend_ASP.NET.Repositories
             {
                 throw new ArgumentNullException(nameof(store), "Customer cannot be null.");
             }
-
-            var stores = new Stores
-            {
-               StoreName = store.StoreName,
-               Address = store.Address,
-               ImageStore = store.ImageStore,
-            };
-
+            var stores = _mapper.Map<Stores>(store);
             await _context.Stores.AddAsync(stores);
             await _context.SaveChangesAsync();
         }
@@ -35,21 +31,12 @@ namespace Backend_ASP.NET.Repositories
         public async Task<List<StoreModel>> GetAll()
         {
             var _stores = await _context.Stores.ToListAsync();
-            var storeModels = new List<StoreModel>();
-
-            if (_stores != null)
+            if (_stores == null)
             {
-                foreach (var st in _stores)
-                {
-                    storeModels.Add(new StoreModel
-                    {
-                        StoreID = st.StoreID,
-                        StoreName = st.StoreName,
-                        Address = st.Address,
-                        ImageStore = st.ImageStore,
-                    });
-                }
+                return null!;
             }
+            var storeModels = _mapper.Map<List<StoreModel>>(_stores);
+           
             return storeModels;
         }
 
@@ -58,16 +45,10 @@ namespace Backend_ASP.NET.Repositories
             var _store = await _context.Stores.FindAsync(id);
             if (_store == null)
             {
-                throw new Exception("Customer not found.");
+                return null!;
             }
-
-            return new StoreModel
-            {
-                StoreID = _store.StoreID,
-                StoreName = _store.StoreName,
-                Address = _store.Address,
-                ImageStore = _store.ImageStore,
-            };
+            var storeModel = _mapper.Map<StoreModel>(_store);
+            return storeModel;
         }
 
     }

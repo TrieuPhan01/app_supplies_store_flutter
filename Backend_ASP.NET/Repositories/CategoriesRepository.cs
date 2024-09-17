@@ -1,6 +1,8 @@
-﻿using Backend_ASP.NET.Data;
+﻿using AutoMapper;
+using Backend_ASP.NET.Data;
 using Backend_ASP.NET.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace Backend_ASP.NET.Repositories
@@ -8,10 +10,12 @@ namespace Backend_ASP.NET.Repositories
     public class CategoriesRepository : ICategoriesRepository
     {
         private readonly MyAppDBConText _context;
+        private readonly IMapper _mapper;
 
-        public CategoriesRepository(MyAppDBConText conText) 
+        public CategoriesRepository(MyAppDBConText conText, IMapper mapper) 
         { 
             _context = conText;
+            _mapper = mapper;
         }
 
         public async Task Add(CategoriesModel category)
@@ -20,15 +24,7 @@ namespace Backend_ASP.NET.Repositories
             {
                 throw new ArgumentNullException(nameof(category), "Customer cannot be null.");
             }
-
-            var currentCat = new Categories
-            {
-                CategoryID = category.CategoryID,
-                Name = category.Name,
-                Unit = category.Unit,
-                Note = category.Note,
-            };
-
+            var currentCat = _mapper.Map<Categories>(category);
             await _context.Categories.AddAsync(currentCat);
             await _context.SaveChangesAsync();
         }
@@ -48,21 +44,11 @@ namespace Backend_ASP.NET.Repositories
         public async Task<List<CategoriesModel>> GetAll()
         {
             var currentCats = await _context.Categories.ToListAsync();
-            var catsModels = new List<CategoriesModel>();
-
-            if (currentCats != null)
+            if (currentCats == null)
             {
-                foreach (var cus in currentCats)
-                {
-                    catsModels.Add(new CategoriesModel
-                    {
-                        CategoryID = cus.CategoryID,
-                        Name = cus.Name,
-                        Unit = cus.Unit,
-                        Note = cus.Note,
-                    });
-                }
+                throw new Exception("Customer not found.");
             }
+            var catsModels = _mapper.Map<List<CategoriesModel>>(currentCats);
             return catsModels;
         }
 
@@ -73,14 +59,8 @@ namespace Backend_ASP.NET.Repositories
             {
                 throw new Exception("Customer not found.");
             }
-
-            return new CategoriesModel
-            {
-                CategoryID = _category.CategoryID,
-                Name = _category.Name,
-                Unit = _category.Unit,
-                Note = _category.Note,
-            };
+            var categoriesModel = _mapper.Map<CategoriesModel>(_category);
+            return categoriesModel;
         }
 
         public async Task Update(CategoriesModel category)
@@ -90,12 +70,7 @@ namespace Backend_ASP.NET.Repositories
             {
                 throw new Exception("Customer not found.");
             }
-
-            _category.CategoryID = _category.CategoryID;
-            _category.Name = _category.Name;
-            _category.Unit = _category.Unit;
-            _category.Note = _category.Note;
-
+            _mapper.Map(category, _category);
             await _context.SaveChangesAsync();
         }
     }

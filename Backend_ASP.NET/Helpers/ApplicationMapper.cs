@@ -8,7 +8,14 @@ namespace Backend_ASP.NET.Helpers
     {
         public ApplicationMapper() 
         {
-          
+            CreateMap<Employee, EmployeesModel>().ReverseMap();
+            CreateMap<Custommers, CustomerModel>().ReverseMap();
+            CreateMap<Categories, CategoriesModel>().ReverseMap();
+            CreateMap<Debits, DebitsModel>().ReverseMap();
+            CreateMap<ApplicationUser, UserEditViewModel>().ReverseMap();
+            CreateMap<Stores, StoreModel>().ReverseMap();
+            CreateMap<Suppliers, SuppliersModel>().ReverseMap();
+            CreateMap<Products, ProductsModel>().ReverseMap();
         }
     }
 }
