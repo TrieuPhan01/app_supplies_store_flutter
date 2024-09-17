@@ -5,41 +5,36 @@ using System.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend_ASP.NET.Helpers;
+using AutoMapper;
 
 namespace Backend_ASP.NET.Services
 {
     public class UserRepository : IUserRepository
     {
         private readonly MyAppDBConText _context;
+        private readonly IMapper _mapper;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
        
-        public UserRepository(MyAppDBConText context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UserRepository(MyAppDBConText context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<UserEditViewModel> GetByID(string id)
         {
             var user = await _context.AppilcationUser.FirstOrDefaultAsync(x => x.Id == id);
-            
-            if (user != null)
+            if (user == null)
             {
-                var role = await GetUserRole(user.Id);
-                return new UserEditViewModel
-                {
-                    Id = user.Id,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    PhoneNumber = user.PhoneNumber,
-                    Roles = role,
-                };
+                return null!;
             }
-            return null!;
+            var role = await GetUserRole(user.Id);
+            var userModel = _mapper.Map<UserEditViewModel>(user);
+            userModel.Roles = role;
+            return userModel;
         }
 
 
@@ -85,13 +80,8 @@ namespace Backend_ASP.NET.Services
 
             if (_user != null)
             {
-                _user.UserName = user.UserName;
-                _user.Email = user.Email;
-                _user.FirstName = user.FirstName;
-                _user.LastName = user.LastName;
-                _user.PhoneNumber = user.PhoneNumber;
+                _mapper.Map(user, _user);
 
-                // Cập nhật mật khẩu nếu có
                 if (!string.IsNullOrEmpty(user.PassWord))
                 {
                     var passwordHasher = new PasswordHasher<ApplicationUser>();

@@ -1,4 +1,5 @@
 ﻿using Backend_ASP.NET.Data;
+using Backend_ASP.NET.Helpers;
 using Backend_ASP.NET.Models;
 using Backend_ASP.NET.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,21 +11,22 @@ namespace Backend_ASP.NET.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeesController : Controller
+    public class DebitsController : Controller
     {
-        private readonly IEmployeeRepository _employeeRepository;
-        public EmployeesController(IEmployeeRepository employeeRepository)
+        private readonly IDebitsRepository _debitsRepository;
+
+        public DebitsController(IDebitsRepository debitsRepository) 
         {
-            _employeeRepository = employeeRepository;
+            _debitsRepository = debitsRepository;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                var employees = await _employeeRepository.GetAll();
-                return Ok(employees);
+                var debits = await _debitsRepository.GetAll();
+                return Ok(debits);
             }
             catch (Exception ex)
             {
@@ -37,7 +39,7 @@ namespace Backend_ASP.NET.Controllers
         {
             try
             {
-                var data = await _employeeRepository.GetByID(id);
+                var data = await _debitsRepository.GetByID(id);
                 if (data == null)
                 {
                     return NotFound();
@@ -50,17 +52,17 @@ namespace Backend_ASP.NET.Controllers
             }
         }
 
-
         [HttpPut("Update/{id}")]
-        public async Task<IActionResult> Update(Guid id, EmployeesModel model)
+        [Authorize(Roles = AppRole.Staff+","+ AppRole.Admin)]
+        public async Task<IActionResult> Update(Guid id, DebitsModel model)
         {
-            if (id != model.EmployeeId)
+            if (id != model.ID)
             {
                 return BadRequest();
             }
             try
             {
-                await _employeeRepository.Update(model);
+                await _debitsRepository.Update(model);
                 return NoContent();
             }
             catch (Exception ex)
@@ -74,14 +76,14 @@ namespace Backend_ASP.NET.Controllers
         {
             try
             {
-                var employee = await _employeeRepository.GetByID(id);
-                if (employee == null)
+                var current = await _debitsRepository.GetByID(id);
+                if (current == null)
                 {
-                    return NotFound("Customer not found");
+                    return NotFound("Debit not found");
                 }
 
-                await _employeeRepository.Delete(id);
-                return Ok("Customer deleted successfully");
+                await _debitsRepository.Delete(id);
+                return Ok("Debit deleted successfully");
             }
             catch (Exception ex)
             {
@@ -90,26 +92,21 @@ namespace Backend_ASP.NET.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Add([FromBody] EmployeesModel employee)
+        public async Task<IActionResult> Add([FromBody] DebitsModel debit)
         {
             try
             {
-                if (employee == null)
+                if (debit == null)
                 {
-                    return BadRequest("Employee data is null.");
+                    return BadRequest("Debit data is null.");
                 }
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }
-                var existingUser = await _employeeRepository.GetByUserID(employee.UserId);
-                if (existingUser != null)
-                {
-                    return BadRequest("User ID already associated with another customer.");
-                }
-                employee.EmployeeId = Guid.NewGuid();
-                await _employeeRepository.Add(employee);
-                return CreatedAtAction(nameof(GetByID), new { id = employee.EmployeeId }, employee);
+                debit.ID = Guid.NewGuid();
+                await _debitsRepository.Add(debit);
+                return CreatedAtAction(nameof(GetByID), new { id = debit.ID }, debit);
             }
             catch (Exception ex)
             {

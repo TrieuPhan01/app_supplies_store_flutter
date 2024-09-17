@@ -11,5 +11,6 @@ namespace Backend_ASP.NET.Models
         public String? Avatar { get; set; }
         //Relationship
         public string? UserId { get; set; }
+
     }
 }

@@ -1,11 +1,13 @@
 ﻿using Backend_ASP.NET.Helpers;
 using Backend_ASP.NET.Models;
 using Backend_ASP.NET.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend_ASP.NET.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : Controller
@@ -50,7 +52,7 @@ namespace Backend_ASP.NET.Controllers
         }
 
         [HttpPost("Create")]
-        [Authorize(Roles = AppRole.Customer)]
+        [Authorize(Roles = AppRole.Admin)]
         public async Task<IActionResult> Add([FromBody] CategoriesModel category)
         {
             try
@@ -63,6 +65,7 @@ namespace Backend_ASP.NET.Controllers
                 {
                     return BadRequest(ModelState);
                 }
+                category.CategoryID = Guid.NewGuid();
                 await _categoriesRepository.Add(category);
                 return CreatedAtAction(nameof(GetByID), new { id = category.CategoryID }, category);
             }

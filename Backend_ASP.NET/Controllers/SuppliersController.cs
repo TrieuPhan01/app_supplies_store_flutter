@@ -10,22 +10,23 @@ namespace Backend_ASP.NET.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
-    public class StoresController : Controller
+    public class SuppliersController : Controller
     {
-        private readonly IStoreRepository _storeRepository;
+        private readonly ISuppliersRepository _suppliersRepository;
 
-        public StoresController(IStoreRepository storeRepository) 
+        public SuppliersController(ISuppliersRepository suppliersRepository) 
         {
-            _storeRepository = storeRepository;
+            _suppliersRepository = suppliersRepository;
         }
 
-        [HttpGet("GetAll")]
+
+        [HttpGet("All")]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                var store = await _storeRepository.GetAll();
-                return Ok(store);
+                var suppliers = await _suppliersRepository.GetAll();
+                return Ok(suppliers);
             }
             catch (Exception ex)
             {
@@ -38,7 +39,7 @@ namespace Backend_ASP.NET.Controllers
         {
             try
             {
-                var data = await _storeRepository.GetByID(id);
+                var data = await _suppliersRepository.GetByID(id);
                 if (data == null)
                 {
                     return NotFound();
@@ -52,21 +53,24 @@ namespace Backend_ASP.NET.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Add([FromBody] StoreModel store)
+        public async Task<IActionResult> Add([FromBody] SuppliersModel supplier, Guid storeId)
         {
             try
             {
-                if (store == null)
+                if (supplier == null)
                 {
-                    return BadRequest("Customer data is null.");
+                    return BadRequest("Supplier data is null.");
                 }
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }
-                store.StoreID = Guid.NewGuid();
-                await _storeRepository.Add(store);
-                return CreatedAtAction(nameof(GetByID), new { id = store.StoreID }, store);
+
+               
+                supplier.SupID = Guid.NewGuid();
+
+                await _suppliersRepository.Add(supplier, storeId);
+                return CreatedAtAction(nameof(GetByID), new { id = supplier.SupID }, supplier);
             }
             catch (Exception ex)
             {

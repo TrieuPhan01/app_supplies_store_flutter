@@ -1,10 +1,14 @@
-﻿using Backend_ASP.NET.Models;
+﻿using Backend_ASP.NET.Data;
+using Backend_ASP.NET.Models;
 using Backend_ASP.NET.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend_ASP.NET.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
@@ -88,7 +92,7 @@ namespace Backend_ASP.NET.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Add([FromBody] CustomerModel customer)
+        public async Task<IActionResult> Add([FromBody] CustomerModel customer, Guid storeID)
         {
             try
             {
@@ -100,7 +104,15 @@ namespace Backend_ASP.NET.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                await _customerRepository.Add(customer);
+
+                var existingUser = await _customerRepository.GetByUserID(customer.UserId);
+                if (existingUser != null)
+                {
+                    return BadRequest("User ID already associated with another customer.");
+                }
+                customer.CustommerId = Guid.NewGuid();
+
+                await _customerRepository.Add(customer, storeID);
                 return CreatedAtAction(nameof(GetByID), new { id = customer.CustommerId }, customer);
             }
             catch (Exception ex)
