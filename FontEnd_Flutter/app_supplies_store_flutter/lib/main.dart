@@ -1,8 +1,10 @@
-import 'package:app_supplies_store_flutter/pages/home.dart';
 import 'package:app_supplies_store_flutter/pages/login.dart';
+import 'package:app_supplies_store_flutter/pages/productListPage.dart';
 import 'package:app_supplies_store_flutter/pages/signup.dart';
+import 'package:app_supplies_store_flutter/pages/viewApp.dart';
 import 'package:app_supplies_store_flutter/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
+
 void main() {
   runApp(const SuppliesStore());
 }
@@ -12,23 +14,17 @@ class SuppliesStore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
- 
     return MaterialApp(
       //Mặc định trang login
-     initialRoute: '/login',
-     routes: {
-        
+      initialRoute: '/home',
+      routes: {
         '/login': (context) => const WelcomePage(),
-        '/home': (context) => const HomeScreen(),
+        '/home': (context) => const ViewAppScreen(),
         '/logup': (context) => const LogupScreen(),
       },
     );
   }
 }
-
-
-
-
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -61,5 +57,3 @@ class LogupScreen extends StatelessWidget {
     );
   }
 }
-
-

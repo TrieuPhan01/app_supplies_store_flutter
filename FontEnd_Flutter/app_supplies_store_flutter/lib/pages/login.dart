@@ -38,7 +38,7 @@ class _LoginWidget extends State<LoginWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(   
           toolbarHeight: 100,
           automaticallyImplyLeading: false,
           leading: Padding(

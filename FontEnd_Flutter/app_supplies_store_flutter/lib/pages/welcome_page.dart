@@ -67,7 +67,7 @@ class _WelcomeState extends State<WelcomePage> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 25),
                         child: Text(
-                          'Chào mừng đến với Cửa hàng Vật Tư Nông nghiệp',
+                          'Chào mừng đến với cửa hàng Vật Tư Nông Nghiệp',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'MontserratBlack',
