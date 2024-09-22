@@ -142,6 +142,11 @@
         "IsRequired": false
       },
       {
+        "Name": "Id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
         "Name": "PassWord",
         "Type": "System.String",
         "IsRequired": false
@@ -150,11 +155,6 @@
         "Name": "Roles",
         "Type": "System.String",
         "IsRequired": false
-      },
-      {
-        "Name": "Id",
-        "Type": "System.String",
-        "IsRequired": true
       },
       {
         "Name": "UserName",
@@ -696,6 +696,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.UserController",
+    "Method": "Gettest",
+    "RelativePath": "api/User/Test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

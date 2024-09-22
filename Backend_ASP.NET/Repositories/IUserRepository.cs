@@ -10,5 +10,6 @@ namespace Backend_ASP.NET.Services
         Task Update(UserEditViewModel user);
         Task Delete(string id);
         Task<string?> GetUserRole(string id);
+     
     }
 }

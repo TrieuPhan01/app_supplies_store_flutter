@@ -6,7 +6,7 @@ namespace Backend_ASP.NET.Models
 {
     public class UserModel
     {
-        public string? Id { get; set; }
+      
         public string? UserName { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -17,6 +17,7 @@ namespace Backend_ASP.NET.Models
 
     public class UserEditViewModel: UserModel
     {
+        public string? Id { get; set; }
         public string? PassWord { get; set; }
         public string? Roles { get; set; }
     }
