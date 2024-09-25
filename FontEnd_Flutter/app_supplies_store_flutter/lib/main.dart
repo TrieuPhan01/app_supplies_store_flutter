@@ -19,7 +19,7 @@ class SuppliesStore extends StatelessWidget {
       initialRoute: '/home',
       routes: {
         '/login': (context) => const WelcomePage(),
-        '/home': (context) => const ViewAppScreen(),
+        '/home': (context) => const WelcomePage(),
         '/logup': (context) => const LogupScreen(),
       },
     );

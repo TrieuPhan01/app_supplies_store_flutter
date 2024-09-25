@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
@@ -14,6 +16,7 @@ class _LoginWidget extends State<LoginWidget> {
   FocusNode _phoneFocusNode = FocusNode();
   FocusNode _passwordFocusNode = FocusNode();
   bool _obscurePassword = true;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -24,13 +27,64 @@ class _LoginWidget extends State<LoginWidget> {
     super.dispose();
   }
 
-  void _submitForm() {
+  // void _submitForm() {
+  //   if (_formKey.currentState!.validate()) {
+  //     // Ẩn bàn phím
+  //     FocusScope.of(context).unfocus();
+  //     // Xử lý dữ liệu form ở đây
+  //     print('Số điện thoại đã nhập: ${_phoneController.text}');
+  //     print('Mật khẩu đã nhập: ${_passwordController.text}');
+  //   }
+  // }
+
+  Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+      
       // Ẩn bàn phím
       FocusScope.of(context).unfocus();
-      // Xử lý dữ liệu form ở đây
-      print('Số điện thoại đã nhập: ${_phoneController.text}');
-      print('Mật khẩu đã nhập: ${_passwordController.text}');
+      
+      try {
+        final response = await http.post(
+          Uri.parse('https://localhost:7287/SignIn/'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'PhoneNumber': _phoneController.text,
+            'Password': _passwordController.text,
+          }),
+        );
+        print("post API thành công");
+
+        if (response.statusCode == 200) {
+          // Xử lý phản hồi thành công
+          final token = jsonDecode(response.body)['token'];
+          print("token" + token);
+          // TODO: Lưu token vào bộ nhớ an toàn (ví dụ: sử dụng package flutter_secure_storage)
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Đăng nhập thành công')),
+          );
+          
+          // TODO: Chuyển hướng đến trang chính của ứng dụng
+        } else {
+          // Xử lý lỗi
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Đăng nhập thất bại. Vui lòng thử lại.')),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Có lỗi xảy ra. Vui lòng thử lại sau.')),
+        );
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -156,16 +210,19 @@ class _LoginWidget extends State<LoginWidget> {
                                 vertical: 15
                               ), 
                           ),
-                          child: Text(
-                            'Đăng nhập',
-                            style: TextStyle(
-                              fontFamily: 'Open Sans',
-                              letterSpacing: 0.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
+                          child: _isLoading
+                              ? CircularProgressIndicator(color: Colors.white)
+                              : Text(
+                                  'Đăng nhập',
+                                  style: TextStyle(
+                                    fontFamily: 'Open Sans',
+                                    letterSpacing: 0.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                        
                         ),
                       ],
                     ),
