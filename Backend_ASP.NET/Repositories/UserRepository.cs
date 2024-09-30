@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend_ASP.NET.Helpers;
 using AutoMapper;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Backend_ASP.NET.Services
 {
@@ -110,11 +112,6 @@ namespace Backend_ASP.NET.Services
             }
         }
 
-
-
-
-
-
         public async Task<string?> GetUserRole(string id)
         {
             var currentuser = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
@@ -138,8 +135,23 @@ namespace Backend_ASP.NET.Services
             return role.Name;
         }
 
+        public async Task<UserEditViewModel> GetByUserName(string username)
+        {
+            var user = await _context.AppilcationUser.FirstOrDefaultAsync(x => x.PhoneNumber == username);
+            if (user == null)
+            {
+                return null!;
+            }
+            var role = await GetUserRole(user.Id);
+            var userModel = _mapper.Map<UserEditViewModel>(user);
+            userModel.Roles = role;
+            return userModel;
+        }
 
        
+
+
+
 
 
 

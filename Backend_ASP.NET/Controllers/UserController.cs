@@ -5,6 +5,7 @@ using Backend_ASP.NET.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Backend_ASP.NET.Controllers
 {
@@ -86,22 +87,50 @@ namespace Backend_ASP.NET.Controllers
             }
         }
 
-        //[HttpGet("GetRole/{id}")]
-        //public IActionResult UserRole(string id)
-        //{
-        //    var roleName = _userRepository.GetUserRole(id);
+        [HttpGet("GetByUserName/{username}")]
+        //[Authorize(Roles = AppRole.Admin)]
+        public async Task<IActionResult> GetByUserName(string username)
+        {
+            try
+            {
+                var data = await _userRepository.GetByUserName(username);
+                if (data == null)
+                {
+                    return NotFound();
+                }
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
-        //    // Kiểm tra xem có tìm thấy role không
-        //    if (roleName == null)
-        //    {
-        //        return NotFound(new { message = "User role not found" });
-        //    }
+        [HttpGet("GetByToken")]
+        //[Authorize(Roles = AppRole.Admin)]
+        public async Task<IActionResult> GetToKen()
+        {
+            try
+            {
+                var userName = User.FindFirst(ClaimTypes.MobilePhone)?.Value;
+                var role = User.FindFirst(ClaimTypes.Role)?.Value;
+                if (userName == null)
+                {
+                    return Unauthorized(); 
+                }
+                var data = await _userRepository.GetByUserName(userName);
+                data.Roles = role;
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
-        //    // Trả về tên role dưới dạng JSON
-        //    return Ok(new { roleName = roleName });
-        //}
 
-       
+
+
 
 
     }

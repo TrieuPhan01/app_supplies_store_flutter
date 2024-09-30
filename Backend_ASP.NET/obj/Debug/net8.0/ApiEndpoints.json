@@ -699,6 +699,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Backend_ASP.NET.Controllers.UserController",
+    "Method": "GetToKen",
+    "RelativePath": "api/User/GetByToken",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.UserController",
+    "Method": "GetByUserName",
+    "RelativePath": "api/User/GetByUserName/{username}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Backend_ASP.NET.Controllers.AccountsController",
     "Method": "SignIn",
     "RelativePath": "SignIn",
