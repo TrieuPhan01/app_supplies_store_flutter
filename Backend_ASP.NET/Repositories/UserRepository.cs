@@ -137,7 +137,7 @@ namespace Backend_ASP.NET.Services
 
         public async Task<UserEditViewModel> GetByUserName(string username)
         {
-            var user = await _context.AppilcationUser.FirstOrDefaultAsync(x => x.PhoneNumber == username);
+            var user = await _context.AppilcationUser.FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
             {
                 return null!;
