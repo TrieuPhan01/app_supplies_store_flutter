@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
@@ -8,12 +11,15 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidget extends State<LoginWidget> {
+  
+  final String apiUrl = dotenv.env['API_URL'] ?? 'No API URL Found'; 
   final _formKey = GlobalKey<FormState>();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
-  FocusNode _phoneFocusNode = FocusNode();
-  FocusNode _passwordFocusNode = FocusNode();
+  final FocusNode _phoneFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
   bool _obscurePassword = true;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -24,13 +30,53 @@ class _LoginWidget extends State<LoginWidget> {
     super.dispose();
   }
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
       // Ẩn bàn phím
       FocusScope.of(context).unfocus();
-      // Xử lý dữ liệu form ở đây
-      print('Số điện thoại đã nhập: ${_phoneController.text}');
-      print('Mật khẩu đã nhập: ${_passwordController.text}');
+    
+      try {
+          print('vào ptry');
+        final response = await http.post( 
+          Uri.parse(apiUrl), 
+          headers: <String, String>{
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: {
+            'PhoneNumber': _phoneController.text,
+            'Password': _passwordController.text,
+          },
+        );
+        print(response.statusCode);
+        print("post API thành công");
+
+        if (response.statusCode == 200) {
+          final token = response.body;
+          print("token" + token);
+         
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Đăng nhập thành công')),
+          );
+
+          // TODO: Chuyển hướng đến trang chính của ứng dụng
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Đăng nhập thất bại. Vui lòng thử lại.')),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Có lỗi xảy ra. Vui lòng thử lại sau.')),
+        );
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -38,13 +84,13 @@ class _LoginWidget extends State<LoginWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Scaffold(
-        appBar: AppBar(   
+        appBar: AppBar(
           toolbarHeight: 100,
           automaticallyImplyLeading: false,
           leading: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(4, 12, 6, 0),
+            padding: const EdgeInsetsDirectional.fromSTEB(4, 12, 6, 0),
             child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back_rounded,
                 color: Colors.black,
                 size: 35,
@@ -54,7 +100,7 @@ class _LoginWidget extends State<LoginWidget> {
               },
             ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0,
         ),
@@ -91,16 +137,16 @@ class _LoginWidget extends State<LoginWidget> {
                 Form(
                   key: _formKey,
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 50, 16, 5),
+                    padding: const EdgeInsetsDirectional.fromSTEB(16, 50, 16, 5),
                     child: Column(
                       children: [
                         TextFormField(
                           controller: _phoneController,
                           focusNode: _phoneFocusNode,
-                          autofillHints: [AutofillHints.telephoneNumber],
+                          autofillHints: const [AutofillHints.telephoneNumber],
                           autofocus: false,
                           obscureText: false,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: 'Số điện thoại',
                             border: OutlineInputBorder(),
                           ),
@@ -120,8 +166,8 @@ class _LoginWidget extends State<LoginWidget> {
                           obscureText: _obscurePassword,
                           decoration: InputDecoration(
                             labelText: 'Mật khẩu',
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.lock),
+                            border: const OutlineInputBorder(),
+                            prefixIcon: const Icon(Icons.lock),
                             suffixIcon: IconButton(
                               icon: Icon(_obscurePassword
                                   ? Icons.visibility
@@ -141,31 +187,30 @@ class _LoginWidget extends State<LoginWidget> {
                           },
                           onFieldSubmitted: (_) => _submitForm(),
                         ),
-                        SizedBox(height: 70),
+                        const SizedBox(height: 70),
                         ElevatedButton(
                           onPressed: _submitForm,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 70, 161, 236),
+                            backgroundColor: const Color.fromARGB(255, 70, 161, 236),
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(14),
+                              borderRadius: BorderRadius.circular(14),
                             ),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 50,
-                                vertical: 15
-                              ), 
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 15),
                           ),
-                          child: Text(
-                            'Đăng nhập',
-                            style: TextStyle(
-                              fontFamily: 'Open Sans',
-                              letterSpacing: 0.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
+                          child: _isLoading
+                              ? const CircularProgressIndicator(color: Colors.white)
+                              : const Text(
+                                  'Đăng nhập',
+                                  style: TextStyle(
+                                    fontFamily: 'Open Sans',
+                                    letterSpacing: 0.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
                         ),
                       ],
                     ),

@@ -92,13 +92,13 @@ class _WelcomeState extends State<WelcomePage> {
                 color: Colors.white,
               ),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 44, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 44, 0, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
+                      padding: const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
                       child: ElevatedButton.icon(
                         onPressed: () {
                           Navigator.push(
@@ -124,7 +124,7 @@ class _WelcomeState extends State<WelcomePage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black,
                           foregroundColor: Colors.white,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
@@ -145,7 +145,7 @@ class _WelcomeState extends State<WelcomePage> {
                     ),
                     // Login to Google
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
+                      padding: const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
                       child: ElevatedButton.icon(
                         onPressed: () {
                           
@@ -155,7 +155,7 @@ class _WelcomeState extends State<WelcomePage> {
                           color: Colors.black,
                           size: 26,
                         ),
-                        label: Text('Đăng nhập bằng google',
+                        label: const Text('Đăng nhập bằng google',
                          style: TextStyle(
                             fontFamily: 'SourceSans',
                             letterSpacing: 0.0,
@@ -166,7 +166,7 @@ class _WelcomeState extends State<WelcomePage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: Colors.black,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(1),
@@ -175,7 +175,7 @@ class _WelcomeState extends State<WelcomePage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 12, 20, 64),
+                      padding: const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 64),
                       child: ElevatedButton.icon(
                         onPressed: () {
                            Navigator.push(
@@ -189,7 +189,7 @@ class _WelcomeState extends State<WelcomePage> {
                           color: Colors.white,
                           size: 26,
                         ),
-                        label: Text('Đăng ký tài khoản',
+                        label: const Text('Đăng ký tài khoản',
                          style: TextStyle(
                             fontFamily: 'SourceSans',
                             letterSpacing: 0.0,
@@ -200,7 +200,7 @@ class _WelcomeState extends State<WelcomePage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                           foregroundColor: Colors.white,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),

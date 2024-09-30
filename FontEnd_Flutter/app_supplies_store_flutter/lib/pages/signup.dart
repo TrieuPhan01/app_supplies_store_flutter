@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SignupWidget extends StatefulWidget {
-  const SignupWidget({Key? key}) : super(key: key);
+  const SignupWidget({super.key});
 
   @override
   State<SignupWidget> createState() => _SignupWidgetState();
@@ -75,10 +75,10 @@ class _SignupWidgetState extends State<SignupWidget> {
           ),
           actions: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 30, 20, 0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 20, 0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 224, 231, 226),
+                  color: const Color.fromARGB(255, 224, 231, 226),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: IconButton(
@@ -134,7 +134,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                     const SizedBox(height: 20),
                     TextFormField(
                       controller: _emailController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Email',
                         border: OutlineInputBorder(),
                       ),
@@ -152,7 +152,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                     const SizedBox(height: 20),
                     TextFormField(
                       controller: _phoneController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Số điện thoại',
                         border: OutlineInputBorder(),
                       ),
@@ -173,8 +173,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         labelText: 'Mật khẩu',
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(Icons.lock),
+                        border: const OutlineInputBorder(),
+                        prefixIcon: const Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(_obscurePassword ? Icons.visibility : Icons.visibility_off),
                           onPressed: () {
@@ -194,14 +194,14 @@ class _SignupWidgetState extends State<SignupWidget> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       controller: _confirmPasswordController,
                       obscureText: _obscureConfirmPassword,
                       decoration: InputDecoration(
                         labelText: 'Nhập lại mật khẩu',
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(Icons.lock),
+                        border: const OutlineInputBorder(),
+                        prefixIcon: const Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(_obscureConfirmPassword ? Icons.visibility : Icons.visibility_off),
                           onPressed: () {
@@ -221,11 +221,11 @@ class _SignupWidgetState extends State<SignupWidget> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     ElevatedButton(
                         onPressed: _submitForm,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 70, 161, 236),
+                          backgroundColor: const Color.fromARGB(255, 70, 161, 236),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius:

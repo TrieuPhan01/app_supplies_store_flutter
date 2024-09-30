@@ -1,11 +1,12 @@
 import 'package:app_supplies_store_flutter/pages/login.dart';
-import 'package:app_supplies_store_flutter/pages/productListPage.dart';
-import 'package:app_supplies_store_flutter/pages/signup.dart';
-import 'package:app_supplies_store_flutter/pages/viewApp.dart';
 import 'package:app_supplies_store_flutter/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future<void> main() async {
+  // Đảm bảo Flutter framework đã được khởi tạo trước khi tải .env
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   runApp(const SuppliesStore());
 }
 
@@ -19,7 +20,7 @@ class SuppliesStore extends StatelessWidget {
       initialRoute: '/home',
       routes: {
         '/login': (context) => const WelcomePage(),
-        '/home': (context) => const ViewAppScreen(),
+        '/home': (context) => const LoginWidget(),
         '/logup': (context) => const LogupScreen(),
       },
     );

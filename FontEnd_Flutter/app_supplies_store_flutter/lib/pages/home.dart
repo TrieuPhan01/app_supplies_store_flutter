@@ -302,8 +302,8 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
             scrollDirection: Axis.horizontal,
             itemCount: _getSelectedCategoryProducts().length,
             separatorBuilder: (context, index) => const SizedBox(width: 8),
-            itemBuilder: (context, _categories) {
-              final product = _getSelectedCategoryProducts()[_categories];
+            itemBuilder: (context, categories) {
+              final product = _getSelectedCategoryProducts()[categories];
               return _buildProductItem(product);
             },
           ),
@@ -355,7 +355,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+          padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
           child: ElevatedButton.icon(
             onPressed: () {},
             label: const Text(
@@ -368,10 +368,10 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor:  Color(0xFF4F8FC0),
+              backgroundColor:  const Color(0xFF4F8FC0),
               foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              minimumSize: Size(390, 50),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              minimumSize: const Size(390, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
@@ -392,10 +392,10 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xFF4F8FC0),
+              backgroundColor: const Color(0xFF4F8FC0),
               foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              minimumSize: Size(390, 50),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              minimumSize: const Size(390, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
@@ -416,10 +416,10 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor:  Color(0xFF4F8FC0),
+              backgroundColor:  const Color(0xFF4F8FC0),
               foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              minimumSize: Size(390, 50),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              minimumSize: const Size(390, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
@@ -440,10 +440,10 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor:  Color(0xFF4F8FC0),
+              backgroundColor:  const Color(0xFF4F8FC0),
               foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              minimumSize: Size(390, 50),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              minimumSize: const Size(390, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
@@ -464,10 +464,10 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor:  Color(0xFF4F8FC0),
+              backgroundColor:  const Color(0xFF4F8FC0),
               foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              minimumSize: Size(390, 50), // Đặt kích thước cố định
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              minimumSize: const Size(390, 50), // Đặt kích thước cố định
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
