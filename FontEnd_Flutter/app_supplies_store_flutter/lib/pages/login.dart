@@ -1,4 +1,7 @@
+import 'package:app_supplies_store_flutter/fields/indent_dield.dart';
+import 'package:app_supplies_store_flutter/providers/user_povider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -11,8 +14,7 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidget extends State<LoginWidget> {
-  
-  final String apiUrl = dotenv.env['API_URL'] ?? 'No API URL Found'; 
+  final String apiUrl = dotenv.env['API_URL'] ?? 'No API URL Found';
   final _formKey = GlobalKey<FormState>();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -38,11 +40,12 @@ class _LoginWidget extends State<LoginWidget> {
 
       // Ẩn bàn phím
       FocusScope.of(context).unfocus();
-    
+
       try {
-          print('vào ptry');
-        final response = await http.post( 
-          Uri.parse(apiUrl), 
+        print('vào ptry');
+        // print(apiUrl+ '/SignIn/');
+        final response = await http.post(
+          Uri.https('caa5-171-243-48-224.ngrok-free.app', '/SignIn/'),
           headers: <String, String>{
             'Content-Type': 'application/x-www-form-urlencoded',
           },
@@ -57,18 +60,47 @@ class _LoginWidget extends State<LoginWidget> {
         if (response.statusCode == 200) {
           final token = response.body;
           print("token" + token);
-         
+
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Đăng nhập thành công')),
+            const SnackBar(
+              content: Text('Đăng nhập thành công'),
+            ),
           );
 
-          // TODO: Chuyển hướng đến trang chính của ứng dụng
+          final user_response = await http.get(
+            Uri.parse('$apiUrl/api/User/GetByToken/'),
+            headers: <String, String>{
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Authorization': 'Bearer $token',
+            },
+          );
+          print("infor user");
+          print(user_response.statusCode);
+          print(user_response.body);
+          final userData =
+              jsonDecode(user_response.body) as Map<String, dynamic>;
+          print(userData);
+          User user = User(
+            id: userData['id'] as String,
+            name: userData['userName'] as String?, 
+            roles: userData['roles'] as String?,
+            userName: userData['userName'] as String?,
+            firstName: userData['firstName'] as String?,
+            lastName: userData['lastName'] as String?,
+            email: userData['email'] as String?,
+            phoneNumber: userData['phoneNumber'] as String?,
+            avata: userData['avata'] as String?,
+          );
+          final userProvider = UserProvider(); 
+          userProvider.setUser(user);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Đăng nhập thất bại. Vui lòng thử lại.')),
+            const SnackBar(
+                content: Text('Tên đăng nhập hoặc mật khẩu không đúng')),
           );
         }
       } catch (e) {
+        print(e);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Có lỗi xảy ra. Vui lòng thử lại sau.')),
         );
@@ -87,17 +119,19 @@ class _LoginWidget extends State<LoginWidget> {
         appBar: AppBar(
           toolbarHeight: 100,
           automaticallyImplyLeading: false,
-          leading: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(4, 12, 6, 0),
-            child: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_rounded,
-                color: Colors.black,
-                size: 35,
+          leading: IndentField(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back_rounded,
+                  color: Colors.black,
+                  size: 35,
+                ),
+                onPressed: () {
+                  Navigator.pop(context); // Quay về màn hình trước
+                },
               ),
-              onPressed: () {
-                Navigator.pop(context); // Quay về màn hình trước
-              },
             ),
           ),
           actions: const [],
@@ -110,109 +144,119 @@ class _LoginWidget extends State<LoginWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 1, 5, 1),
-                  child: Text(
-                    'Đăng nhập bằng số điện thoại',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontFamily: 'SourceSans',
-                      letterSpacing: 0.0,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+                const IndentField(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 2, 0, 2),
+                    child: Text(
+                      'Đăng nhập bằng số điện thoại',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontFamily: 'SourceSans',
+                        letterSpacing: 0.0,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 5),
-                  child: Text(
-                    'Nhập số điện thoại và mật khẩu tài khoản của bạn. Nếu chưa có tài khoản hãy đăng ký',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontFamily: 'Readex Pro',
-                      letterSpacing: 0.0,
+                const IndentField(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: Text(
+                      'Nhập số điện thoại và mật khẩu tài khoản của bạn. Nếu chưa có tài khoản hãy đăng ký',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontFamily: 'Readex Pro',
+                        letterSpacing: 0.0,
+                      ),
                     ),
                   ),
                 ),
                 Form(
                   key: _formKey,
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(16, 50, 16, 5),
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: _phoneController,
-                          focusNode: _phoneFocusNode,
-                          autofillHints: const [AutofillHints.telephoneNumber],
-                          autofocus: false,
-                          obscureText: false,
-                          decoration: const InputDecoration(
-                            labelText: 'Số điện thoại',
-                            border: OutlineInputBorder(),
-                          ),
-                          keyboardType: TextInputType.phone,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Vui lòng nhập số điện thoại';
-                            }
-                            return null;
-                          },
-                          onFieldSubmitted: (_) => _submitForm(),
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          controller: _passwordController,
-                          focusNode: _passwordFocusNode,
-                          obscureText: _obscurePassword,
-                          decoration: InputDecoration(
-                            labelText: 'Mật khẩu',
-                            border: const OutlineInputBorder(),
-                            prefixIcon: const Icon(Icons.lock),
-                            suffixIcon: IconButton(
-                              icon: Icon(_obscurePassword
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              onPressed: () {
-                                setState(() {
-                                  _obscurePassword = !_obscurePassword;
-                                });
-                              },
+                  child: IndentField(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 50, 0, 5),
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            controller: _phoneController,
+                            focusNode: _phoneFocusNode,
+                            autofillHints: const [
+                              AutofillHints.telephoneNumber
+                            ],
+                            autofocus: false,
+                            obscureText: false,
+                            decoration: const InputDecoration(
+                              labelText: 'Số điện thoại',
+                              border: OutlineInputBorder(),
                             ),
+                            keyboardType: TextInputType.phone,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Vui lòng nhập số điện thoại';
+                              }
+                              return null;
+                            },
+                            onFieldSubmitted: (_) => _submitForm(),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Vui lòng nhập mật khẩu';
-                            }
-                            return null;
-                          },
-                          onFieldSubmitted: (_) => _submitForm(),
-                        ),
-                        const SizedBox(height: 70),
-                        ElevatedButton(
-                          onPressed: _submitForm,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 70, 161, 236),
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            controller: _passwordController,
+                            focusNode: _passwordFocusNode,
+                            obscureText: _obscurePassword,
+                            decoration: InputDecoration(
+                              labelText: 'Mật khẩu',
+                              border: const OutlineInputBorder(),
+                              prefixIcon: const Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                icon: Icon(_obscurePassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscurePassword = !_obscurePassword;
+                                  });
+                                },
+                              ),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 50, vertical: 15),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Vui lòng nhập mật khẩu';
+                              }
+                              return null;
+                            },
+                            onFieldSubmitted: (_) => _submitForm(),
                           ),
-                          child: _isLoading
-                              ? const CircularProgressIndicator(color: Colors.white)
-                              : const Text(
-                                  'Đăng nhập',
-                                  style: TextStyle(
-                                    fontFamily: 'Open Sans',
-                                    letterSpacing: 0.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                          const SizedBox(height: 70),
+                          ElevatedButton(
+                            onPressed: _submitForm,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 70, 161, 236),
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 50, vertical: 15),
+                            ),
+                            child: _isLoading
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white)
+                                : const Text(
+                                    'Đăng nhập',
+                                    style: TextStyle(
+                                      fontFamily: 'Open Sans',
+                                      letterSpacing: 0.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
                                   ),
-                                ),
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -20,7 +20,7 @@ class _ViewAppScreen extends State<ViewAppScreen> {
     _pages = [
       const HomeScreenPage(), // Trang Home
       const Productlistpage(), // Trang Sản phẩm
-      const LogupScreen(), // Trang Thông tin cá nhân
+      const Productlistpage(), // Trang Thông tin cá nhân
     ];
   }
 
