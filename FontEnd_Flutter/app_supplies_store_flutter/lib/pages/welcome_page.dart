@@ -1,3 +1,4 @@
+import 'package:app_supplies_store_flutter/fields/indent_dield.dart';
 import 'package:app_supplies_store_flutter/pages/login.dart';
 import 'package:app_supplies_store_flutter/pages/signup.dart';
 import 'package:flutter/material.dart';
@@ -64,8 +65,8 @@ class _WelcomeState extends State<WelcomePage> {
                         color: Colors.green,
                         size: 120,
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 25),
+                      IndentField(
+                        // padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 25),
                         child: Text(
                           'Chào mừng đến với cửa hàng Vật Tư Nông Nghiệp',
                           textAlign: TextAlign.center,

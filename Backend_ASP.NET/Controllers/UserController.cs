@@ -96,7 +96,7 @@ namespace Backend_ASP.NET.Controllers
                 var data = await _userRepository.GetByUserName(username);
                 if (data == null)
                 {
-                    return NotFound();
+                    return BadRequest("User rong");
                 }
                 return Ok(data);
             }
