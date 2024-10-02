@@ -1,4 +1,7 @@
+import 'package:app_supplies_store_flutter/fields/indent_dield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 
 class SignupWidget extends StatefulWidget {
   const SignupWidget({super.key});
@@ -8,6 +11,7 @@ class SignupWidget extends StatefulWidget {
 }
 
 class _SignupWidgetState extends State<SignupWidget> {
+  final String apiUrl = dotenv.env['API_URL'] ?? 'No API URL Found';
   final _formKey = GlobalKey<FormState>();
   final _firstnameController = TextEditingController();
   final _lastnameController = TextEditingController();
@@ -30,17 +34,50 @@ class _SignupWidgetState extends State<SignupWidget> {
     super.dispose();
   }
 
-  void _submitForm() {
-    setState(() {
-      _autoValidate = true;
-    });
+  Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      // Xử lý dữ liệu form ở đây
-      print('Họ đã nhập: ${_firstnameController.text}');
-      print('Tên đã nhập: ${_lastnameController.text}');
-      print('Email đã nhập: ${_emailController.text}');
-      print('Số điện thoại đã nhập: ${_phoneController.text}');
-      print('Mật khẩu đã nhập: ${_passwordController.text}');
+      setState(() {
+        _autoValidate = true;
+        FocusScope.of(context).unfocus();
+      });
+      try {
+        print("vào respo");
+        final response = await http.post(
+          Uri.parse('$apiUrl/SignUp/'),
+          headers: <String, String>{
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: {
+            'FirstName': _firstnameController.text,
+            'LastName': _lastnameController.text,
+            'Email': _emailController.text,
+            'PhoneNumber': _phoneController.text,
+            'Password': _passwordController.text,
+            'ConfirmPassword': _confirmPasswordController.text,
+          },
+        );
+        print(response.statusCode);
+        if (response.statusCode == 200) {
+          print("vào 200");
+            ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Đăng ký thành công!'))
+          );
+          print("navigate");
+          Navigator.pushReplacementNamed(context, '/welcome');
+        } else if (response.statusCode == 409) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Số điện thoại đã được đăng ký')),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Vui lòng thử lại sau 1 vài phút')),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Có lỗi xảy ra. Vui lòng thử lại sau.')),
+        );
+      }
     }
   }
 
@@ -61,15 +98,17 @@ class _SignupWidgetState extends State<SignupWidget> {
           toolbarHeight: 100,
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
-          title: const Padding(
-            padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
-            child: Text(
-              'Đăng ký thông tin người dùng',
-              style: TextStyle(
-                fontFamily: 'SourceSans',
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+          title: Container(
+            child: const Padding(
+              padding: EdgeInsets.fromLTRB(0, 40, 0, 10),
+              child: Text(
+                'Đăng ký thông tin người dùng',
+                style: TextStyle(
+                  fontFamily: 'SourceSans',
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),
@@ -97,144 +136,151 @@ class _SignupWidgetState extends State<SignupWidget> {
         ),
         body: SafeArea(
           child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 40, 20, 10),
-              child: Form(
-                key: _formKey,
-                autovalidateMode: _autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: _firstnameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Nhập Họ của bạn',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập Họ của bạn';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: _lastnameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Nhập Tên của bạn',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập Tên của bạn';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        labelText: 'Email',
-                        border: OutlineInputBorder(),
-                      ),
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập Email';
-                        }
-                        if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                          return 'Vui lòng nhập một địa chỉ email hợp lệ';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: _phoneController,
-                      decoration: const InputDecoration(
-                        labelText: 'Số điện thoại',
-                        border: OutlineInputBorder(),
-                      ),
-                      keyboardType: TextInputType.phone,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập số điện thoại';
-                        }
-                        if (!RegExp(r'^\d{10}$').hasMatch(value)) {
-                          return 'Vui lòng nhập số điện thoại hợp lệ (10 chữ số)';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: _obscurePassword,
-                      decoration: InputDecoration(
-                        labelText: 'Mật khẩu',
-                        border: const OutlineInputBorder(),
-                        prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: IconButton(
-                          icon: Icon(_obscurePassword ? Icons.visibility : Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
+            child: IndentField(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(5, 40, 5, 10),
+                child: Form(
+                  key: _formKey,
+                  autovalidateMode: _autoValidate
+                      ? AutovalidateMode.always
+                      : AutovalidateMode.disabled,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: _firstnameController,
+                        decoration: const InputDecoration(
+                          labelText: 'Nhập Họ của bạn',
+                          border: OutlineInputBorder(),
                         ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Vui lòng nhập Họ của bạn';
+                          }
+                          return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập mật khẩu';
-                        }
-                        if (!_isPasswordValid(value)) {
-                          return 'Mật khẩu phải có ít nhất 6 ký tự, bao gồm chữ hoa, số và ký tự đặc biệt';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: _confirmPasswordController,
-                      obscureText: _obscureConfirmPassword,
-                      decoration: InputDecoration(
-                        labelText: 'Nhập lại mật khẩu',
-                        border: const OutlineInputBorder(),
-                        prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: IconButton(
-                          icon: Icon(_obscureConfirmPassword ? Icons.visibility : Icons.visibility_off),
-                          onPressed: () {
-                            setState(() {
-                              _obscureConfirmPassword = !_obscureConfirmPassword;
-                            });
-                          },
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _lastnameController,
+                        decoration: const InputDecoration(
+                          labelText: 'Nhập Tên của bạn',
+                          border: OutlineInputBorder(),
                         ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Vui lòng nhập Tên của bạn';
+                          }
+                          return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập lại mật khẩu';
-                        }
-                        if (value != _passwordController.text) {
-                          return 'Mật khẩu không khớp';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 30),
-                    ElevatedButton(
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
+                          labelText: 'Email',
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Vui lòng nhập Email';
+                          }
+                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                              .hasMatch(value)) {
+                            return 'Vui lòng nhập một địa chỉ email hợp lệ';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _phoneController,
+                        decoration: const InputDecoration(
+                          labelText: 'Số điện thoại',
+                          border: OutlineInputBorder(),
+                        ),
+                        keyboardType: TextInputType.phone,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Vui lòng nhập số điện thoại';
+                          }
+                          if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+                            return 'Vui lòng nhập số điện thoại hợp lệ (10 chữ số)';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: _obscurePassword,
+                        decoration: InputDecoration(
+                          labelText: 'Mật khẩu',
+                          border: const OutlineInputBorder(),
+                          prefixIcon: const Icon(Icons.lock),
+                          suffixIcon: IconButton(
+                            icon: Icon(_obscurePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Vui lòng nhập mật khẩu';
+                          }
+                          if (!_isPasswordValid(value)) {
+                            return 'Mật khẩu phải có ít nhất 6 ký tự, bao gồm chữ hoa, số và ký tự đặc biệt';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _confirmPasswordController,
+                        obscureText: _obscureConfirmPassword,
+                        decoration: InputDecoration(
+                          labelText: 'Nhập lại mật khẩu',
+                          border: const OutlineInputBorder(),
+                          prefixIcon: const Icon(Icons.lock),
+                          suffixIcon: IconButton(
+                            icon: Icon(_obscureConfirmPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                _obscureConfirmPassword =
+                                    !_obscureConfirmPassword;
+                              });
+                            },
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Vui lòng nhập lại mật khẩu';
+                          }
+                          if (value != _passwordController.text) {
+                            return 'Mật khẩu không khớp';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 30),
+                      ElevatedButton(
                         onPressed: _submitForm,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 70, 161, 236),
+                          backgroundColor:
+                              const Color.fromARGB(255, 70, 161, 236),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(14),
+                            borderRadius: BorderRadius.circular(14),
                           ),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 100,
-                              vertical: 15
-                            ), 
+                              horizontal: 100, vertical: 15),
                         ),
                         child: const Text(
                           'Đăng ký tài khoản',
@@ -247,7 +293,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                           ),
                         ),
                       ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

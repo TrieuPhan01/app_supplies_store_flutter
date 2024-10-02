@@ -1,4 +1,7 @@
+import 'package:app_supplies_store_flutter/fields/indent_dield.dart';
+import 'package:app_supplies_store_flutter/providers/user_povider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Product {
   final String imageUrl;
@@ -33,7 +36,6 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
     _searchController = TextEditingController();
     _initializeCategories();
     _selectedCategory = _categories.first.name;
-    
   }
 
   void _initializeCategories() {
@@ -136,7 +138,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: const Color(0xfff1f4f8),
+       backgroundColor: const Color(0xfff1f4f8),
         appBar: _buildAppBar(),
         body: SafeArea(
           child: HomeScreen(),
@@ -149,17 +151,21 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-            child: _buildUserInfoCard(), // Thông tin người dùng
+          IndentField(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+              child: _buildUserInfoCard(), // Thông tin người dùng
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 35, 10, 0),
+            padding: const EdgeInsets.fromLTRB(4, 35, 0, 0),
             child: _buildCategoriesAndProducts(), // Thể loại và sản phẩm
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
-            child: _buildListcategories(), // Danh sách loại hàng hóa
+          IndentField(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              child: _buildListcategories(), // Danh sách loại hàng hóa
+            ),
           ),
         ],
       ),
@@ -246,14 +252,19 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                   color: const Color.fromARGB(255, 223, 221, 219),
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                 ),
-                const Text(
-                  ' Chào Nguyễn Văn A',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontFamily: 'SourceSans',
-                  ),
-                ),
+                Consumer<UserProvider>(
+                  builder: (context, userProvider, child) {
+                   
+                    return Text(
+                      'Chào ${userProvider.user!.firstName?? ' '} ${userProvider.user!.lastName?? userProvider.user!.userName ?? 'bạn'} ',
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 103, 5, 184),
+                        fontSize: 18,
+                        fontFamily: 'SourceSans',
+                      ),
+                    );
+                  },
+                )
               ],
             ),
           ),
@@ -308,14 +319,16 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
             },
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.fromLTRB(0, 35, 0, 12),
-          child: Text(
-            'Thông tin ưu đãi',
-            style: TextStyle(
-              fontSize: 18,
-              fontFamily: 'SourceSans',
-              fontWeight: FontWeight.w600,
+        const IndentField(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0, 35, 0, 12),
+            child: Text(
+              'Thông tin ưu đãi',
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'SourceSans',
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ),
@@ -333,8 +346,6 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
             fit: BoxFit.cover,
           ),
         ),
-        
-        
       ],
     );
   }
@@ -343,7 +354,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-       const Padding(
+        const Padding(
           padding: EdgeInsets.fromLTRB(0, 35, 0, 5),
           child: Text(
             'Danh sách hàng hóa',
@@ -368,7 +379,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor:  const Color(0xFF4F8FC0),
+              backgroundColor: const Color(0xFF4F8FC0),
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               minimumSize: const Size(390, 50),
@@ -416,7 +427,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor:  const Color(0xFF4F8FC0),
+              backgroundColor: const Color(0xFF4F8FC0),
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               minimumSize: const Size(390, 50),
@@ -440,7 +451,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor:  const Color(0xFF4F8FC0),
+              backgroundColor: const Color(0xFF4F8FC0),
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               minimumSize: const Size(390, 50),
@@ -464,7 +475,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
               ),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor:  const Color(0xFF4F8FC0),
+              backgroundColor: const Color(0xFF4F8FC0),
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               minimumSize: const Size(390, 50), // Đặt kích thước cố định

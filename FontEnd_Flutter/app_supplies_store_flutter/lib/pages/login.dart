@@ -1,10 +1,14 @@
 import 'package:app_supplies_store_flutter/fields/indent_dield.dart';
+import 'package:app_supplies_store_flutter/pages/home.dart';
 import 'package:app_supplies_store_flutter/providers/user_povider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:provider/provider.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
@@ -42,10 +46,9 @@ class _LoginWidget extends State<LoginWidget> {
       FocusScope.of(context).unfocus();
 
       try {
-        print('vào ptry');
-        // print(apiUrl+ '/SignIn/');
+        print('$apiUrl/SignIn/');
         final response = await http.post(
-          Uri.https('caa5-171-243-48-224.ngrok-free.app', '/SignIn/'),
+           Uri.parse('$apiUrl/SignIn/'),
           headers: <String, String>{
             'Content-Type': 'application/x-www-form-urlencoded',
           },
@@ -54,13 +57,9 @@ class _LoginWidget extends State<LoginWidget> {
             'Password': _passwordController.text,
           },
         );
-        print(response.statusCode);
-        print("post API thành công");
 
         if (response.statusCode == 200) {
           final token = response.body;
-          print("token" + token);
-
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Đăng nhập thành công'),
@@ -74,12 +73,11 @@ class _LoginWidget extends State<LoginWidget> {
               'Authorization': 'Bearer $token',
             },
           );
-          print("infor user");
-          print(user_response.statusCode);
-          print(user_response.body);
+
           final userData =
               jsonDecode(user_response.body) as Map<String, dynamic>;
           print(userData);
+
           User user = User(
             id: userData['id'] as String,
             name: userData['userName'] as String?, 
@@ -91,8 +89,12 @@ class _LoginWidget extends State<LoginWidget> {
             phoneNumber: userData['phoneNumber'] as String?,
             avata: userData['avata'] as String?,
           );
-          final userProvider = UserProvider(); 
+          final userProvider = Provider.of<UserProvider>(context, listen: false);
           userProvider.setUser(user);
+
+          // Navigator.pushReplacementNamed(context, '/home');
+          Navigator.pushNamed(context, '/viewapp');
+
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -100,7 +102,6 @@ class _LoginWidget extends State<LoginWidget> {
           );
         }
       } catch (e) {
-        print(e);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Có lỗi xảy ra. Vui lòng thử lại sau.')),
         );
@@ -200,7 +201,7 @@ class _LoginWidget extends State<LoginWidget> {
                             },
                             onFieldSubmitted: (_) => _submitForm(),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 35),
                           TextFormField(
                             controller: _passwordController,
                             focusNode: _passwordFocusNode,
