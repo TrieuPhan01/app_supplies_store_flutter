@@ -29,7 +29,9 @@ class UserProvider with ChangeNotifier {
 
   User? get user => _user;
 
-  void setUser(User user) {
+  void setUser(User? user) {
+    print("user trong provided");
+    print(user?.firstName);
     _user = user;
     notifyListeners();
   }

@@ -1,6 +1,6 @@
-import 'package:app_supplies_store_flutter/main.dart';
 import 'package:app_supplies_store_flutter/pages/home.dart';
 import 'package:app_supplies_store_flutter/pages/productListPage.dart';
+import 'package:app_supplies_store_flutter/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 class ViewAppScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class _ViewAppScreen extends State<ViewAppScreen> {
     _pages = [
       const HomeScreenPage(), // Trang Home
       const Productlistpage(), // Trang Sản phẩm
-      const Productlistpage(), // Trang Thông tin cá nhân
+      const ProfileWidget(), // Trang Thông tin cá nhân
     ];
   }
 
