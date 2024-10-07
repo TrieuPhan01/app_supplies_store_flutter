@@ -10,6 +10,7 @@ class User {
   final String? email;
   final String? phoneNumber;
   final String? avata;
+  final String? token;
 
   User({
     required this.id,
@@ -21,6 +22,7 @@ class User {
     this.email,
     this.phoneNumber,
     this.avata,
+    this.token
   });
 }
 
@@ -32,6 +34,7 @@ class UserProvider with ChangeNotifier {
   void setUser(User? user) {
     print("user trong provided");
     print(user?.firstName);
+    print(user?.token);
     _user = user;
     notifyListeners();
   }

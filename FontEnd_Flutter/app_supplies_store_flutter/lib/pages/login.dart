@@ -88,6 +88,7 @@ class _LoginWidget extends State<LoginWidget> {
             email: userData['email'] as String?,
             phoneNumber: userData['phoneNumber'] as String?,
             avata: userData['avata'] as String?,
+            token: token as String?
           );
           final userProvider = Provider.of<UserProvider>(context, listen: false);
           userProvider.setUser(user);
