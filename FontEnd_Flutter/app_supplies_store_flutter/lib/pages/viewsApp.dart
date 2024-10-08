@@ -2,6 +2,7 @@ import 'package:app_supplies_store_flutter/pages/home.dart';
 import 'package:app_supplies_store_flutter/pages/productListPage.dart';
 import 'package:app_supplies_store_flutter/pages/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ViewAppScreen extends StatefulWidget {
   const ViewAppScreen({super.key});
@@ -11,6 +12,7 @@ class ViewAppScreen extends StatefulWidget {
 }
 
 class _ViewAppScreen extends State<ViewAppScreen> {
+  final String apiUrl = dotenv.env['API_URL'] ?? 'No API URL Found';
   int _currentIndex = 0;
   List<Widget> _pages = [];
   @override
@@ -23,7 +25,6 @@ class _ViewAppScreen extends State<ViewAppScreen> {
       const ProfileWidget(), // Trang Thông tin cá nhân
     ];
   }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -42,7 +43,7 @@ class _ViewAppScreen extends State<ViewAppScreen> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex, // Trang hiện tại
-          onTap: (int index) {
+          onTap: (int index) async {
             setState(() {
               _currentIndex = index; // Cập nhật trang khi nhấn vào mục khác
             });
@@ -64,5 +65,5 @@ class _ViewAppScreen extends State<ViewAppScreen> {
         ),
       ),
     );
-  } 
+  }
 }

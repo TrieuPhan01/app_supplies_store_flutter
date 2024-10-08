@@ -12,4 +12,4 @@ namespace Backend_ASP.NET.Repositories
         Task Delete(Guid id);
         Task<CustomerModel> GetByUserID(string userId);
     }
-}
+} 

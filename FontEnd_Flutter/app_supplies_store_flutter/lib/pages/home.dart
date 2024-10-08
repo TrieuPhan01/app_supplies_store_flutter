@@ -1,27 +1,56 @@
+import 'dart:convert';
+
 import 'package:app_supplies_store_flutter/fields/indent_dield.dart';
 import 'package:app_supplies_store_flutter/providers/user_povider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class Product {
   final String imageUrl;
   final String title;
   final String location;
 
-  Product(
-      {required this.imageUrl, required this.title, required this.location});
+  Product({
+    required this.imageUrl,
+    required this.title,
+    required this.location,
+  });
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      imageUrl:
+          'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
+      title: json['productName'] ?? 'Không có tên',
+      location: json['description'] ?? 'Kho A',
+    );
+  }
 }
 
 class Category {
   final String name;
   final List<Product> products;
 
-  Category({required this.name, required this.products});
+  Category({
+    required this.name,
+    required this.products,
+  });
+
+  factory Category.fromJson(Map<String, dynamic> json) {
+    var productList = json['products']['\$values'] as List;
+    List<Product> products =
+        productList.map((prodJson) => Product.fromJson(prodJson)).toList();
+
+    return Category(
+      name: json['name'] ?? 'Không có tên danh mục',
+      products: products,
+    );
+  }
 }
 
 class HomeScreenPage extends StatefulWidget {
   const HomeScreenPage({super.key});
-
   @override
   State<HomeScreenPage> createState() => _HomeScreenPageState();
 }
@@ -29,102 +58,60 @@ class HomeScreenPage extends StatefulWidget {
 class _HomeScreenPageState extends State<HomeScreenPage> {
   late TextEditingController _searchController;
   List<Category> _categories = [];
-  late String _selectedCategory;
+  // List<dynamic> _categoriess = [];
+  String? _selectedCategory;
   @override
   void initState() {
     super.initState();
     _searchController = TextEditingController();
-    _initializeCategories();
-    _selectedCategory = _categories.first.name;
+    // _initializeCategories();
+    _fetchUserCategoriesProduct();
   }
 
-  void _initializeCategories() {
-    _categories = [
-      Category(
-        name: 'Phân bón',
-        products: [
-          Product(
-            imageUrl:
-                'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-            title: 'Phân NPK',
-            location: 'Kho A',
-          ),
-          Product(
-            imageUrl:
-                'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-            title: 'Phân đạm',
-            location: 'Kho B',
-          ),
-          Product(
-            imageUrl:
-                'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-            title: 'Phân lân',
-            location: 'Kho C',
-          ),
-          Product(
-            imageUrl:
-                'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-            title: 'Phân kali',
-            location: 'Kho D',
-          ),
-          Product(
-            imageUrl:
-                'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-            title: 'Phân tổng hợp',
-            location: 'Kho E',
-          ),
-        ],
-      ),
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _fetchUserCategoriesProduct();
+  }
 
-      Category(
-        name: 'Thuốc BVTV',
-        products: [
-          Product(
-            imageUrl:
-                'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-            title: 'Thuốc Rầy',
-            location: 'Kho A',
-          ),
-          Product(
-            imageUrl:
-                'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-            title: 'Thuốc Trừ sâu',
-            location: 'Kho A',
-          ),
-          Product(
-            imageUrl:
-                'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-            title: 'Thuốc chuột',
-            location: 'Kho A',
-          ),
-        ],
-      ),
-      Category(
-        name: 'Cám heo',
-        products: [
-          Product(
-            imageUrl:
-                'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-            title: 'Cám Heo đẻ',
-            location: 'Kho A',
-          ),
-          Product(
-            imageUrl:
-                'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-            title: '  Cám heo 365',
-            location: 'Kho A',
-          ),
-          Product(
-            imageUrl:
-                'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-            title: 'Cám heo 1134',
-            location: 'Kho A',
-          ),
-        ],
-      ),
+  Future<void> _fetchUserCategoriesProduct() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final user = userProvider.user;
+    final String apiUrl = dotenv.env['API_URL'] ?? 'No API URL Found';
+    final cat_response = await http.get(
+      Uri.parse('$apiUrl/api/Categories/categoryProduct'),
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Bearer ${user?.token}',
+      },
+    );
 
-      // các danh mục khác
-    ];
+    if (cat_response.statusCode == 200) {
+      final List<dynamic> categoryData = jsonDecode(cat_response.body);
+      // Lấy danh mục từ dữ liệu API và ánh xạ sang list _categories
+      final List<Category> fetchedCategories = categoryData
+          .map((categoryJson) => Category(
+                name: categoryJson['name'],
+                products: (categoryJson['products'] as List)
+                    .map((productJson) => Product(
+                          imageUrl: productJson['picture'],
+                          title: productJson['productName'],
+                          location: productJson['price'] != null
+                              ? ('${productJson['price']} đ')
+                              : '0',
+                        ))
+                    .toList(),
+              ))
+          .toList();
+      setState(() {
+        _categories = fetchedCategories;
+        // Chỉ set _selectedCategory khi _categories không rỗng
+        if (_categories.isNotEmpty) {
+          _selectedCategory = _categories.first.name;
+        }
+      });
+      print("in categoryData $categoryData");
+    }
   }
 
   @override
@@ -138,7 +125,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-       backgroundColor: const Color(0xfff1f4f8),
+        backgroundColor: const Color(0xfff1f4f8),
         appBar: _buildAppBar(),
         body: SafeArea(
           child: HomeScreen(),
@@ -254,9 +241,8 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                 ),
                 Consumer<UserProvider>(
                   builder: (context, userProvider, child) {
-                   
                     return Text(
-                      'Chào ${userProvider.user!.firstName?? ' '} ${userProvider.user!.lastName?? userProvider.user!.userName ?? 'bạn'} ',
+                      'Chào ${userProvider.user!.firstName ?? ' '} ${userProvider.user!.lastName ?? userProvider.user!.userName ?? 'bạn'} ',
                       style: const TextStyle(
                         color: Color.fromARGB(255, 103, 5, 184),
                         fontSize: 18,
@@ -537,12 +523,9 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-            child: Image.network(
-              product.imageUrl,
-              width: 180,
-              height: 130,
-              fit: BoxFit.cover,
-            ),
+            child: _buildProductImage(product.imageUrl),
+            // child: _buildProductImage(
+            //     'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400'),
           ),
           Padding(
             padding: const EdgeInsets.all(8),
@@ -566,10 +549,54 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
     );
   }
 
+  Widget _buildProductImage(String imageUrl) {
+    print("link url");
+    print(imageUrl);
+    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+      return Image.network(
+        imageUrl,
+        width: 180,
+        height: 130,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return _buildPlaceholderImage();
+        },
+      );
+    } else if (imageUrl.startsWith('assets/')) {
+      return Image.asset(
+        imageUrl,
+        width: 180,
+        height: 130,
+        fit: BoxFit.cover,
+      );
+    } else {
+      print("dô else");
+      return _buildPlaceholderImage();
+    }
+  }
+
+  Widget _buildPlaceholderImage() {
+    return Container(
+      width: 180,
+      height: 130,
+      color: Colors.grey[300],
+      child: Icon(Icons.image, size: 50, color: Colors.grey[600]),
+    );
+  }
+
   List<Product> _getSelectedCategoryProducts() {
-    print(_selectedCategory);
+    if (_selectedCategory == null || _categories.isEmpty) {
+      return []; // Trả về danh sách rỗng nếu chưa có danh mục nào hoặc danh mục trống
+    }
+
+    // Dùng orElse để trả về giá trị mặc định nếu không tìm thấy
     return _categories
-        .firstWhere((category) => category.name == _selectedCategory)
+        .firstWhere(
+          (category) => category.name == _selectedCategory,
+          orElse: () => Category(
+              name: '',
+              products: []), // Nếu không tìm thấy, trả về danh mục trống
+        )
         .products;
   }
 }

@@ -10,6 +10,7 @@ namespace Backend_ASP.NET.Helpers
         {
             CreateMap<Employee, EmployeesModel>().ReverseMap();
             CreateMap<Custommers, CustomerModel>().ReverseMap();
+            CreateMap<Categories, CategoriesMPost>().ReverseMap();
             CreateMap<Categories, CategoriesModel>().ReverseMap();
             CreateMap<Debits, DebitsModel>().ReverseMap();
             CreateMap<ApplicationUser, UserEditViewModel>().ReverseMap();

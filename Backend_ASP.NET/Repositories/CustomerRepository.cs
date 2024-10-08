@@ -83,6 +83,10 @@ namespace Backend_ASP.NET.Repositories
         public async Task<CustomerModel> GetByUserID(string userId)
         {
             var customer = await _context.Customs.FirstOrDefaultAsync(c => c.UserId == userId);
+            if (customer == null)
+            {
+                return null;
+            }
             return _mapper.Map<CustomerModel>(customer);
         }
     }

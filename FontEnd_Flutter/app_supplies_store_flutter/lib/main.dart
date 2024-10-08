@@ -2,8 +2,10 @@ import 'package:app_supplies_store_flutter/pages/home.dart';
 import 'package:app_supplies_store_flutter/pages/login.dart';
 import 'package:app_supplies_store_flutter/pages/profile.dart';
 import 'package:app_supplies_store_flutter/pages/signup.dart';
-import 'package:app_supplies_store_flutter/pages/viewApp.dart';
+import 'package:app_supplies_store_flutter/pages/viewsApp.dart';
 import 'package:app_supplies_store_flutter/pages/welcome_page.dart';
+import 'package:app_supplies_store_flutter/providers/category_provider.dart';
+import 'package:app_supplies_store_flutter/providers/customer_povider.dart';
 import 'package:app_supplies_store_flutter/providers/user_povider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -25,6 +27,8 @@ class SuppliesStore extends StatelessWidget {
       providers: [
         // Đăng ký Provider
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => CustomerProvider()),
+        ChangeNotifierProvider(create: (_) => CategoryProductProvider())
       ],
       child: MaterialApp(
         title: 'Supplies Store',

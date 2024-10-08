@@ -1,9 +1,11 @@
-﻿using Backend_ASP.NET.Helpers;
+﻿using Backend_ASP.NET.Data;
+using Backend_ASP.NET.Helpers;
 using Backend_ASP.NET.Models;
 using Backend_ASP.NET.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend_ASP.NET.Controllers
 {
@@ -13,10 +15,12 @@ namespace Backend_ASP.NET.Controllers
     public class CategoriesController : Controller
     {
         private readonly ICategoriesRepository _categoriesRepository;
+        private readonly MyAppDBConText _context;
 
-        public CategoriesController(ICategoriesRepository categoriesRepository) 
+        public CategoriesController(ICategoriesRepository categoriesRepository, MyAppDBConText context) 
         {
             _categoriesRepository = categoriesRepository;
+            _context = context;
         }
 
         [HttpGet("GetAll")]
@@ -53,7 +57,7 @@ namespace Backend_ASP.NET.Controllers
 
         [HttpPost("Create")]
         [Authorize(Roles = AppRole.Admin)]
-        public async Task<IActionResult> Add([FromBody] CategoriesModel category)
+        public async Task<IActionResult> Add([FromBody] CategoriesMPost category)
         {
             try
             {
@@ -73,6 +77,15 @@ namespace Backend_ASP.NET.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
+        }
+        [HttpGet("categoryProduct")]
+        public async Task<ActionResult<IEnumerable<CategoriesModel>>> Get()
+        {
+            var categories = await _context.Categories
+                .Include(c => c.Products)
+                .ToListAsync();
+
+            return Ok(categories);
         }
 
     }
