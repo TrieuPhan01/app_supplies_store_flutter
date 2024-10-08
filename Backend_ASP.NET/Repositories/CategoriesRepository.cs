@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Backend_ASP.NET.Data;
 using Backend_ASP.NET.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -18,7 +19,7 @@ namespace Backend_ASP.NET.Repositories
             _mapper = mapper;
         }
 
-        public async Task Add(CategoriesModel category)
+        public async Task Add(CategoriesMPost category)
         {
             if (category == null)
             {
@@ -41,14 +42,14 @@ namespace Backend_ASP.NET.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<CategoriesModel>> GetAll()
+        public async Task<List<CategoriesMPost>> GetAll()
         {
             var currentCats = await _context.Categories.ToListAsync();
             if (currentCats == null)
             {
                 throw new Exception("Customer not found.");
             }
-            var catsModels = _mapper.Map<List<CategoriesModel>>(currentCats);
+            var catsModels = _mapper.Map<List<CategoriesMPost>>(currentCats);
             return catsModels;
         }
 
@@ -73,5 +74,7 @@ namespace Backend_ASP.NET.Repositories
             _mapper.Map(category, _category);
             await _context.SaveChangesAsync();
         }
+
+
     }
 }

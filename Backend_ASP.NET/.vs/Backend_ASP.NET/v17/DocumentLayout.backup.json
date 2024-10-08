@@ -3,28 +3,24 @@
   "WorkspaceRootPath": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\accountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\accountrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\models\\categoriesmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:models\\categoriesmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:models\\usermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\icategoriesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\icategoriesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\categoriesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\categoriesrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,75 +35,67 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AccountsController.cs",
-              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\AccountsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AccountsController.cs",
-              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\AccountsController.cs",
-              "RelativeToolTip": "Controllers\\AccountsController.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBcAAAA+AAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAlwDoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-01T17:18:00.253Z",
+              "WhenOpened": "2024-10-08T07:25:33.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CategoriesController.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\CategoriesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CategoriesController.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\CategoriesController.cs",
+              "RelativeToolTip": "Controllers\\CategoriesController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwCUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T07:24:15.828Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "UserModel.cs",
-              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\UserModel.cs",
-              "RelativeDocumentMoniker": "Models\\UserModel.cs",
-              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\UserModel.cs",
-              "RelativeToolTip": "Models\\UserModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAqAAAAAAAAAA==",
+              "Title": "ICategoriesRepository.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\ICategoriesRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\ICategoriesRepository.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\ICategoriesRepository.cs",
+              "RelativeToolTip": "Repositories\\ICategoriesRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-01T16:10:43.861Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AccountRepository.cs",
-              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\AccountRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\AccountRepository.cs",
-              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\AccountRepository.cs",
-              "RelativeToolTip": "Repositories\\AccountRepository.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAowD4AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-30T18:43:24.258Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IUserRepository.cs",
-              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\IUserRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\IUserRepository.cs",
-              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\IUserRepository.cs",
-              "RelativeToolTip": "Repositories\\IUserRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T13:23:09.099Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAowGsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-21T17:49:37.542Z"
+              "WhenOpened": "2024-10-08T07:24:04.493Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\UserRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\UserRepository.cs",
-              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\UserRepository.cs",
-              "RelativeToolTip": "Repositories\\UserRepository.cs",
-              "ViewState": "AgIAAHwAAAAAAAAAAAAAAJQAAAAJAAAAAAAAAA==",
+              "Title": "CategoriesRepository.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\CategoriesRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\CategoriesRepository.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\CategoriesRepository.cs",
+              "RelativeToolTip": "Repositories\\CategoriesRepository.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAwwDMAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-20T07:38:54.818Z"
+              "WhenOpened": "2024-10-08T07:17:43.695Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CategoriesModel.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\CategoriesModel.cs",
+              "RelativeDocumentMoniker": "Models\\CategoriesModel.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\CategoriesModel.cs",
+              "RelativeToolTip": "Models\\CategoriesModel.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwBIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T07:16:05.383Z",
+              "EditorCaption": ""
             }
           ]
         }

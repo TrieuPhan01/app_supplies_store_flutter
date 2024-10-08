@@ -20,11 +20,8 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      // imageUrl: json['picture'] ??
-      //     'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
       imageUrl:
           'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-
       title: json['productName'] ?? 'Không có tên',
       location: json['description'] ?? 'Kho A',
     );
@@ -90,24 +87,22 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
     );
 
     if (cat_response.statusCode == 200) {
-      final categoryData =
-          jsonDecode(cat_response.body) as Map<String, dynamic>;
+      final List<dynamic> categoryData = jsonDecode(cat_response.body);
       // Lấy danh mục từ dữ liệu API và ánh xạ sang list _categories
-      final List<Category> fetchedCategories =
-          (categoryData['\$values'] as List)
-              .map((categoryJson) => Category(
-                    name: categoryJson['name'],
-                    products: (categoryJson['products']['\$values'] as List)
-                        .map((productJson) => Product(
-                              imageUrl: productJson['picture'],
-                              title: productJson['productName'],
-                              location:
-                                  productJson['Price'].toString(),
-                            ))
-                        .toList(),
-                  ))
-              .toList();
-
+      final List<Category> fetchedCategories = categoryData
+          .map((categoryJson) => Category(
+                name: categoryJson['name'],
+                products: (categoryJson['products'] as List)
+                    .map((productJson) => Product(
+                          imageUrl: productJson['picture'],
+                          title: productJson['productName'],
+                          location: productJson['price'] != null
+                              ? ('${productJson['price']} đ')
+                              : '0',
+                        ))
+                    .toList(),
+              ))
+          .toList();
       setState(() {
         _categories = fetchedCategories;
         // Chỉ set _selectedCategory khi _categories không rỗng
@@ -119,7 +114,6 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
     }
   }
 
-  
   @override
   void dispose() {
     _searchController.dispose();
@@ -529,7 +523,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-             child: _buildProductImage(product.imageUrl),
+            child: _buildProductImage(product.imageUrl),
             // child: _buildProductImage(
             //     'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400'),
           ),

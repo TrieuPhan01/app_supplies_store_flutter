@@ -52,6 +52,24 @@ namespace Backend_ASP.NET.Controllers
             }
         }
 
+        [HttpGet("GetByUserID/{userid}")]
+        public async Task<IActionResult> GetByUserID(string userid)
+        {
+            try
+            {
+                var data = await _customerRepository.GetByUserID(userid);
+                if (data == null)
+                {
+                    return NotFound();
+                }
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
 
         [HttpPut("Update/{id}")]
         public async Task<IActionResult> Update(Guid id, CustomerModel model)

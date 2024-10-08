@@ -222,6 +222,26 @@
   },
   {
     "ContainingType": "Backend_ASP.NET.Controllers.CategoriesController",
+    "Method": "Get",
+    "RelativePath": "api/Categories/categoryProduct",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Backend_ASP.NET.Models.CategoriesModel, Backend_ASP.NET, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.CategoriesController",
     "Method": "Add",
     "RelativePath": "api/Categories/Create",
     "HttpMethod": "POST",
@@ -230,7 +250,7 @@
     "Parameters": [
       {
         "Name": "category",
-        "Type": "Backend_ASP.NET.Models.CategoriesModel",
+        "Type": "Backend_ASP.NET.Models.CategoriesMPost",
         "IsRequired": true
       }
     ],
@@ -320,6 +340,22 @@
       {
         "Name": "id",
         "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.CustomersController",
+    "Method": "GetByUserID",
+    "RelativePath": "api/Customers/GetByUserID/{userid}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userid",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

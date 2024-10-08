@@ -1,0 +1,40 @@
+﻿# .NET Core
+.vs/
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.user
+*.suo
+*.sln.ide
+wwwroot/lib/
+node_modules/
+packages/
+
+# Flutter
+build/
+.idea/
+.vscode/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+*.log
+*.dart_tool/
+*.iml
+test_driver/
+*.apk
+*.ipa
+
+
+# Miscellaneous
+*.class
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/

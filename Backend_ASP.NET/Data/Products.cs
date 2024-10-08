@@ -1,4 +1,5 @@
-﻿namespace Backend_ASP.NET.Data
+﻿using System.Text.Json.Serialization;
+namespace Backend_ASP.NET.Data
 {// Bảng lưu thông tin các sản phẩm
     public class Products
     {
@@ -16,6 +17,7 @@
         public Stores Stores { get; set; } 
 
         public Guid? CategoryID { get; set; }
+        [JsonIgnore]
         public Categories Categories { get; set; }
 
         public ICollection<OrderDetails> OrderDetails { get; set; } 
