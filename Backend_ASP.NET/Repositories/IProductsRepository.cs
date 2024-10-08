@@ -9,5 +9,6 @@ namespace Backend_ASP.NET.Repositories
         Task Update(ProductsModel products);
         Task Add(ProductsModel products);
         Task Delete(Guid id);
+        Task<List<ProductsModel>> GetByCategoryID(Guid categoryId);
     }
 }

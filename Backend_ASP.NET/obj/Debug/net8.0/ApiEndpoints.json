@@ -568,6 +568,22 @@
   },
   {
     "ContainingType": "Backend_ASP.NET.Controllers.ProductsController",
+    "Method": "GetByProductID",
+    "RelativePath": "api/Products/GetByCategoryID/{categoryId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.ProductsController",
     "Method": "GetByID",
     "RelativePath": "api/Products/GetByID/{id}",
     "HttpMethod": "GET",
