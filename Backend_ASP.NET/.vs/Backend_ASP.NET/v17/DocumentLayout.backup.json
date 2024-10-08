@@ -13,6 +13,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\iproductsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\iproductsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\helpers\\applicationmapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:helpers\\applicationmapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -32,7 +40,7 @@
               "RelativeDocumentMoniker": "Controllers\\ProductsController.cs",
               "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\ProductsController.cs",
               "RelativeToolTip": "Controllers\\ProductsController.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAQwDsAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAACkAAAAAAAAAAAAQwD4AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-08T17:14:51.812Z",
               "IsPinned": true,
@@ -46,7 +54,7 @@
               "RelativeDocumentMoniker": "Repositories\\ProductsRepository.cs",
               "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\ProductsRepository.cs",
               "RelativeToolTip": "Repositories\\ProductsRepository.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAIwEQAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAowEIAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-08T17:15:12.995Z",
               "IsPinned": true,
@@ -58,12 +66,38 @@
               "Title": "IProductsRepository.cs",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\IProductsRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\IProductsRepository.cs",
-              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\IProductsRepository.cs*",
-              "RelativeToolTip": "Repositories\\IProductsRepository.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\IProductsRepository.cs",
+              "RelativeToolTip": "Repositories\\IProductsRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-08T17:15:17.556Z",
               "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAASwDsAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T17:25:13.02Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ApplicationMapper.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Helpers\\ApplicationMapper.cs",
+              "RelativeDocumentMoniker": "Helpers\\ApplicationMapper.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Helpers\\ApplicationMapper.cs",
+              "RelativeToolTip": "Helpers\\ApplicationMapper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T17:24:35.193Z",
               "EditorCaption": ""
             }
           ]

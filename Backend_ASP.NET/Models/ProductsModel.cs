@@ -5,7 +5,7 @@ namespace Backend_ASP.NET.Models
     public class ProductsModel
     {
         public Guid ProductID { get; set; }
-        public string? ProductName { get; set; }
+        public string? ProductName { get; set; }    
         public int? Price { get; set; }
         public int? StockQuantity { get; set; }// Số lượng hàng tồn kho
         public string? Description { get; set; }// Mô tả sản phẩm
