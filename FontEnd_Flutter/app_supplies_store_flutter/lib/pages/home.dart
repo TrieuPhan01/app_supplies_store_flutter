@@ -17,15 +17,6 @@ class Product {
     required this.title,
     required this.location,
   });
-
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      imageUrl:
-          'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400',
-      title: json['productName'] ?? 'Không có tên',
-      location: json['description'] ?? 'Kho A',
-    );
-  }
 }
 
 class Category {
@@ -36,17 +27,6 @@ class Category {
     required this.name,
     required this.products,
   });
-
-  factory Category.fromJson(Map<String, dynamic> json) {
-    var productList = json['products']['\$values'] as List;
-    List<Product> products =
-        productList.map((prodJson) => Product.fromJson(prodJson)).toList();
-
-    return Category(
-      name: json['name'] ?? 'Không có tên danh mục',
-      products: products,
-    );
-  }
 }
 
 class HomeScreenPage extends StatefulWidget {
@@ -58,7 +38,6 @@ class HomeScreenPage extends StatefulWidget {
 class _HomeScreenPageState extends State<HomeScreenPage> {
   late TextEditingController _searchController;
   List<Category> _categories = [];
-  // List<dynamic> _categoriess = [];
   String? _selectedCategory;
   @override
   void initState() {
@@ -110,7 +89,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
           _selectedCategory = _categories.first.name;
         }
       });
-      print("in categoryData $categoryData");
+      // print("in categoryData $categoryData");
     }
   }
 
@@ -145,7 +124,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(4, 35, 0, 0),
+            padding: const EdgeInsets.fromLTRB(8, 35, 0, 8),
             child: _buildCategoriesAndProducts(), // Thể loại và sản phẩm
           ),
           IndentField(
@@ -524,8 +503,6 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
             child: _buildProductImage(product.imageUrl),
-            // child: _buildProductImage(
-            //     'https://images.unsplash.com/photo-1486299267070-83823f5448dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxsb25kb258ZW58MHx8fHwxNzA2NjI3NjE0fDA&ixlib=rb-4.0.3&q=80&w=400'),
           ),
           Padding(
             padding: const EdgeInsets.all(8),
@@ -550,8 +527,6 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
   }
 
   Widget _buildProductImage(String imageUrl) {
-    print("link url");
-    print(imageUrl);
     if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
       return Image.network(
         imageUrl,
@@ -570,7 +545,6 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
         fit: BoxFit.cover,
       );
     } else {
-      print("dô else");
       return _buildPlaceholderImage();
     }
   }

@@ -1,5 +1,5 @@
 import 'package:app_supplies_store_flutter/pages/home.dart';
-import 'package:app_supplies_store_flutter/pages/productListPage.dart';
+import 'package:app_supplies_store_flutter/pages/categoriesList_Page.dart';
 import 'package:app_supplies_store_flutter/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

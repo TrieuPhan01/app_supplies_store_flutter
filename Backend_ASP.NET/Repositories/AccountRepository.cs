@@ -49,7 +49,7 @@ namespace Backend_ASP.NET.Repositories
             var token = new JwtSecurityToken(
                 issuer: configuration["JWT:ValidIssuer"],
                 audience: configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddMinutes(20),//Thoi gian Token het han
+                expires: DateTime.Now.AddMinutes(60),//Thoi gian Token het han
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authenkey, SecurityAlgorithms.HmacSha256Signature)//Ma hoa
                 );

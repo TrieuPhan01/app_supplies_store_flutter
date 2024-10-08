@@ -49,6 +49,23 @@ namespace Backend_ASP.NET.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet("GetByCategoryID/{categoryId}")]
+        public async Task<IActionResult> GetByProductID(Guid categoryId)
+        {
+            try
+            {
+                var data = await _productsRepository.GetByCategoryID(categoryId);
+                if (data == null)
+                {
+                    return NotFound();
+                }
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
 
         [HttpPost("Create")]

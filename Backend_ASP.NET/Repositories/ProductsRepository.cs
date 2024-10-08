@@ -58,6 +58,20 @@ namespace Backend_ASP.NET.Repositories
             return productModel;
         }
 
+        public async Task<List<ProductsModel>> GetByCategoryID(Guid categoryId)
+        {
+            var _product = await _context.Products
+           .Where(p => p.CategoryID == categoryId)
+           .ToListAsync();
+
+            if (_product == null || !_product.Any())
+            {
+                return null!;
+            }
+            var productModel = _mapper.Map<List<ProductsModel>>(_product);
+            return productModel;
+        }
+
         public async Task Update(ProductsModel product)
         {
             var _product = await _context.Products.FindAsync(product.ProductID);
