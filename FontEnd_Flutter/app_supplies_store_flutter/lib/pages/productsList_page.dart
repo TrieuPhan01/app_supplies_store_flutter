@@ -192,7 +192,7 @@ class _ProductListPageState extends State<ProductListPage> {
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
                                   color: Colors.blue,
-                                  fontFamily: 'Readex Pro', 
+                                  fontFamily: 'Outfit', 
                                   fontSize: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
