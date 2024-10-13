@@ -1,4 +1,5 @@
 import 'package:app_supplies_store_flutter/pages/detailed_product.dart';
+import 'package:app_supplies_store_flutter/pages/payment_page.dart';
 import 'package:app_supplies_store_flutter/pages/productsList_page.dart';
 import 'package:app_supplies_store_flutter/pages/home.dart';
 import 'package:app_supplies_store_flutter/pages/login.dart';
@@ -41,7 +42,8 @@ class SuppliesStore extends StatelessWidget {
           '/viewapp': (context) => const ViewAppScreen(),
           '/profile': (context) => const ProfileWidget(),
           '/product': (context) => const ProductListPage(),
-          '/detailProduct':(context) => const DetailProductPage()
+          '/detailProduct':(context) => const DetailProductPage(),
+          '/payment': (context) => const PaymentPage()
         },
       ),
     );

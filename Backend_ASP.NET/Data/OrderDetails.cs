@@ -3,7 +3,7 @@
     public class OrderDetails
     {
         public Guid ID { get; set; }
-        public int? UnitPrice { get; set; }// Đơn giá
+        public string? UnitPrice { get; set; }// Đơn giá
         public double? Quantity { get; set; }//Số lượng
         public string? Discount { get; set; }
         public double? SubTotal { get; set; }// Tổng tiền = unitPrice * quantity

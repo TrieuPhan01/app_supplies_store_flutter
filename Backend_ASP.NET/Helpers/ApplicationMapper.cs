@@ -17,6 +17,9 @@ namespace Backend_ASP.NET.Helpers
             CreateMap<Stores, StoreModel>().ReverseMap();
             CreateMap<Suppliers, SuppliersModel>().ReverseMap();
             CreateMap<Products, ProductsModel>().ReverseMap();
+            CreateMap<Orders, OrderModel>().ReverseMap();
+            CreateMap<OrderDetails, OrderDetailsModel>().ReverseMap();
+            CreateMap<Payment, PaymentModel>().ReverseMap();
         }
     }
 }

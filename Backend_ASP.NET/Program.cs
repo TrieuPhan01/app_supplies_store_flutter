@@ -12,6 +12,10 @@ using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+// xuat log ra teminal
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -59,12 +63,18 @@ builder.Services.AddDbContext<MyAppDBConText>(options =>
 
 builder.Services.AddAutoMapper(typeof(ApplicationMapper));
 
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+});
 //builder.Services.AddControllers()
 //    .AddJsonOptions(options =>
 //    {
 //        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
 //    });
 // Configure Authentication and Authorization
+builder.Services.AddHttpClient();
+
 builder.Services.AddAuthentication(options =>
 {
 
@@ -109,6 +119,10 @@ builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 builder.Services.AddScoped<IDebitsRepository, DebtitsRepository>();
 builder.Services.AddScoped<ISuppliersRepository, SuppliersRepository>();
 builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderDetailRepository,OrderDetailRepository>();
+builder.Services.AddScoped<IMomoRepository,MomoRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

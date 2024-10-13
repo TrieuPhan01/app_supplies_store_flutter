@@ -541,6 +541,117 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Backend_ASP.NET.Controllers.MomoController",
+    "Method": "CreateMomoPayment",
+    "RelativePath": "api/Momo/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Backend_ASP.NET.Models.MomoModel\u002BCreateMomoPaymentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.MomoController",
+    "Method": "MomoIpn",
+    "RelativePath": "api/Momo/momoipn",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Text.Json.JsonElement",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.OrdersController",
+    "Method": "Add",
+    "RelativePath": "api/Orders/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "order",
+        "Type": "Backend_ASP.NET.Models.OrderModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.OrdersController",
+    "Method": "Delete",
+    "RelativePath": "api/Orders/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.OrdersController",
+    "Method": "GetAll",
+    "RelativePath": "api/Orders/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.OrdersController",
+    "Method": "GetByID",
+    "RelativePath": "api/Orders/GetByID/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.OrdersController",
+    "Method": "Update",
+    "RelativePath": "api/Orders/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "Backend_ASP.NET.Models.OrderModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Backend_ASP.NET.Controllers.ProductsController",
     "Method": "GetAll",
     "RelativePath": "api/Products",
@@ -771,6 +882,48 @@
       {
         "Name": "username",
         "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.OrderDetailsController",
+    "Method": "Add",
+    "RelativePath": "Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderDetail",
+        "Type": "Backend_ASP.NET.Models.OrderDetailsModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.OrderDetailsController",
+    "Method": "GetAll",
+    "RelativePath": "GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.OrderDetailsController",
+    "Method": "GetByID",
+    "RelativePath": "GetByID/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],

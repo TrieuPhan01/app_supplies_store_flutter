@@ -84,7 +84,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                       color: Colors.black,
                     ),
                   ),
-                   const SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
                     'Số lượng: ${detailProduct.stockQuantity}',
                     style: const TextStyle(
@@ -105,8 +105,9 @@ class _DetailProductPageState extends State<DetailProductPage> {
                     children: [
                       Column(
                         children: [
-                          const Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 2),
-                          child: Text(
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0, 0, 2),
+                            child: Text(
                               'Số lượng ',
                               style: TextStyle(
                                 fontSize: 12,
@@ -114,7 +115,8 @@ class _DetailProductPageState extends State<DetailProductPage> {
                                 fontFamily: 'MontserratSemiBold',
                                 color: Color(0xff59546c),
                               ),
-                            ),),
+                            ),
+                          ),
                           Container(
                             width: 130,
                             height: 44,
@@ -146,7 +148,10 @@ class _DetailProductPageState extends State<DetailProductPage> {
                                   ),
                                 ),
                                 IconButton(
-                                  onPressed: _count < detailProduct.stockQuantity! ? _increment: null,
+                                  onPressed:
+                                      _count < detailProduct.stockQuantity!
+                                          ? _increment
+                                          : null,
                                   icon: const FaIcon(
                                     FontAwesomeIcons.plus,
                                     color: Colors.black,
@@ -159,7 +164,8 @@ class _DetailProductPageState extends State<DetailProductPage> {
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(4, 0, 0, 4),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(4, 0, 0, 4),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -193,37 +199,47 @@ class _DetailProductPageState extends State<DetailProductPage> {
                       )
                     ],
                   ),
-                 Padding(
-                   padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-                   child: Center(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromARGB(255, 70, 161, 236),
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(14),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 100, vertical: 15),
-                              ),
-                      onPressed: () {
-                        // Thêm logic xử lý đặt hàng ở đây
-                        print(
-                            'Đặt hàng: ${detailProduct.productName}, Số lượng: $_count, Tổng tiền: ${detailProduct.price!.toDouble() * _count}');
-                      },
-                      child: const Text('Đặt hàng',style: TextStyle(
-                                      fontFamily: 'Open Sans',
-                                      letterSpacing: 0.0,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                    child: Center(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 70, 161, 236),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 100, vertical: 15),
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/payment',
+                            arguments: {
+                              'product': detailProduct,
+                              'count': _count,
+                            },
+                          );
+                          // Thêm logic xử lý đặt hàng ở đây
+                          print(
+                              'Đặt hàng: ${detailProduct.price}, Số lượng: $_count, Tổng tiền: ${detailProduct.price!.toDouble() * _count}');
+                        },
+                        child: const Text(
+                          'Đặt hàng',
+                          style: TextStyle(
+                            fontFamily: 'Open Sans',
+                            letterSpacing: 0.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
                     ),
-                   ),
-                 )
+                  )
                 ],
-                
               ),
             ),
           ],

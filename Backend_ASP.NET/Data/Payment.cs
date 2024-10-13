@@ -4,7 +4,8 @@
     { 
         public int? AmountPaid { get; set; }//Số tiền đã trả 
         public String? PaymentMethod { get; set; }
-        public  bool PaymentStatus { get; set; }=false;//Trạng thái
+        public bool PaymentStatus { get; set; } = false;//Trạng thái
+        public String? TransactionCode { get; set; }
 
         //Relationship
         public Guid? OrderID { get; set; }

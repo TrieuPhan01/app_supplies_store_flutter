@@ -23,9 +23,8 @@ class _WelcomeState extends State<WelcomePage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        // backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
               child: Container(
@@ -35,9 +34,8 @@ class _WelcomeState extends State<WelcomePage> {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: Image.asset(
-                      'assets/images/imgbackground.jpg', // Đường dẫn tới ảnh trong thư mục assets
+                      'assets/images/imgbackground.jpg',
                     ).image,
-
                   ),
                 ),
                 child: Container(
@@ -66,7 +64,6 @@ class _WelcomeState extends State<WelcomePage> {
                         size: 120,
                       ),
                       IndentField(
-                        // padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 25),
                         child: Text(
                           'Chào mừng đến với cửa hàng Vật Tư Nông Nghiệp',
                           textAlign: TextAlign.center,
@@ -74,7 +71,6 @@ class _WelcomeState extends State<WelcomePage> {
                             fontFamily: 'MontserratBlack',
                             letterSpacing: 0.0,
                             fontSize: 28,
-                            // fontWeight: FontWeight.bold,
                             color: Color(0xFF14181B),
                           ),
                         ),
@@ -99,7 +95,8 @@ class _WelcomeState extends State<WelcomePage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
                       child: ElevatedButton.icon(
                         onPressed: () {
                           Navigator.push(
@@ -146,24 +143,24 @@ class _WelcomeState extends State<WelcomePage> {
                     ),
                     // Login to Google
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 12),
                       child: ElevatedButton.icon(
-                        onPressed: () {
-                          
-                        },
+                        onPressed: () {},
                         icon: const FaIcon(
                           FontAwesomeIcons.google,
                           color: Colors.black,
                           size: 26,
                         ),
-                        label: const Text('Đăng nhập bằng google',
-                         style: TextStyle(
+                        label: const Text(
+                          'Đăng nhập bằng google',
+                          style: TextStyle(
                             fontFamily: 'SourceSans',
                             letterSpacing: 0.0,
                             fontSize: 15,
                             color: Colors.black,
                           ),
-                          ),
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: Colors.black,
@@ -176,10 +173,11 @@ class _WelcomeState extends State<WelcomePage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 64),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20, 12, 20, 64),
                       child: ElevatedButton.icon(
                         onPressed: () {
-                           Navigator.push(
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const SignupWidget()),
@@ -190,8 +188,9 @@ class _WelcomeState extends State<WelcomePage> {
                           color: Colors.white,
                           size: 26,
                         ),
-                        label: const Text('Đăng ký tài khoản',
-                         style: TextStyle(
+                        label: const Text(
+                          'Đăng ký tài khoản',
+                          style: TextStyle(
                             fontFamily: 'SourceSans',
                             letterSpacing: 0.0,
                             fontSize: 17,
