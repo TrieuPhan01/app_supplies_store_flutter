@@ -30,6 +30,7 @@ namespace Backend_ASP.NET.Models
         {
             public string? Id { get; set; }
             public string? Total { get; set; }
+            public String? OrderID { get; set; }
         }
 
         

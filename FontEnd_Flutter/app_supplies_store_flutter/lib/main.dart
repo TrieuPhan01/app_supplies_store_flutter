@@ -1,4 +1,5 @@
 import 'package:app_supplies_store_flutter/pages/detailed_product.dart';
+import 'package:app_supplies_store_flutter/pages/momo_page.dart';
 import 'package:app_supplies_store_flutter/pages/payment_page.dart';
 import 'package:app_supplies_store_flutter/pages/productsList_page.dart';
 import 'package:app_supplies_store_flutter/pages/home.dart';
@@ -43,7 +44,8 @@ class SuppliesStore extends StatelessWidget {
           '/profile': (context) => const ProfileWidget(),
           '/product': (context) => const ProductListPage(),
           '/detailProduct':(context) => const DetailProductPage(),
-          '/payment': (context) => const PaymentPage()
+          '/payment': (context) => const PaymentPage(),
+           '/getmomo': (context) => const MomoWidget()
         },
       ),
     );

@@ -31,12 +31,6 @@
         [HttpPost("momoipn")]
         public async Task<IActionResult> MomoIpn([FromBody] JsonElement request)
         {
-            Console.WriteLine("Kiêu dữ liệu"+ request.GetProperty("resultCode").ValueKind);
-            Console.WriteLine("Kiêu dữ liệu" + request.GetProperty("amount").ValueKind);
-            Console.WriteLine("Kiêu dữ liệu" + request.GetProperty("payType").ValueKind);
-            Console.WriteLine("Kiêu dữ liệu" + request.GetProperty("transId").ValueKind);
-            Console.WriteLine("Kiêu dữ liệu" + request.GetProperty("orderId").ValueKind);
-            Console.WriteLine("Request data" + request);
             try
             {
                 var resultCode = request.GetProperty("resultCode").GetInt32(); 
@@ -48,14 +42,14 @@
 
                 if (resultCode == 0)
                 {
-                    var a = "1ca57fed-0c47-42d9-b421-b18b3b57d367";
+                    
                     PaymentModel payment = new PaymentModel
                     {
                         AmountPaid = amount,
                         PaymentMethod = paymentMethod,
                         TransactionCode = transactionCode,
-                        //OrderID = orderId,
-                        OrderID = Guid.Parse(a),
+                        OrderID = orderId,
+                        
                         PaymentStatus = true
                     };
                     await _PaymentRepository.GetBillsByIdAndAmount(payment);

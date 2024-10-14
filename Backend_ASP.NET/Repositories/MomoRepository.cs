@@ -10,7 +10,7 @@ namespace Backend_ASP.NET.Repositories
     {
 
         private const string Endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
-        private const string IpnUrl = "https://5264-116-110-41-211.ngrok-free.app/api/Momo/momoipn";
+        private const string IpnUrl = "https://9a15-27-75-101-13.ngrok-free.app/api/Momo/momoipn";
         private const string AccessKey = "F8BBA842ECF85";
         private const string SecretKey = "K951B6PE1waDMi640xX08PD3vg6EkVlz";
         private const string PartnerCode = "MOMO";
@@ -27,7 +27,7 @@ namespace Backend_ASP.NET.Repositories
             var _requestId = Guid.NewGuid().ToString();
             var _orderId = Guid.NewGuid().ToString();
             var rawSignature = $"accessKey={AccessKey}&amount={request.Total}&extraData=&ipnUrl={IpnUrl}" +
-                               $"&orderId={_orderId}&orderInfo={request.Id}&partnerCode={PartnerCode}" +
+                               $"&orderId={request.OrderID}&orderInfo={request.Id}&partnerCode={PartnerCode}" +
                                $"&redirectUrl=&requestId={_requestId}&requestType=captureWallet";
 
             var signature = ComputeHmacSha256(rawSignature, SecretKey);
@@ -38,8 +38,8 @@ namespace Backend_ASP.NET.Repositories
                 partnerName = "Test",
                 storeId = "MomoTestStore",
                 requestId = _requestId,
-                amount = request.Total,
-                orderId = _orderId,
+                amount = Convert.ToInt64(request.Total),
+                orderId = request.OrderID,
                 orderInfo = request.Id,
                 redirectUrl = "",
                 ipnUrl = IpnUrl,

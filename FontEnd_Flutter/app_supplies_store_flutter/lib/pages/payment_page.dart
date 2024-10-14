@@ -22,7 +22,7 @@ class _PaymentPageState extends State<PaymentPage> {
   TextEditingController _phoneNumberController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
   double totalAmount = 0.0;
-  var idOrder;
+  var OrderId;
 
   @override
   void initState() {
@@ -50,12 +50,12 @@ class _PaymentPageState extends State<PaymentPage> {
     final detailProduct = args['product'];
     final _count = args['count'];
     var uuid = Uuid();
-    idOrder = uuid.v4();
+    OrderId = uuid.v4();
 
     try {
       final bodyData = {
         "order": "someOrderValue",
-        "id": idOrder,
+        "id": OrderId,
         "shipAddress": "${_addressController.text}",
         "shippperDate": "2024-10-13T15:27:57.585Z",
         "totalAmount": totalAmount,
@@ -75,8 +75,9 @@ class _PaymentPageState extends State<PaymentPage> {
           }
         ]
       };
-      print(bodyData);
+
       print('$apiUrl/api/Orders/Create');
+      print(bodyData);
       final productResponse = await http.post(
         Uri.parse('$apiUrl/api/Orders/Create'),
         headers: <String, String>{
@@ -85,8 +86,6 @@ class _PaymentPageState extends State<PaymentPage> {
         },
         body: jsonEncode(bodyData),
       );
-      print(' thông tin status${productResponse.statusCode}');
-      print(' thông tin body${productResponse.body}');
       if (productResponse.statusCode == 201) {
         print("Thành công");
       } else {
@@ -100,8 +99,8 @@ class _PaymentPageState extends State<PaymentPage> {
 
   void _calculateTotalAmount() {
     final args =
-      ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-      print("args ${ModalRoute.of(context)!.settings.arguments.runtimeType}");
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
     final detailProduct = args['product'];
     final _count = args['count'];
     setState(() {
@@ -124,7 +123,6 @@ class _PaymentPageState extends State<PaymentPage> {
     _phoneNumberController =
         TextEditingController(text: '${user?.phoneNumber}');
     _addressController = TextEditingController(text: '${customer?.address}');
-    print("mã order $idOrder");
     return GestureDetector(
       child: Scaffold(
           appBar: AppBar(
@@ -390,15 +388,14 @@ class _PaymentPageState extends State<PaymentPage> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  print("aaaaaaaa");
-                                 
                                   _fetProduct();
-                                  // Navigator.pushNamed(
-                                  //   context,
-                                  //   '/payment',
-                                  //   arguments: idOrder
-                                  // );
-                                  print(idOrder);
+                                  Map<String, dynamic> _jsonDataMomo = {
+                                    'OrderId': OrderId,
+                                    'totalAmount':
+                                        totalAmount.toStringAsFixed(0),
+                                  };
+                                  Navigator.pushNamed(context, '/getmomo',
+                                      arguments: jsonEncode(_jsonDataMomo));
                                 },
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width * 0.4,
@@ -418,8 +415,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                         .end, // Đặt nội dung ở dưới cùng
                                     children: [
                                       Padding(
-                                        padding:
-                                            EdgeInsets.only(bottom: 8.0),
+                                        padding: EdgeInsets.only(bottom: 8.0),
                                         child: Text(
                                           'Momo',
                                           textAlign: TextAlign.center,
