@@ -225,6 +225,8 @@ class _DetailProductPageState extends State<DetailProductPage> {
                           // Thêm logic xử lý đặt hàng ở đây
                           print(
                               'Đặt hàng: ${detailProduct.price}, Số lượng: $_count, Tổng tiền: ${detailProduct.price!.toDouble() * _count}');
+                              
+                    
                         },
                         child: const Text(
                           'Đặt hàng',

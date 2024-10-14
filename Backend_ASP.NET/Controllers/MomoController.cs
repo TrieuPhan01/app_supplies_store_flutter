@@ -30,7 +30,6 @@
 
         [HttpPost("momoipn")]
         public async Task<IActionResult> MomoIpn([FromBody] JsonElement request)
-            
         {
             Console.WriteLine("Kiêu dữ liệu"+ request.GetProperty("resultCode").ValueKind);
             Console.WriteLine("Kiêu dữ liệu" + request.GetProperty("amount").ValueKind);
@@ -73,8 +72,6 @@
                 return StatusCode(500, new { message = "Internal server error" });
             }
         }
-
-
         [HttpPost("create")]
         public async Task<IActionResult> CreateMomoPayment([FromBody] CreateMomoPaymentRequest request)
         {

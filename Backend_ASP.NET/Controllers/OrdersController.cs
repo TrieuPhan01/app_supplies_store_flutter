@@ -106,7 +106,7 @@ namespace Backend_ASP.NET.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                order.Id = Guid.NewGuid();
+                //order.Id = Guid.NewGuid();
                 await _orderRepository.CreateOrderAsync(order);
                 return CreatedAtAction(nameof(GetByID), new { id = order.Id }, order);
             }

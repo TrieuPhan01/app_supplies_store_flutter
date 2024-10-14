@@ -1,12 +1,14 @@
+import 'dart:convert';
 import 'package:app_supplies_store_flutter/fields/indent_dield.dart';
-import 'package:app_supplies_store_flutter/pages/home.dart';
 import 'package:app_supplies_store_flutter/providers/customer_povider.dart';
-import 'package:app_supplies_store_flutter/providers/product_provider.dart';
 import 'package:app_supplies_store_flutter/providers/user_povider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:uuid/uuid.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -16,17 +18,96 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
-  // String _selectedPaymentMethod = 'Momo';
   TextEditingController _firstnameController = TextEditingController();
   TextEditingController _phoneNumberController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
+  double totalAmount = 0.0;
+  var idOrder;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _calculateTotalAmount();
+    });
+  }
+
   String formatCurrency(double amount) {
     final formatCurrency =
         NumberFormat.currency(locale: 'vi_VN', symbol: '₫', decimalDigits: 0);
     return formatCurrency.format(amount);
   }
 
-  
+  Future<void> _fetProduct() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final user = userProvider.user;
+    final customerProvider =
+        Provider.of<CustomerProvider>(context, listen: false);
+    final cus = customerProvider.customer;
+    final String apiUrl = dotenv.env['API_URL'] ?? 'No API URL Found';
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final detailProduct = args['product'];
+    final _count = args['count'];
+    var uuid = Uuid();
+    idOrder = uuid.v4();
+
+    try {
+      final bodyData = {
+        "order": "someOrderValue",
+        "id": idOrder,
+        "shipAddress": "${_addressController.text}",
+        "shippperDate": "2024-10-13T15:27:57.585Z",
+        "totalAmount": totalAmount,
+        "orderStatus": false,
+        "paymentType": "Online",
+        "storeID": "b8450678-42c5-49f2-a0e0-6ca9f859387b",
+        "employeeID": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "customerID": "${cus?.id}",
+        "orderDetails": [
+          {
+            "id": uuid.v4(),
+            "unitPrice": "VND",
+            "quantity": "${_count}",
+            "discount": "No discount",
+            "subTotal": totalAmount,
+            "productID": "${detailProduct.ProductID}"
+          }
+        ]
+      };
+      print(bodyData);
+      print('$apiUrl/api/Orders/Create');
+      final productResponse = await http.post(
+        Uri.parse('$apiUrl/api/Orders/Create'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${user?.token}',
+        },
+        body: jsonEncode(bodyData),
+      );
+      print(' thông tin status${productResponse.statusCode}');
+      print(' thông tin body${productResponse.body}');
+      if (productResponse.statusCode == 201) {
+        print("Thành công");
+      } else {
+        throw Exception('Không thể lấy dữ liệu');
+      }
+    } catch (e) {
+      print(e);
+      // throw Exception('Lỗi! Vui lòng thử lại sau ít phút');
+    }
+  }
+
+  void _calculateTotalAmount() {
+    final args =
+      ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      print("args ${ModalRoute.of(context)!.settings.arguments.runtimeType}");
+    final detailProduct = args['product'];
+    final _count = args['count'];
+    setState(() {
+      totalAmount = (detailProduct.price as num).toDouble() * _count.toDouble();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +124,7 @@ class _PaymentPageState extends State<PaymentPage> {
     _phoneNumberController =
         TextEditingController(text: '${user?.phoneNumber}');
     _addressController = TextEditingController(text: '${customer?.address}');
+    print("mã order $idOrder");
     return GestureDetector(
       child: Scaffold(
           appBar: AppBar(
@@ -164,7 +246,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   const Text(
-                                    'Tổng giá tiền:  ',
+                                    'Giá tiền:  ',
                                     style: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.bold,
@@ -194,6 +276,38 @@ class _PaymentPageState extends State<PaymentPage> {
                           ],
                         ),
                       )),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 14, 0, 8),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Tổng số tiền',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'MontserratSemiBold',
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          formatCurrency(totalAmount),
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'MontserratSemiBold',
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   const Divider(
                     thickness: 1,
                     color: Color(0xFF407F3E),
@@ -258,12 +372,17 @@ class _PaymentPageState extends State<PaymentPage> {
                             },
                           ),
                         ),
-                        Padding(padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0), child: Text('Chọn phương thức thanh toán',
+                        const Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+                          child: Text(
+                            'Chọn phương thức thanh toán',
                             style: TextStyle(
-                      fontFamily: 'SourceSans',
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                    ),),),
+                              fontFamily: 'SourceSans',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
                         Padding(
                           padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
                           child: Row(
@@ -271,8 +390,15 @@ class _PaymentPageState extends State<PaymentPage> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  // Xử lý sự kiện khi nhấn nút đầu tiên
-                                  print('Nút đầu tiên được nhấn');
+                                  print("aaaaaaaa");
+                                 
+                                  _fetProduct();
+                                  // Navigator.pushNamed(
+                                  //   context,
+                                  //   '/payment',
+                                  //   arguments: idOrder
+                                  // );
+                                  print(idOrder);
                                 },
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width * 0.4,
@@ -287,14 +413,13 @@ class _PaymentPageState extends State<PaymentPage> {
                                     color: Colors.red,
                                     borderRadius: BorderRadius.circular(24),
                                   ),
-                                  child: Column(
+                                  child: const Column(
                                     mainAxisAlignment: MainAxisAlignment
                                         .end, // Đặt nội dung ở dưới cùng
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                            bottom:
-                                                8.0), 
+                                        padding:
+                                            EdgeInsets.only(bottom: 8.0),
                                         child: Text(
                                           'Momo',
                                           textAlign: TextAlign.center,
@@ -323,7 +448,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                       color: Color.fromARGB(255, 217, 231, 243),
                                       borderRadius: BorderRadius.circular(24),
                                     ),
-                                    child: Padding(
+                                    child: const Padding(
                                       padding: EdgeInsets.all(12),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -332,7 +457,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                         children: [
                                           Icon(
                                             Icons.payments,
-                                            color:Colors.black,
+                                            color: Colors.black,
                                             size: 44,
                                           ),
                                           Padding(
@@ -343,11 +468,12 @@ class _PaymentPageState extends State<PaymentPage> {
                                               'Thanh toán Khi nhận hàng',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'MontserratSemiBold',
-                                            color: Colors.black,
-                                          ),
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily:
+                                                    'MontserratSemiBold',
+                                                color: Colors.black,
+                                              ),
                                             ),
                                           ),
                                         ],
