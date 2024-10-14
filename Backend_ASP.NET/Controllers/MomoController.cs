@@ -20,12 +20,14 @@
         private readonly IMomoRepository _momoRepository;
         private readonly IPaymentRepository _PaymentRepository;
         private readonly ILogger<MomoController> _logger;
+        private readonly IOrderRepository _orderRepository;
 
-        public MomoController(ILogger<MomoController> logger,IMomoRepository momoReposiotry, IPaymentRepository paymentRepository)
+        public MomoController(IOrderRepository orderRepository, ILogger<MomoController> logger,IMomoRepository momoReposiotry, IPaymentRepository paymentRepository)
         {
             _momoRepository = momoReposiotry;
             _PaymentRepository = paymentRepository;
             _logger = logger;
+            _orderRepository = orderRepository;
         }
 
         [HttpPost("momoipn")]
@@ -52,7 +54,9 @@
                         
                         PaymentStatus = true
                     };
+
                     await _PaymentRepository.GetBillsByIdAndAmount(payment);
+                    await _orderRepository.PatchOrderStatus(orderId);
                     return Ok(new { message = "Payment created successfully." });
                 }
                 else

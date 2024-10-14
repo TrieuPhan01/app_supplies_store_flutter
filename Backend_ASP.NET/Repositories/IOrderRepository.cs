@@ -10,5 +10,6 @@ namespace Backend_ASP.NET.Repositories
         Task CreateOrderAsync(OrderModel order);
         Task UpdateOrderAsync(OrderModel order);
         Task DeleteOrderAsync(Guid id);
+        Task PatchOrderStatus(Guid id);
     }
 }

@@ -71,5 +71,16 @@ namespace Backend_ASP.NET.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task PatchOrderStatus(Guid id)
+        {
+            var _order = await _context.Orders.FindAsync(id);
+            if (_order == null)
+            {
+                throw new ArgumentNullException(nameof(_order), "order cannot be null.");
+
+            }
+            _order.OrderStatus = true;
+        }
     }
 }

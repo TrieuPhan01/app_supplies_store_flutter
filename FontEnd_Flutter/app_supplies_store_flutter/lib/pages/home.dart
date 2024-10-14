@@ -252,7 +252,14 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
       children: [
         IconButton(
           icon: Icon(icon, color: Colors.black, size: 30),
-          onPressed: () {},
+          onPressed: () {
+            if (label == 'Hóa đơn') {
+              Navigator.pushNamed(
+                context,
+                '/listbill',
+              );
+            }
+          },
         ),
         Text(label, style: const TextStyle(color: Colors.black)),
       ],
