@@ -191,7 +191,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 5.0),
                                   child: Text(
-                                    'Giới tính: ${customerProvider.customer?.sex ?? ' '}',
+                                    'Giới tính: ${customerProvider.customer?.sex == 1 ? 'nam' : customerProvider.customer?.sex == 2 ? 'nữ' : ' '}',
                                     style: const TextStyle(
                                       color: Color(0xff12103D),
                                       fontSize: 18,

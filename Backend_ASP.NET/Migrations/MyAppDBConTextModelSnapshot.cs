@@ -253,8 +253,8 @@ namespace Backend_ASP.NET.Migrations
                     b.Property<double?>("SubTotal")
                         .HasColumnType("double precision");
 
-                    b.Property<int?>("UnitPrice")
-                        .HasColumnType("integer");
+                    b.Property<string>("UnitPrice")
+                        .HasColumnType("text");
 
                     b.HasKey("ID");
 
@@ -285,8 +285,8 @@ namespace Backend_ASP.NET.Migrations
                     b.Property<bool?>("OrderStatus")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("PaymentType")
-                        .HasColumnType("integer");
+                    b.Property<string>("PaymentType")
+                        .HasColumnType("text");
 
                     b.Property<string>("ShipAddress")
                         .HasColumnType("text");
@@ -299,8 +299,8 @@ namespace Backend_ASP.NET.Migrations
                     b.Property<Guid?>("StoreID")
                         .HasColumnType("uuid");
 
-                    b.Property<int?>("TotalAmount")
-                        .HasColumnType("integer");
+                    b.Property<double?>("TotalAmount")
+                        .HasColumnType("double precision");
 
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnUpdate()
@@ -340,6 +340,9 @@ namespace Backend_ASP.NET.Migrations
 
                     b.Property<bool>("PaymentStatus")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("TransactionCode")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("UpdateDate")
                         .ValueGeneratedOnUpdate()

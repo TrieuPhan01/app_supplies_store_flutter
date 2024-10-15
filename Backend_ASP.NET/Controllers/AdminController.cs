@@ -18,14 +18,26 @@ public class AdminController : Controller
     private readonly IAccountRepository _accountRepository;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly IEmployeeRepository _employeeRepository;
+    private readonly ICustomerRepository _customerRepository;
+    private readonly ISuppliersRepository _suppliersRepository;
+    private readonly ICategoriesRepository _categoriesRepository;
+    private readonly IProductsRepository _productsRepository;
+    private readonly IDebitsRepository _debitsRepository;
 
-    public AdminController(UserManager<ApplicationUser> userManager,IUserRepository userRepository, IAccountRepository repo, IAccountRepository accountRepository, SignInManager<ApplicationUser> signInManager)
+    public AdminController(IDebitsRepository debitsRepository, IProductsRepository productsRepository, ICategoriesRepository categoriesRepository, ISuppliersRepository suppliersRepository, ICustomerRepository customerRepository, IEmployeeRepository employeeRepository, UserManager<ApplicationUser> userManager,IUserRepository userRepository, IAccountRepository repo, IAccountRepository accountRepository, SignInManager<ApplicationUser> signInManager)
     {
         this._userRepository = userRepository;
         this.accountRepo = repo;
         this._accountRepository = accountRepository;
         this._userManager = userManager;
         this._signInManager = signInManager;
+        this._employeeRepository = employeeRepository;
+        this._customerRepository = customerRepository;
+        this._suppliersRepository = suppliersRepository;
+        this._categoriesRepository = categoriesRepository;
+        this._productsRepository = productsRepository;
+        this._debitsRepository = debitsRepository;
 
 
     }
@@ -218,6 +230,73 @@ public class AdminController : Controller
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return RedirectToAction("Login", "Admin");
     }
+
+
+    [HttpGet("Employees")]
+    [Authorize(Roles = "Adminstrator, Staff")]
+    public async Task<IActionResult> Emlpoyees()
+    {
+        var _employees = await _employeeRepository.GetAll();
+        return View("~/Views/Employees/Index.cshtml", _employees);
+    }
+
+    [HttpGet("Customers")]
+    [Authorize(Roles = "Adminstrator, Staff")]
+    public async Task<IActionResult> Customers()
+    {
+        var _customers = await _customerRepository.GetAll();
+        return View("~/Views/Customers/Index.cshtml", _customers);
+    }
+
+
+
+    [HttpGet("Suppliers")]
+    [Authorize(Roles = "Adminstrator, Staff")]
+    public async Task<IActionResult> Suppliers()
+    {
+        var _suppliers = await _suppliersRepository.GetAll();
+        return View("~/Views/Suppliers/Index.cshtml", _suppliers);
+    }
+
+    
+    /// <summary>
+    /// quản lý danh mục sản phẩm
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("Categories")]
+    [Authorize(Roles = "Adminstrator, Staff")]
+    public async Task<IActionResult> Categories()
+    {
+        var _categories = await _categoriesRepository.GetAll();
+        return View("~/Views/Categories/Index.cshtml", _categories);
+    }
+
+    [HttpGet("Categories/Product/{id}")]
+    [Authorize(Roles = "Adminstrator, Staff")]
+    public async Task<IActionResult> ViewProduct(string id)
+    {
+        var _products = await _productsRepository.GetByCategoryID(Guid.Parse(id));
+        if (_products == null)
+        {
+            return NotFound();
+        }
+
+        return View("~/Views/Products/Index.cshtml", _products);
+    }
+
+
+    [HttpGet("Debits")]
+    [Authorize(Roles = "Adminstrator, Staff")]
+    public async Task<IActionResult> Debits()
+    {
+        var _debits = await _debitsRepository.GetAll();
+        return View("~/Views/Debits/Index.cshtml", _debits);
+    }
+
+
+
+
+
 
 
     private IActionResult RedirectToLocal(string returnUrl)

@@ -1,6 +1,7 @@
 import 'package:app_supplies_store_flutter/pages/home.dart';
 import 'package:app_supplies_store_flutter/pages/categoriesList_Page.dart';
 import 'package:app_supplies_store_flutter/pages/profile.dart';
+import 'package:app_supplies_store_flutter/pages/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -23,6 +24,7 @@ class _ViewAppScreen extends State<ViewAppScreen> {
       const HomeScreenPage(), // Trang Home
       const Productlistpage(), // Trang Sản phẩm
       const ProfileWidget(), // Trang Thông tin cá nhân
+      const SignupWidget(),
     ];
   }
   @override
@@ -30,7 +32,6 @@ class _ViewAppScreen extends State<ViewAppScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        // appBar: _buildAppBar(),
         appBar: AppBar(
           toolbarHeight: 6,
           backgroundColor: Colors.green,
@@ -49,15 +50,15 @@ class _ViewAppScreen extends State<ViewAppScreen> {
             });
           },
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.shopping_bag),
               label: 'Sản phẩm',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Thông tin cá nhân',
             ),

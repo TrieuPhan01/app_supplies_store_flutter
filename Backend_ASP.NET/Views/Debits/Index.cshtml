@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Backend_ASP.NET.Models.DebitsModel>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="wrapper">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h2 class="card-title">Danh sách phiếu ghi nợ</h2>
+                                    <a href="/Admin/User/Create" class="btn btn-success">Tạo phiếu ghi nợ</a> <!-- Nút Tạo tài khoản -->
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã phiếu</th>
+                                            <th>Tên</th>
+                                            <th>Ghi chú</th>
+                                            <th>Tổng tiền</th>
+                                            <th>trạng thái</th>
+                                            <th>Ngày mua nợ</th>  
+                                            <th>Mã Tài khoản</th>
+                                             <th>Mã nhân viên tạo</th>
+                                            <th>Mã cửa hàng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var data in Model)
+                                        {
+                                            <tr>
+                                                <td>@data.ID</td>
+                                                <td>@data.Name</td>
+                                                <td>@data.Note</td>
+                                                <td>@data.TotalMoney</td>
+                                                <td>@data.PaymentStatus</td>
+                                                <td>@data.DebPurchaseDate</td>
+                                                <td>@data.CustomerID</td>
+                                                <td>@data.EmployeeID</td>
+                                                <td>@data.StoreID</td>
+                                                <td>
+                                                    <a href="/Admin/User/Edit/@data.ID" class="btn btn-primary">Sửa</a>
+                                                    <a href="/Admin/User/Delete/@data.ID" class="btn btn-danger">Xóa</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+<!-- jQuery with defer -->
+<!-- jQuery -->
+<script src="~/plugins/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap 4 -->
+<script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables  & Plugins -->
+<script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+
+<script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="~/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="~/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="~/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="~/plugins/jszip/jszip.min.js"></script>
+<script src="~/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="~/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="~/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="~/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="~/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="~/dist/js/demo.js"></script>
+<!-- Page specific script -->
+<script>
+    $(document).ready(function () {
+        $('#example1').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>
