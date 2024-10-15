@@ -82,13 +82,14 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                     .toList(),
               ))
           .toList();
-      setState(() {
+          if (mounted) {setState(() {
         _categories = fetchedCategories;
         // Chỉ set _selectedCategory khi _categories không rỗng
         if (_categories.isNotEmpty) {
           _selectedCategory = _categories.first.name;
         }
-      });
+      });}
+      
       // print("in categoryData $categoryData");
     }
   }
@@ -475,9 +476,10 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
         selected: _selectedCategory == label,
         onSelected: (bool selected) {
           if (selected) {
-            setState(() {
+            if (mounted) { setState(() {
               _selectedCategory = label;
-            });
+            });}
+           
           }
         },
         selectedColor: Colors.lightGreen[400],

@@ -30,8 +30,32 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Categories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Customers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Debits/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGViaXRzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Employees/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Products/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Suppliers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwcGxpZXJzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/User/AccessDenied.cshtml]

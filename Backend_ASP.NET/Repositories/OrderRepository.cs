@@ -81,6 +81,7 @@ namespace Backend_ASP.NET.Repositories
 
             }
             _order.OrderStatus = true;
+            await _context.SaveChangesAsync();
         }
     }
 }
