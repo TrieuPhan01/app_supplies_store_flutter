@@ -64,7 +64,6 @@ class _ProductListPageState extends State<ProductListPage> {
       throw Exception('Lỗi! Vui lòng thử lại sau ít phút');
     }
   }
-
    Widget _buidProductList() {
     return Column(
       children: _products.map((product) {

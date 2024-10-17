@@ -10,7 +10,7 @@ class User {
   final String? email;
   final String? phoneNumber;
   final String? avata;
-  final String? token;
+  String? token;
 
   User({
     required this.id,

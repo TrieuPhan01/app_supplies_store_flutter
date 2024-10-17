@@ -77,6 +77,16 @@
   },
   {
     "ContainingType": "AdminController",
+    "Method": "Stats",
+    "RelativePath": "Admin/Stats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AdminController",
     "Method": "Suppliers",
     "RelativePath": "Admin/Suppliers",
     "HttpMethod": "GET",

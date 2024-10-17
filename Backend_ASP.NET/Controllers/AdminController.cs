@@ -293,6 +293,27 @@ public class AdminController : Controller
         return View("~/Views/Debits/Index.cshtml", _debits);
     }
 
+    [HttpGet("Stats")]
+    [Authorize(Roles = "Adminstrator, Staff")]
+    public async Task<IActionResult> Stats()
+    {
+        var reportData = new List<StatsModel>
+        {
+            new StatsModel { Month = "Thang 1", Debt = 18563000 },
+            new StatsModel { Month = "Thang 2", Debt = 8933000 },
+            new StatsModel { Month = "Thang 3", Debt = 75412000 },
+            new StatsModel { Month = "Thang 4", Debt = 45418000 },
+            new StatsModel { Month = "Thang 5", Debt = 2322000 },
+            new StatsModel { Month = "Thang 6", Debt = 61341700 },
+            new StatsModel { Month = "Thang 7", Debt = 23558000 },
+            new StatsModel { Month = "Thang 8", Debt = 23872000 },
+            new StatsModel { Month = "Thang 9", Debt = 5164600 },
+            new StatsModel { Month = "Thang 10", Debt = 1245000 },
+
+        };
+        return View("~/Views/Stats/Index.cshtml", reportData);
+    }
+
 
 
 

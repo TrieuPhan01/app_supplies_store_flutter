@@ -1,3 +1,5 @@
+import 'package:app_supplies_store_flutter/EmployeeFunctions/SumProduct.dart';
+import 'package:app_supplies_store_flutter/pages/debit_manage.dart';
 import 'package:app_supplies_store_flutter/pages/detailed_product.dart';
 import 'package:app_supplies_store_flutter/pages/list_bill_order.dart';
 import 'package:app_supplies_store_flutter/pages/momo_page.dart';
@@ -47,7 +49,10 @@ class SuppliesStore extends StatelessWidget {
           '/detailProduct':(context) => const DetailProductPage(),
           '/payment': (context) => const PaymentPage(),
            '/getmomo': (context) => const MomoWidget(),
-           '/listbill': (context) => const ListBillOrdersWidget()
+           '/listbill': (context) => const ListBillOrdersWidget(),
+           '/sumproduct':(context)=> const SumProductWidget(),
+           '/debitManage':(context)=> const DebitListPage(),
+
         },
       ),
     );

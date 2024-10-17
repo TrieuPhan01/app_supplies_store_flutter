@@ -26,10 +26,7 @@ class CustomerProvider with ChangeNotifier {
   Customer? get customer => _customer;
 
   void setCustomer(Customer? customer) {
-    print(
-        "cus trong provided ${customer?.address} ${customer?.age} ${customer?.id} ${customer?.sex}");
     _customer = customer;
-    print(customer?.address);
     notifyListeners();
   }
 }

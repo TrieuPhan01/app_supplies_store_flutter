@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_supplies_store_flutter/fields/indent_dield.dart';
+import 'package:app_supplies_store_flutter/providers/roles_povider.dart';
 import 'package:app_supplies_store_flutter/providers/user_povider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -53,20 +54,29 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
     _fetchUserCategoriesProduct();
   }
 
+  UserProvider userProvider(BuildContext context) {
+    return Provider.of<UserProvider>(context, listen: false);
+  }
+
+  User? user(BuildContext context) {
+    return userProvider(context).user;
+  }
+
   Future<void> _fetchUserCategoriesProduct() async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    final user = userProvider.user;
+    // final userProvider = Provider.of<UserProvider>(context, listen: false);
+    // final user = userProvider.user;
+
     final String apiUrl = dotenv.env['API_URL'] ?? 'No API URL Found';
-    final cat_response = await http.get(
+    final catResponseHome = await http.get(
       Uri.parse('$apiUrl/api/Categories/categoryProduct'),
       headers: <String, String>{
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer ${user?.token}',
+        'Authorization': 'Bearer ${user(context)?.token}',
       },
     );
 
-    if (cat_response.statusCode == 200) {
-      final List<dynamic> categoryData = jsonDecode(cat_response.body);
+    if (catResponseHome.statusCode == 200) {
+      final List<dynamic> categoryData = jsonDecode(catResponseHome.body);
       // Lấy danh mục từ dữ liệu API và ánh xạ sang list _categories
       final List<Category> fetchedCategories = categoryData
           .map((categoryJson) => Category(
@@ -82,14 +92,16 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                     .toList(),
               ))
           .toList();
-          if (mounted) {setState(() {
-        _categories = fetchedCategories;
-        // Chỉ set _selectedCategory khi _categories không rỗng
-        if (_categories.isNotEmpty) {
-          _selectedCategory = _categories.first.name;
-        }
-      });}
-      
+      if (mounted) {
+        setState(() {
+          _categories = fetchedCategories;
+          // Chỉ set _selectedCategory khi _categories không rỗng
+          if (_categories.isNotEmpty) {
+            _selectedCategory = _categories.first.name;
+          }
+        });
+      }
+
       // print("in categoryData $categoryData");
     }
   }
@@ -107,6 +119,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
       child: Scaffold(
         backgroundColor: const Color(0xfff1f4f8),
         appBar: _buildAppBar(),
+        drawer: _buildDrawer(),
         body: SafeArea(
           child: HomeScreen(),
         ),
@@ -141,11 +154,17 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
-      toolbarHeight: 100,
+      toolbarHeight: 80,
       backgroundColor: Colors.green,
-      leading: IconButton(
-        icon: const Icon(Icons.menu, color: Colors.white, size: 26),
-        onPressed: () {},
+      leading: Builder(
+        builder: (context) {
+          return IconButton(
+            icon: const Icon(Icons.menu, color: Colors.white, size: 26),
+            onPressed: () {
+              Scaffold.of(context).openDrawer(); // Mở Drawer khi nhấn nút
+            },
+          );
+        },
       ),
       title: _buildSearchField(),
       actions: [
@@ -158,6 +177,62 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
           onPressed: () {},
         ),
       ],
+    );
+  }
+  Widget _buildDrawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.green,
+            ),
+            child: Text(
+              'Menu',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+              ),
+            ),
+          ),
+          if (user(context)?.roles == RolesPovider.Staff ||
+              user(context)?.roles == RolesPovider.Admin)
+            ListTile(
+              leading: const Icon(Icons.poll_rounded),
+              title: const Text('Kểm tra số lượng sản phẩm'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(
+                context,
+                '/sumproduct',
+              );
+              },
+            ),
+            if (user(context)?.roles == RolesPovider.Staff ||
+              user(context)?.roles == RolesPovider.Admin)
+             ListTile(
+              leading: const Icon(Icons.pending_actions_rounded),
+              title: const Text('Quản lý ghi nợ'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(
+                context,
+                '/debitManage',
+              );
+              },
+            ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
+            onTap: () {
+              
+              Navigator.pop(context);
+              
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -476,10 +551,11 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
         selected: _selectedCategory == label,
         onSelected: (bool selected) {
           if (selected) {
-            if (mounted) { setState(() {
-              _selectedCategory = label;
-            });}
-           
+            if (mounted) {
+              setState(() {
+                _selectedCategory = label;
+              });
+            }
           }
         },
         selectedColor: Colors.lightGreen[400],
@@ -572,13 +648,13 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
       return []; // Trả về danh sách rỗng nếu chưa có danh mục nào hoặc danh mục trống
     }
 
-    // Dùng orElse để trả về giá trị mặc định nếu không tìm thấy
+    
     return _categories
         .firstWhere(
           (category) => category.name == _selectedCategory,
           orElse: () => Category(
               name: '',
-              products: []), // Nếu không tìm thấy, trả về danh mục trống
+              products: []), 
         )
         .products;
   }

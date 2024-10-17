@@ -30,7 +30,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         Provider.of<CustomerProvider>(context, listen: false);
     final cus = customerProvider.customer;
 
-
     if (cus == null) {
       final response = await http.get(
         Uri.parse('$apiUrl/api/Customers/GetByUserID/${user?.id}'),
@@ -55,6 +54,39 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     }
   }
 
+  Future<bool?> _showLogoutConfirmationDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Xác nhận'),
+          content: const Text('Bạn có chắc muốn đăng xuất?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Hủy'),
+              onPressed: () {
+                Navigator.of(context).pop(false); 
+              },
+            ),
+            TextButton(
+              child: const Text('Đăng xuất'),
+              onPressed: () {
+                Navigator.of(context).pop(true);  
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _logout(BuildContext context) async {
+     final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final user = userProvider.user;
+    user?.token = null;
+    Navigator.of(context).pushReplacementNamed('/login');
+  }
+
   @override
   Widget build(BuildContext context) {
     _fetchUserProfile();
@@ -77,14 +109,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               )),
         ),
         body: Align(
-          alignment: AlignmentDirectional(0, 0),
+          alignment: const AlignmentDirectional(0, 0),
           child: Column(
             children: [
               IndentField(
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                       child: Align(
                         alignment: Alignment.topCenter,
                         child: ClipRRect(
@@ -99,7 +131,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: Consumer<UserProvider>(
@@ -117,7 +149,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: Consumer<UserProvider>(
@@ -234,7 +266,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 243, 244, 245),
+                            backgroundColor: const Color.fromARGB(255, 243, 244, 245),
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 12),
@@ -250,7 +282,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         padding: const EdgeInsets.fromLTRB(
                             10, 10, 0, 0), // Padding cho nút đăng xuất
                         child: ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            bool? confirmLogout =
+                                await _showLogoutConfirmationDialog(context);
+                            if (confirmLogout == true) {
+                              await _logout(context);
+                            }
+                          },
                           label: const Text(
                             'Đăng xuất',
                             style: TextStyle(
@@ -261,7 +299,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 243, 244, 245),
+                            backgroundColor: const Color.fromARGB(255, 243, 244, 245),
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 12),
