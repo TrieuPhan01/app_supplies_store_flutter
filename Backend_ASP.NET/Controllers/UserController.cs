@@ -1,6 +1,7 @@
 ﻿using Backend_ASP.NET.Data;
 using Backend_ASP.NET.Helpers;
 using Backend_ASP.NET.Models;
+using Backend_ASP.NET.Repositories;
 using Backend_ASP.NET.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -15,10 +16,12 @@ namespace Backend_ASP.NET.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+        private readonly ICustomerRepository _customerRepository;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserRepository userRepository, ICustomerRepository customerRepository)
         {
             _userRepository = userRepository;
+            _customerRepository = customerRepository;
         }
 
         [HttpGet]
@@ -107,7 +110,6 @@ namespace Backend_ASP.NET.Controllers
         }
 
         [HttpGet("GetByToken")]
-        //[Authorize(Roles = AppRole.Admin)]
         public async Task<IActionResult> GetToKen()
         {
             try
@@ -128,10 +130,32 @@ namespace Backend_ASP.NET.Controllers
             }
         }
 
+        [HttpGet("NamebyCustomerId/{username}")]
+        public async Task<IActionResult> NamebyCustomerId(string username)
+        {
+            try
+            {
+                var data = await _userRepository.GetByUserName(username);
+               
+                if (data == null)
+                {
+                    return BadRequest("User rong");
+                }
+                Console.WriteLine("'in id'"+ data.Id);
+                string? a = data.Id;
 
 
-
-
-
+                var customer = await _customerRepository.GetByUserID(a);
+                if (customer == null)
+                {
+                    return NoContent();
+                }
+                return Ok(customer.CustommerId);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

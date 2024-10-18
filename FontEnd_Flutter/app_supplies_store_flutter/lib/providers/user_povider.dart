@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class User {
   final String? id;
   final String? name;
-  final String? roles;
+  late final String? roles;
   final String? userName;
   final String? firstName;
   final String? lastName;
   final String? email;
   final String? phoneNumber;
   final String? avata;
-  final String? token;
+  String? token;
 
   User({
     required this.id,

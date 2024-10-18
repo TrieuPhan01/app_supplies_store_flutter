@@ -1,3 +1,6 @@
+import 'package:app_supplies_store_flutter/EmployeeFunctions/SumProduct.dart';
+import 'package:app_supplies_store_flutter/pages/create_debit.dart';
+import 'package:app_supplies_store_flutter/pages/debit_manage.dart';
 import 'package:app_supplies_store_flutter/pages/detailed_product.dart';
 import 'package:app_supplies_store_flutter/pages/list_bill_order.dart';
 import 'package:app_supplies_store_flutter/pages/momo_page.dart';
@@ -10,6 +13,7 @@ import 'package:app_supplies_store_flutter/pages/signup.dart';
 import 'package:app_supplies_store_flutter/pages/viewsApp.dart';
 import 'package:app_supplies_store_flutter/pages/welcome_page.dart';
 import 'package:app_supplies_store_flutter/providers/customer_povider.dart';
+import 'package:app_supplies_store_flutter/providers/employees_provider.dart';
 import 'package:app_supplies_store_flutter/providers/user_povider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -32,6 +36,7 @@ class SuppliesStore extends StatelessWidget {
         // Đăng ký Provider
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => CustomerProvider()),
+         ChangeNotifierProvider(create: (_) => EmployeesProvider()),
       ],
       child: MaterialApp(
         title: 'Supplies Store',
@@ -44,10 +49,13 @@ class SuppliesStore extends StatelessWidget {
           '/viewapp': (context) => const ViewAppScreen(),
           '/profile': (context) => const ProfileWidget(),
           '/product': (context) => const ProductListPage(),
-          '/detailProduct':(context) => const DetailProductPage(),
+          '/detailProduct': (context) => const DetailProductPage(),
           '/payment': (context) => const PaymentPage(),
-           '/getmomo': (context) => const MomoWidget(),
-           '/listbill': (context) => const ListBillOrdersWidget()
+          '/getmomo': (context) => const MomoWidget(),
+          '/listbill': (context) => const ListBillOrdersWidget(),
+          '/sumproduct': (context) => const SumProductWidget(),
+          '/debitManage': (context) => const DebitListPage(),
+          '/createDebit': (context) => const CreateDebitWidget(),
         },
       ),
     );

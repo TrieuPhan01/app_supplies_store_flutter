@@ -77,6 +77,16 @@
   },
   {
     "ContainingType": "AdminController",
+    "Method": "Stats",
+    "RelativePath": "Admin/Stats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AdminController",
     "Method": "Suppliers",
     "RelativePath": "Admin/Suppliers",
     "HttpMethod": "GET",
@@ -941,6 +951,22 @@
     "ContainingType": "Backend_ASP.NET.Controllers.UserController",
     "Method": "GetByUserName",
     "RelativePath": "api/User/GetByUserName/{username}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.UserController",
+    "Method": "NamebyCustomerId",
+    "RelativePath": "api/User/NamebyCustomerId/{username}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

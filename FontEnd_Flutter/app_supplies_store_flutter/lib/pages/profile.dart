@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:app_supplies_store_flutter/fields/indent_dield.dart';
 import 'package:app_supplies_store_flutter/providers/customer_povider.dart';
+import 'package:app_supplies_store_flutter/providers/employees_provider.dart';
+import 'package:app_supplies_store_flutter/providers/roles_povider.dart';
 import 'package:app_supplies_store_flutter/providers/user_povider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -29,30 +31,95 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     final customerProvider =
         Provider.of<CustomerProvider>(context, listen: false);
     final cus = customerProvider.customer;
+    final employeesProvider =
+        Provider.of<EmployeesProvider>(context, listen: false);
+    final emp = employeesProvider.employees;
 
-
-    if (cus == null) {
-      final response = await http.get(
-        Uri.parse('$apiUrl/api/Customers/GetByUserID/${user?.id}'),
-        headers: <String, String>{
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer ${user?.token}',
-        },
-      );
-
-      Customer cus = Customer.zero();
-      if (response.statusCode == 200) {
-        final customerData = jsonDecode(response.body) as Map<String, dynamic>;
-        cus = Customer(
-          id: customerData['custommerId'] as String,
-          age: customerData['age'] as int,
-          sex: customerData['sex'] as int,
-          address: customerData['address'] as String,
+    if (user?.roles == RolesPovider.Customer) {
+      if (cus == null) {
+        final response = await http.get(
+          Uri.parse('$apiUrl/api/Customers/GetByUserID/${user?.id}'),
+          headers: <String, String>{
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Bearer ${user?.token}',
+          },
         );
+
+        Customer cus = Customer.zero();
+        if (response.statusCode == 200) {
+          final customerData =
+              jsonDecode(response.body) as Map<String, dynamic>;
+          cus = Customer(
+            id: customerData['custommerId'] as String,
+            age: customerData['age'] as int,
+            sex: customerData['sex'] as int,
+            address: customerData['address'] as String,
+          );
+        }
+        final cusProvider =
+            Provider.of<CustomerProvider>(context, listen: false);
+        cusProvider.setCustomer(cus);
       }
-      final cusProvider = Provider.of<CustomerProvider>(context, listen: false);
-      cusProvider.setCustomer(cus);
+    } else if (user?.roles == RolesPovider.Admin ||
+        user?.roles == RolesPovider.Staff) {
+      if (emp == null) {
+        final response = await http.get(
+          Uri.parse('$apiUrl/api/Employees/GetByUserID/${user?.id}'),
+          headers: <String, String>{
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Bearer ${user?.token}',
+          },
+        );
+        print(response.body);
+        Employees emp = Employees.zero();
+        if (response.statusCode == 200) {
+          final employyesData = jsonDecode(response.body) as Map<String, dynamic>;
+          emp = Employees(
+            employeeId: employyesData['employeeId'] as String,
+            hireDate: employyesData['hireDate'] as String,
+            salary: employyesData['salary'] as int,
+            position: employyesData['position'] as String,
+          );
+        }
+        final empProvider = Provider.of<EmployeesProvider>(context, listen: false);
+        empProvider.setEmployees(emp);
+      }
+
+      
     }
+  }
+
+  Future<bool?> _showLogoutConfirmationDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Xác nhận'),
+          content: const Text('Bạn có chắc muốn đăng xuất?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Hủy'),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+            TextButton(
+              child: const Text('Đăng xuất'),
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _logout(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final user = userProvider.user;
+    user?.token = null;
+    Navigator.of(context).pushReplacementNamed('/login');
   }
 
   @override
@@ -77,14 +144,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               )),
         ),
         body: Align(
-          alignment: AlignmentDirectional(0, 0),
+          alignment: const AlignmentDirectional(0, 0),
           child: Column(
             children: [
               IndentField(
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                       child: Align(
                         alignment: Alignment.topCenter,
                         child: ClipRRect(
@@ -99,7 +166,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: Consumer<UserProvider>(
@@ -117,7 +184,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: Consumer<UserProvider>(
@@ -234,7 +301,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 243, 244, 245),
+                            backgroundColor:
+                                const Color.fromARGB(255, 243, 244, 245),
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 12),
@@ -250,7 +318,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         padding: const EdgeInsets.fromLTRB(
                             10, 10, 0, 0), // Padding cho nút đăng xuất
                         child: ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            bool? confirmLogout =
+                                await _showLogoutConfirmationDialog(context);
+                            if (confirmLogout == true) {
+                              await _logout(context);
+                            }
+                          },
                           label: const Text(
                             'Đăng xuất',
                             style: TextStyle(
@@ -261,7 +335,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 243, 244, 245),
+                            backgroundColor:
+                                const Color.fromARGB(255, 243, 244, 245),
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 12),

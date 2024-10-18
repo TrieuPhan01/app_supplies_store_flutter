@@ -105,6 +105,7 @@ namespace Backend_ASP.NET.Controllers
                     return BadRequest(ModelState);
                 }
                 debit.ID = Guid.NewGuid();
+                debit.PaymentStatus = false;
                 await _debitsRepository.Add(debit);
                 return CreatedAtAction(nameof(GetByID), new { id = debit.ID }, debit);
             }
@@ -113,5 +114,6 @@ namespace Backend_ASP.NET.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
     }
 }
