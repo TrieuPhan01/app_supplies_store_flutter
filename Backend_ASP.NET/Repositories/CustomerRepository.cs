@@ -85,7 +85,7 @@ namespace Backend_ASP.NET.Repositories
             var customer = await _context.Customs.FirstOrDefaultAsync(c => c.UserId == userId);
             if (customer == null)
             {
-                return null;
+                return null!;
             }
             return _mapper.Map<CustomerModel>(customer);
         }

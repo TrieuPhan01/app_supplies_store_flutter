@@ -30,3 +30,4 @@ class CustomerProvider with ChangeNotifier {
     notifyListeners();
   }
 }
+

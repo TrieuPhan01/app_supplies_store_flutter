@@ -10,5 +10,6 @@ namespace Backend_ASP.NET.Repositories
         Task Add(EmployeesModel employees);
         Task Delete(Guid id);
         Task<EmployeesModel> GetByUserID(string userId);
+
     }
 }

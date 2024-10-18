@@ -964,6 +964,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Backend_ASP.NET.Controllers.UserController",
+    "Method": "NamebyCustomerId",
+    "RelativePath": "api/User/NamebyCustomerId/{username}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Backend_ASP.NET.Controllers.OrderDetailsController",
     "Method": "Add",
     "RelativePath": "Create",

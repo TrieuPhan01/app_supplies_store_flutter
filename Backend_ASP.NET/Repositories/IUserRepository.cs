@@ -1,5 +1,6 @@
 ﻿
 using Backend_ASP.NET.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend_ASP.NET.Services
 {
@@ -11,7 +12,8 @@ namespace Backend_ASP.NET.Services
         Task Delete(string id);
         Task<string?> GetUserRole(string id);
         Task<UserEditViewModel> GetByUserName(string username);
-     
+
+
 
     }
 }

@@ -280,7 +280,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             borderRadius: BorderRadius.circular(14),
                           ),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 100, vertical: 15),
+                              horizontal: 60, vertical: 15),
                         ),
                         child: const Text(
                           'Đăng ký tài khoản',

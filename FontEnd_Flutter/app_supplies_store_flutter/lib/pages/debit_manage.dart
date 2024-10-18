@@ -27,7 +27,7 @@ class _DebitListPageState extends State<DebitListPage> {
 
   Future<void> _fetchDebits() async {
     final String apiUrl = dotenv.env['API_URL'] ?? 'No API URL Found';
- final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     final user = userProvider.user;
     try {
       final debitResponse = await http.get(
@@ -40,17 +40,19 @@ class _DebitListPageState extends State<DebitListPage> {
       if (debitResponse.statusCode == 200) {
         List<dynamic> jsonList = json.decode(debitResponse.body);
         setState(() {
-          _debits = jsonList.map((json) => DebitProvider(
-            id: json['id'],
-            name: json['name'],
-            note: json['note'],
-            totalMoney: json['totalMoney'],
-            paymentStatus: json['paymentStatus'],
-            debPurchaseDate: json['debPurchaseDate'],
-            customerID: json['customerID'],
-            employeeID: json['employeeID'],
-            storeID: json['storeID'],
-          )).toList();
+          _debits = jsonList
+              .map((json) => DebitProvider(
+                    id: json['id'],
+                    name: json['name'],
+                    note: json['note'],
+                    totalMoney: json['totalMoney'],
+                    paymentStatus: json['paymentStatus'],
+                    debPurchaseDate: json['debPurchaseDate'],
+                    customerID: json['customerID'],
+                    employeeID: json['employeeID'],
+                    storeID: json['storeID'],
+                  ))
+              .toList();
           _filteredDebits = _debits;
         });
       } else {
@@ -64,10 +66,11 @@ class _DebitListPageState extends State<DebitListPage> {
 
   void _filterDebits(String query) {
     setState(() {
-      _filteredDebits = _debits.where((debit) =>
-        debit.name?.toLowerCase().contains(query.toLowerCase()) ?? false ||
-        debit.note!.toLowerCase().contains(query.toLowerCase())
-      ).toList();
+      _filteredDebits = _debits
+          .where((debit) =>
+              debit.name?.toLowerCase().contains(query.toLowerCase()) ??
+              false || debit.note!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     });
   }
 
@@ -75,6 +78,7 @@ class _DebitListPageState extends State<DebitListPage> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: TextField(
+        autofocus: true,
         controller: _searchController,
         decoration: InputDecoration(
           hintText: 'Tìm kiếm ghi nợ...',
@@ -130,7 +134,8 @@ class _DebitListPageState extends State<DebitListPage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 8, 0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 4, 8, 0),
                             child: Text(
                               debit.note ?? 'Không có ghi chú',
                               textAlign: TextAlign.start,
@@ -144,7 +149,7 @@ class _DebitListPageState extends State<DebitListPage> {
                           SizedBox(height: 8),
                           Text(
                             'Tổng tiền: ${NumberFormat('#,###').format(debit.totalMoney ?? 0)} VNĐ',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -169,15 +174,18 @@ class _DebitListPageState extends State<DebitListPage> {
                     children: [
                       Chip(
                         label: Text(
-                          debit.paymentStatus == true ? 'Đã thanh toán' : 'Chưa thanh toán',
-                          style: const TextStyle(color: Colors.white, fontSize: 12),
+                          debit.paymentStatus == true
+                              ? 'Đã thanh toán'
+                              : 'Chưa thanh toán',
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 12),
                         ),
-                        backgroundColor: debit.paymentStatus == true ? Colors.green : Colors.red,
+                        backgroundColor: debit.paymentStatus == true
+                            ? Colors.green
+                            : Colors.red,
                       ),
                       IconButton(
-                        onPressed: () {
-                          
-                        },
+                        onPressed: () {},
                         icon: const Icon(
                           Icons.chevron_right_rounded,
                           color: Color(0xFF57636C),
@@ -205,6 +213,9 @@ class _DebitListPageState extends State<DebitListPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
       child: Scaffold(
         backgroundColor: const Color(0xfff1f4f8),
         appBar: AppBar(
@@ -226,10 +237,11 @@ class _DebitListPageState extends State<DebitListPage> {
               padding: const EdgeInsets.only(right: 14, top: 30),
               child: ElevatedButton.icon(
                 onPressed: () {
-                  // TODO: Implement add debit functionality
+                  Navigator.pushNamed(context, '/createDebit');
                 },
                 icon: const Icon(Icons.add, color: Colors.white),
-                label: const Text('Thêm ghi nợ', style: TextStyle(color: Colors.white)),
+                label: const Text('Thêm ghi nợ',
+                    style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
                 ),

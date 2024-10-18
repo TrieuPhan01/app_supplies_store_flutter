@@ -116,5 +116,22 @@ namespace Backend_ASP.NET.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet("GetByUserID/{userid}")]
+        public async Task<IActionResult> GetByUserID(string userid)
+        {
+            try
+            {
+                var data = await _employeeRepository.GetByUserID(userid);
+                if (data == null)
+                {
+                    return NotFound();
+                }
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

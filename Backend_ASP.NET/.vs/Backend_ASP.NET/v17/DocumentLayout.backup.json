@@ -3,20 +3,52 @@
   "WorkspaceRootPath": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\momorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\momorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\helpers\\approle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:helpers\\approle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\customerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\customerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\debtitsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\debtitsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\idebitsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\idebitsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\controllers\\debitscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:controllers\\debitscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\data\\debits.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:data\\debits.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\models\\paymentmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:models\\paymentmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\momorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\momorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\helpers\\approle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:helpers\\approle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\data\\categories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -43,10 +75,6 @@
       "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:models\\statsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\models\\debitsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:models\\debitsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\repositories\\productsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:repositories\\productsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -61,10 +89,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|d:\\phan_hoang_trieu\\clone\\app_supplies_store_flutter\\backend_asp.net\\controllers\\debitscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{03E2E14E-27A8-40A5-837D-135C8CE7EF3D}|Backend_ASP.NET.csproj|solutionrelative:controllers\\debitscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -73,12 +97,12 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 305,
-          "SelectedChildIndex": 3,
+          "DockedWidth": 246,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 21,
               "Title": "_AdminLayout.cshtml",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Views\\Shared\\_AdminLayout.cshtml",
               "RelativeDocumentMoniker": "Views\\Shared\\_AdminLayout.cshtml",
@@ -91,19 +115,85 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AppRole.cs",
-              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Helpers\\AppRole.cs",
-              "RelativeDocumentMoniker": "Helpers\\AppRole.cs",
-              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Helpers\\AppRole.cs",
-              "RelativeToolTip": "Helpers\\AppRole.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "IDebitsRepository.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\IDebitsRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\IDebitsRepository.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\IDebitsRepository.cs",
+              "RelativeToolTip": "Repositories\\IDebitsRepository.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAhwAkAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T08:12:56.827Z"
+              "WhenOpened": "2024-10-17T04:15:48.013Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAAwJMAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T04:18:01.195Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\IUserRepository.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\IUserRepository.cs",
+              "RelativeToolTip": "Repositories\\IUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T08:43:28.258Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\UserRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\UserRepository.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\UserRepository.cs",
+              "RelativeToolTip": "Repositories\\UserRepository.cs",
+              "ViewState": "AgIAAH8AAAAAAAAAAAAcwJQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T08:43:56.987Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DebitsController.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\DebitsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DebitsController.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\DebitsController.cs",
+              "RelativeToolTip": "Controllers\\DebitsController.cs",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAAwG8AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T07:00:16.855Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Debits.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Data\\Debits.cs",
+              "RelativeDocumentMoniker": "Data\\Debits.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Data\\Debits.cs",
+              "RelativeToolTip": "Data\\Debits.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T03:33:21.413Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "Categories.cs",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Data\\Categories.cs",
               "RelativeDocumentMoniker": "Data\\Categories.cs",
@@ -115,20 +205,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 11,
+              "Title": "AppRole.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Helpers\\AppRole.cs",
+              "RelativeDocumentMoniker": "Helpers\\AppRole.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Helpers\\AppRole.cs",
+              "RelativeToolTip": "Helpers\\AppRole.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:12:56.827Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "MomoRepository.cs",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\MomoRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\MomoRepository.cs",
               "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\MomoRepository.cs",
               "RelativeToolTip": "Repositories\\MomoRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAmwAsAAABQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-15T10:13:52.314Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 15,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Views\\Categories\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Categories\\Index.cshtml",
@@ -140,7 +242,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 14,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Views\\Debits\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Debits\\Index.cshtml",
@@ -149,28 +251,16 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAYwB0AAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-10-15T07:17:24.309Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "DebitsController.cs",
-              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\DebitsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\DebitsController.cs",
-              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\DebitsController.cs",
-              "RelativeToolTip": "Controllers\\DebitsController.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T07:00:16.855Z"
             }
           ]
         },
         {
-          "DockedWidth": 144,
+          "DockedWidth": 203,
           "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 16,
               "Title": "AdminController.cs",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\AdminController.cs",
               "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
@@ -183,20 +273,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PaymentModel.cs",
-              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\PaymentModel.cs",
-              "RelativeDocumentMoniker": "Models\\PaymentModel.cs",
-              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\PaymentModel.cs",
-              "RelativeToolTip": "Models\\PaymentModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "CustomerRepository.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\CustomerRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\CustomerRepository.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\CustomerRepository.cs",
+              "RelativeToolTip": "Repositories\\CustomerRepository.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAmwFkAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T11:22:08.654Z",
+              "WhenOpened": "2024-10-17T08:51:07.658Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
+              "Title": "DebtitsRepository.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\DebtitsRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\DebtitsRepository.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\DebtitsRepository.cs",
+              "RelativeToolTip": "Repositories\\DebtitsRepository.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAuwBUAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T03:33:09.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "CategoriesController.cs",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Controllers\\CategoriesController.cs",
               "RelativeDocumentMoniker": "Controllers\\CategoriesController.cs",
@@ -204,11 +307,25 @@
               "RelativeToolTip": "Controllers\\CategoriesController.cs",
               "ViewState": "AgIAAEIAAAAAAAAAAAAlwFgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T03:54:43.671Z"
+              "WhenOpened": "2024-10-16T03:54:43.671Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 9,
+              "Title": "PaymentModel.cs",
+              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\PaymentModel.cs",
+              "RelativeDocumentMoniker": "Models\\PaymentModel.cs",
+              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\PaymentModel.cs",
+              "RelativeToolTip": "Models\\PaymentModel.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T11:22:08.654Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
               "Title": "ProductsModel.cs",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\ProductsModel.cs",
               "RelativeDocumentMoniker": "Models\\ProductsModel.cs",
@@ -220,7 +337,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 18,
               "Title": "ProductsRepository.cs",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Repositories\\ProductsRepository.cs",
               "RelativeDocumentMoniker": "Repositories\\ProductsRepository.cs",
@@ -232,7 +349,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 13,
               "Title": "CategoriesModel.cs",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\CategoriesModel.cs",
               "RelativeDocumentMoniker": "Models\\CategoriesModel.cs",
@@ -244,7 +361,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 20,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Views\\Stats\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Stats\\Index.cshtml",
@@ -256,7 +373,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 17,
               "Title": "StatsModel.cs",
               "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\StatsModel.cs",
               "RelativeDocumentMoniker": "Models\\StatsModel.cs",
@@ -265,18 +382,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-15T08:19:52.962Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "DebitsModel.cs",
-              "DocumentMoniker": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\DebitsModel.cs",
-              "RelativeDocumentMoniker": "Models\\DebitsModel.cs",
-              "ToolTip": "D:\\PHAN_HOANG_TRIEU\\CLONE\\app_supplies_store_flutter\\Backend_ASP.NET\\Models\\DebitsModel.cs",
-              "RelativeToolTip": "Models\\DebitsModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T07:00:34.21Z"
             }
           ]
         }
