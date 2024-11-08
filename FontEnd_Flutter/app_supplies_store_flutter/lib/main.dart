@@ -10,6 +10,7 @@ import 'package:app_supplies_store_flutter/pages/home.dart';
 import 'package:app_supplies_store_flutter/pages/login.dart';
 import 'package:app_supplies_store_flutter/pages/profile.dart';
 import 'package:app_supplies_store_flutter/pages/signup.dart';
+import 'package:app_supplies_store_flutter/pages/update_profile.dart';
 import 'package:app_supplies_store_flutter/pages/viewsApp.dart';
 import 'package:app_supplies_store_flutter/pages/welcome_page.dart';
 import 'package:app_supplies_store_flutter/providers/customer_povider.dart';
@@ -56,6 +57,7 @@ class SuppliesStore extends StatelessWidget {
           '/sumproduct': (context) => const SumProductWidget(),
           '/debitManage': (context) => const DebitListPage(),
           '/createDebit': (context) => const CreateDebitWidget(),
+          '/updateProfile': (context) => const UpdateProfileWidget(),
         },
       ),
     );

@@ -20,11 +20,14 @@
 
         public ICollection<StoreCustomer> StoreCustomers { get; set; } 
         public ICollection<Orders> Orders { get; set; }
+        public ICollection<Debits> Debitsc { get; set; }
 
         public Custommers()
         {
             StoreCustomers = new List<StoreCustomer>();
-            
+            Debitsc = new List<Debits>();
+
+
         }
 
     }

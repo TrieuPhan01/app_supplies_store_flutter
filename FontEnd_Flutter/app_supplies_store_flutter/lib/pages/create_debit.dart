@@ -6,6 +6,7 @@ import 'package:app_supplies_store_flutter/providers/user_povider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class CreateDebitWidget extends StatefulWidget {
@@ -35,14 +36,15 @@ class _CreateDebitWidgetState extends State<CreateDebitWidget> {
         'Authorization': 'Bearer ${user?.token}',
       },
     );
-    print("check phone number ${phoneNumberes.body}");
-    print("check namer ${_nameController.text}");
-    print("check note ${_noteController.text}");
-    print("check total ${_totalMoneyController.text}");
+    // print("check phone number ${phoneNumberes.body}");
+    // print("check namer ${_nameController.text}");
+    // print("check note ${_noteController.text}");
+    // print("check total ${_totalMoneyController.text}");
 
     if (phoneNumberes.statusCode == 200) {
-      
-      UserIDDebit = phoneNumberes.body;
+      final dataa = jsonDecode(phoneNumberes.body);
+      print('dataaaaaaaaaaaaaaaaaaaaa ${dataa}');
+       UserIDDebit = dataa;
       return true;
     } 
      else if (phoneNumberes.statusCode == 204) {
@@ -66,12 +68,15 @@ class _CreateDebitWidgetState extends State<CreateDebitWidget> {
         _autoValidate = true;
       });
       try {
-        print("vào respo");
-        print("vào _nameController.text ${_nameController.text}");
-        print("vào _noteController.text ${_noteController.text}");
-        print("vào _totalMoneyController.text ${_totalMoneyController.text}");
-        print("vào UserIDDebit $UserIDDebit");
-        print("vào user?.id ${employee?.employeeId}");
+        // print("vào respo");
+        // print("vào _nameController.text ${_nameController.text}");
+        // print("vào _noteController.text ${_noteController.text}");
+        // print("vào _totalMoneyController.text ${_totalMoneyController.text}");
+        // print("vào UserIDDebit $UserIDDebit");
+        // print("vào user?.id ${employee?.employeeId}");
+        
+        String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now().toUtc());
+        print(formattedDate);
 
         final response = await http.post(
           Uri.parse('$apiUrl/api/Debits/Create'),
@@ -95,12 +100,12 @@ class _CreateDebitWidgetState extends State<CreateDebitWidget> {
         );
         print(UserIDDebit);
         print(response.body);
-        if (response.statusCode == 200) {
+        if (response.statusCode == 201) {
           print("vào 200");
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Đăng ký thành công!')));
+              const SnackBar(content: Text('Tạo ghi nợ thành công!')));
           print("navigate");
-          Navigator.pushReplacementNamed(context, '/welcome');
+          Navigator.pushReplacementNamed(context, '/debitManage');
         
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -126,6 +131,7 @@ class _CreateDebitWidgetState extends State<CreateDebitWidget> {
     } else if (value.isNotEmpty) {
       try {
         bool isValid = await checkPhoneNumber(value);
+        print(isValid);
         setState(() {
           if (!isValid) {
             _phoneError = 'Số điện thoại không tồn tại';

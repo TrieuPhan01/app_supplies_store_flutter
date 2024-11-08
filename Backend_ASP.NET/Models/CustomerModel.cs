@@ -13,4 +13,11 @@ namespace Backend_ASP.NET.Models
         public string? UserId { get; set; }
 
     }
+    public class CustomerModelPatch
+    {
+        public int? Age { get; set; }
+        public sexEnum? Sex { get; set; }
+        public String? Address { get; set; }
+        public String? Avatar { get; set; }
+    }
 }

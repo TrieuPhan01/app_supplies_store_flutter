@@ -36,16 +36,27 @@ dependencies:
   uuid: ^3.0.6  
   url_launcher: ^6.0.9
   fluttertoast: ^8.2.1
+  image_picker: ^1.1.0
+  permission_handler: ^10.2.0
+  # firebase_core: ^1.0.2
+  # firebase_auth: ^1.0.1
+  stacked_services: ^1.5.1
+  freezed_annotation: ^0.14.1
+  json_annotation: ^4.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   google_fonts: ^6.2.1
   font_awesome_flutter: ^10.7.0
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.0.6
+  freezed: ^0.14.1+2
+  json_serializable: ^4.1.0 
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -114,3 +125,23 @@ flutter:
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+color: "#D9614C"
+image: assets/logo/logoapp.png
+#branding: assets/branding/splash.png
+
+android_12:
+  image: assets/logo/logoapp.png
+  icon_background_color: "#D9614C"
+# run below command:
+# fvm flutter pub run flutter_native_splash:create
+
+flutter_icons:
+android: true
+ios: true
+remove_alpha_ios: true
+image_path: "assets/logo/logoapp.png"
+  #  image_path: "assets/images/logo-ios.png"
+  # run below command:
+  # fvm flutter pub run flutter_launcher_icons:main

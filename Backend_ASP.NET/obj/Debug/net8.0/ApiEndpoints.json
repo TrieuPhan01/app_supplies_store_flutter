@@ -459,6 +459,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Backend_ASP.NET.Controllers.CustomersController",
+    "Method": "UpdateProfile",
+    "RelativePath": "api/Customers/UpdateProfile/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "Backend_ASP.NET.Models.CustomerModelPatch",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Backend_ASP.NET.Controllers.DebitsController",
     "Method": "GetAll",
     "RelativePath": "api/Debits",
@@ -590,6 +611,22 @@
       {
         "Name": "id",
         "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Backend_ASP.NET.Controllers.EmployeesController",
+    "Method": "GetByUserID",
+    "RelativePath": "api/Employees/GetByUserID/{userid}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userid",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

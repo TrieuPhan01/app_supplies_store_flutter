@@ -105,13 +105,14 @@ namespace Backend_ASP.NET.Controllers
                     return BadRequest(ModelState);
                 }
                 debit.ID = Guid.NewGuid();
+                debit.DebPurchaseDate = DateTime.UtcNow;
                 debit.PaymentStatus = false;
                 await _debitsRepository.Add(debit);
                 return CreatedAtAction(nameof(GetByID), new { id = debit.ID }, debit);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, $"Internal server error: {ex}");
             }
         }
 

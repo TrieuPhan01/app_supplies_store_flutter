@@ -24,6 +24,18 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     _fetchUserProfile();
   }
 
+  Future<void> _navigateToUpdateProfile() async {
+    final result = await Navigator.pushNamed(context, '/updateProfile');
+    if (result == true) {
+      await _fetchUserProfile(); // Cập nhật lại thông tin khi quay lại
+      setState(() {}); // Đảm bảo UI được làm mới
+    }
+  }
+  Future<void> _refreshData() async {
+  await _fetchUserProfile();
+  setState(() {});
+}
+
   Future<void> _fetchUserProfile() async {
     final String apiUrl = dotenv.env['API_URL'] ?? 'No API URL Found';
     final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -44,7 +56,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             'Authorization': 'Bearer ${user?.token}',
           },
         );
-
         Customer cus = Customer.zero();
         if (response.statusCode == 200) {
           final customerData =
@@ -73,7 +84,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         print(response.body);
         Employees emp = Employees.zero();
         if (response.statusCode == 200) {
-          final employyesData = jsonDecode(response.body) as Map<String, dynamic>;
+          final employyesData =
+              jsonDecode(response.body) as Map<String, dynamic>;
           emp = Employees(
             employeeId: employyesData['employeeId'] as String,
             hireDate: employyesData['hireDate'] as String,
@@ -81,11 +93,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             position: employyesData['position'] as String,
           );
         }
-        final empProvider = Provider.of<EmployeesProvider>(context, listen: false);
+        final empProvider =
+            Provider.of<EmployeesProvider>(context, listen: false);
         empProvider.setEmployees(emp);
       }
-
-      
     }
   }
 
@@ -143,221 +154,223 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 ),
               )),
         ),
-        body: Align(
-          alignment: const AlignmentDirectional(0, 0),
-          child: Column(
-            children: [
-              IndentField(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.network(
-                            'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Consumer<UserProvider>(
-                          builder: (context, userProvider, child) {
-                            return Text(
-                              ' ${userProvider.user!.firstName ?? ' '} ${userProvider.user!.lastName ?? userProvider.user!.userName ?? 'bạn'} ',
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 28,
-                                fontFamily: 'SourceSans',
+        body: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: RefreshIndicator(
+            onRefresh: _refreshData,
+            child: Align(
+              alignment: const AlignmentDirectional(0, 0),
+              child: Column(
+                children: [
+                  IndentField(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(
+                                'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
                               ),
-                            );
-                          },
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Consumer<UserProvider>(
-                          builder: (context, userProvider, child) {
-                            return Text(
-                              ' ${userProvider.user!.roles ?? ' '} ',
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 151, 133, 127),
-                                fontSize: 18,
-                                fontFamily: 'SourceSans',
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              IndentField(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
-                        child: Consumer<UserProvider>(
-                          builder: (context, userProvider, child) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Email: ${userProvider.user!.email ?? ' '}',
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Consumer<UserProvider>(
+                              builder: (context, userProvider, child) {
+                                return Text(
+                                  ' ${userProvider.user!.firstName ?? ' '} ${userProvider.user!.lastName ?? userProvider.user!.userName ?? 'bạn'} ',
                                   style: const TextStyle(
-                                    color: Color(0xff12103D),
-                                    fontSize: 18,
-                                    fontFamily: 'MontserratSemiBold',
+                                    color: Colors.black,
+                                    fontSize: 28,
+                                    fontFamily: 'SourceSans',
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 5.0),
-                                  child: Text(
-                                    'Số điện thoại: ${userProvider.user!.phoneNumber ?? ' '}',
-                                    style: const TextStyle(
-                                      color: Color(0xff12103D),
-                                      fontSize: 18,
-                                      fontFamily: 'MontserratSemiBold',
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
+                                );
+                              },
+                            ),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 5, 0, 0),
-                        child: Consumer<CustomerProvider>(
-                          builder: (context, customerProvider, child) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Tuổi: ${customerProvider.customer?.age ?? ' '}',
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Consumer<UserProvider>(
+                              builder: (context, userProvider, child) {
+                                return Text(
+                                  ' ${userProvider.user!.roles ?? ' '} ',
                                   style: const TextStyle(
-                                    color: Color(0xff12103D),
+                                    color: Color.fromARGB(255, 151, 133, 127),
                                     fontSize: 18,
-                                    fontFamily: 'MontserratSemiBold',
+                                    fontFamily: 'SourceSans',
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 5.0),
-                                  child: Text(
-                                    'Giới tính: ${customerProvider.customer?.sex == 1 ? 'nam' : customerProvider.customer?.sex == 2 ? 'nữ' : ' '}',
-                                    style: const TextStyle(
-                                      color: Color(0xff12103D),
-                                      fontSize: 18,
-                                      fontFamily: 'MontserratSemiBold',
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 5.0),
-                                  child: Text(
-                                    'Địa chỉ: ${customerProvider.customer?.address ?? ' '}',
-                                    style: const TextStyle(
-                                      color: Color(0xff12103D),
-                                      fontSize: 18,
-                                      fontFamily: 'MontserratSemiBold',
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 50, 0, 0),
-                        child: ElevatedButton.icon(
-                          icon: const Icon(
-                            Icons.supervised_user_circle_outlined,
-                            color: Colors.black,
-                            size: 24,
-                          ),
-                          onPressed: () {},
-                          label: const Text(
-                            'Sửa thông tin người dùng',
-                            style: TextStyle(
-                              fontFamily: 'SourceSans',
-                              letterSpacing: 0.0,
-                              fontSize: 17,
-                              color: Colors.black,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 243, 244, 245),
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 12),
-                            minimumSize:
-                                const Size(390, 50), // Đặt kích thước cố định
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
+                                );
+                              },
                             ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(
-                            10, 10, 0, 0), // Padding cho nút đăng xuất
-                        child: ElevatedButton.icon(
-                          onPressed: () async {
-                            bool? confirmLogout =
-                                await _showLogoutConfirmationDialog(context);
-                            if (confirmLogout == true) {
-                              await _logout(context);
-                            }
-                          },
-                          label: const Text(
-                            'Đăng xuất',
-                            style: TextStyle(
-                              fontFamily: 'SourceSans',
-                              letterSpacing: 0.0,
-                              fontSize: 17,
-                              color: Colors.black,
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 243, 244, 245),
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 12),
-                            minimumSize:
-                                const Size(390, 50), // Đặt kích thước cố định
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          icon: const Icon(
-                            Icons.logout,
-                            color: Colors.black,
-                            size: 24,
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
+                  IndentField(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
+                          child: Consumer<UserProvider>(
+                            builder: (context, userProvider, child) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Email: ${userProvider.user!.email ?? ' '}',
+                                    style: const TextStyle(
+                                      color: Color(0xff12103D),
+                                      fontSize: 18,
+                                      fontFamily: 'MontserratSemiBold',
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5.0),
+                                    child: Text(
+                                      'Số điện thoại: ${userProvider.user!.phoneNumber ?? ' '}',
+                                      style: const TextStyle(
+                                        color: Color(0xff12103D),
+                                        fontSize: 18,
+                                        fontFamily: 'MontserratSemiBold',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 5, 0, 0),
+                          child: Consumer<CustomerProvider>(
+                            builder: (context, customerProvider, child) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Tuổi: ${customerProvider.customer?.age ?? ' '}',
+                                    style: const TextStyle(
+                                      color: Color(0xff12103D),
+                                      fontSize: 18,
+                                      fontFamily: 'MontserratSemiBold',
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5.0),
+                                    child: Text(
+                                      'Giới tính: ${customerProvider.customer?.sex == 1 ? 'nam' : customerProvider.customer?.sex == 2 ? 'nữ' : ' '}',
+                                      style: const TextStyle(
+                                        color: Color(0xff12103D),
+                                        fontSize: 18,
+                                        fontFamily: 'MontserratSemiBold',
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5.0),
+                                    child: Text(
+                                      'Địa chỉ: ${customerProvider.customer?.address ?? ' '}',
+                                      style: const TextStyle(
+                                        color: Color(0xff12103D),
+                                        fontSize: 18,
+                                        fontFamily: 'MontserratSemiBold',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                          child: ElevatedButton.icon(
+                            icon: const Icon(
+                              Icons.supervised_user_circle_outlined,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                            onPressed: () {
+                              _navigateToUpdateProfile();
+                            },
+                            label: const Text(
+                              'Sửa thông tin người dùng',
+                              style: TextStyle(
+                                fontFamily: 'SourceSans',
+                                letterSpacing: 0.0,
+                                fontSize: 17,
+                                color: Colors.black,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xff26a69a),
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 12),
+                              minimumSize: const Size(390, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          child: ElevatedButton.icon(
+                            onPressed: () async {
+                              bool? confirmLogout =
+                                  await _showLogoutConfirmationDialog(context);
+                              if (confirmLogout == true) {
+                                await _logout(context);
+                              }
+                            },
+                            label: const Text(
+                              'Đăng xuất',
+                              style: TextStyle(
+                                fontFamily: 'SourceSans',
+                                letterSpacing: 0.0,
+                                fontSize: 17,
+                                color: Colors.black,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 243, 244, 245),
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 12),
+                              minimumSize: const Size(390, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                            ),
+                            icon: const Icon(
+                              Icons.logout,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
       ),

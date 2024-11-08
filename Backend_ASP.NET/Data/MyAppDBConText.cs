@@ -87,10 +87,11 @@ namespace Backend_ASP.NET.Data
                 entity.HasKey(e => e.ID);
                 entity.Property(e => e.DebPurchaseDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                //Relationship  1-1 with Customers
-                entity.HasOne(e => e.Custommers)
-                .WithOne(d => d.Debits)
-                .HasForeignKey<Debits>(d => d.CustomerID);         
+                //Relationship  1-n with Customers
+                entity.HasOne(e => e.Custommers)  
+                  .WithMany(c => c.Debitsc)   
+                  .HasForeignKey(e => e.CustomerID) 
+                  .OnDelete(DeleteBehavior.Cascade);
 
             });
 

@@ -70,7 +70,6 @@ namespace Backend_ASP.NET.Controllers
             }
         }
 
-
         [HttpPut("Update/{id}")]
         public async Task<IActionResult> Update(Guid id, CustomerModel model)
         {
@@ -81,6 +80,20 @@ namespace Backend_ASP.NET.Controllers
             try
             {
                 await _customerRepository.Update(model);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPatch("UpdateProfile/{id}")]
+        public async Task<IActionResult> UpdateProfile(Guid id, CustomerModelPatch model)
+        {
+            try
+            {
+                await _customerRepository.UpdateProfile(id, model);
                 return NoContent();
             }
             catch (Exception ex)

@@ -80,6 +80,33 @@ namespace Backend_ASP.NET.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateProfile( Guid id, CustomerModelPatch model)
+        {
+            var _customer = await _context.Customs.FindAsync(id);
+            
+            if (_customer == null)
+            {
+                throw new Exception("Customer not found.");
+            }
+            if (model.Age.HasValue)
+            {
+                _customer.Age = model.Age.Value;
+            }
+            if (model.Sex.HasValue)
+            {
+                _customer.Sex = model.Sex.Value;
+            }
+            if (model.Address != null)
+            {
+                _customer.Address = model.Address;
+            }
+            if (model.Avatar != null)
+            {
+                _customer.Avatar = model.Avatar;
+            }
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<CustomerModel> GetByUserID(string userId)
         {
             var customer = await _context.Customs.FirstOrDefaultAsync(c => c.UserId == userId);
