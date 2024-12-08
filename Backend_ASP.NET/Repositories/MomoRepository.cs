@@ -9,7 +9,7 @@ namespace Backend_ASP.NET.Repositories
     public class MomoRepository : IMomoRepository
     {
         private const string Endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
-        private const string IpnUrl = "https://043b-27-75-101-13.ngrok-free.app/api/Momo/momoipn";
+        private const string IpnUrl = " https://b562-116-110-41-211.ngrok-free.app/api/Momo/momoipn";
         private const string AccessKey = "F8BBA842ECF85";
         private const string SecretKey = "K951B6PE1waDMi640xX08PD3vg6EkVlz";
         private const string PartnerCode = "MOMO";
