@@ -552,3 +552,11 @@ D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\bin\Debug\n
 D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\bin\Debug\net8.0\refs\WindowsBase.dll
 D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
+D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\bin\Debug\net8.0\publish\web.config
+D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\bin\Debug\net8.0\publish\appsettings.Development.json
+D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\bin\Debug\net8.0\publish\appsettings.json
+D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\bin\Debug\net8.0\publish\Backend_ASP.NET.deps.json
+D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\bin\Debug\net8.0\publish\Backend_ASP.NET.runtimeconfig.json
+D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\bin\Debug\net8.0\publish\wwwroot\build\config\.eslintrc.json
+D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\bin\Debug\net8.0\publish\wwwroot\build\npm\.eslintrc.json
+D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\bin\Debug\net8.0\publish\wwwroot\dist\js\.eslintrc.json

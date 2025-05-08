@@ -1,9 +1,10 @@
-using Backend_ASP.NET.Data;
+﻿using Backend_ASP.NET.Data;
 using Backend_ASP.NET.Helpers;
 using Backend_ASP.NET.Repositories;
 using Backend_ASP.NET.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +12,11 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.UseUrls("http://0.0.0.0:5000");
+
 // xuat log ra teminal
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
