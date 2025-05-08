@@ -17,71 +17,71 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Backend_ASP.NET
 build_property.RootNamespace = Backend_ASP.NET
-build_property.ProjectDir = D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET\
+build_property.ProjectDir = /Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = true
-build_property.MSBuildProjectDirectory = D:\PHAN_HOANG_TRIEU\CLONE\app_supplies_store_flutter\Backend_ASP.NET
+build_property.MSBuildProjectDirectory = /Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Admin/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW4vSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Categories/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/Categories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2F0ZWdvcmllcy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Customers/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJzXEluZGV4LmNzaHRtbA==
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/Customers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3VzdG9tZXJzL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Debits/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGViaXRzXEluZGV4LmNzaHRtbA==
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/Debits/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGViaXRzL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Employees/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVzXEluZGV4LmNzaHRtbA==
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/Employees/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW1wbG95ZWVzL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Products/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcSW5kZXguY3NodG1s
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/Products/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUHJvZHVjdHMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Shared/_AdminLayout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Stats/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RhdHNcSW5kZXguY3NodG1s
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/Stats/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3RhdHMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/Suppliers/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VwcGxpZXJzXEluZGV4LmNzaHRtbA==
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/Suppliers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3VwcGxpZXJzL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/User/AccessDenied.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxBY2Nlc3NEZW5pZWQuY3NodG1s
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/User/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9BY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/User/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxDcmVhdGUuY3NodG1s
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/User/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/User/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEZWxldGUuY3NodG1s
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/User/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9EZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/User/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0LmNzaHRtbA==
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/User/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9FZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/User/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/User/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/PHAN_HOANG_TRIEU/CLONE/app_supplies_store_flutter/Backend_ASP.NET/Views/User/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
+[/Users/phantrieu/Projects/MY_PROJECT/app_supplies_store_flutter/Backend_ASP.NET/Views/User/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXNlci9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
